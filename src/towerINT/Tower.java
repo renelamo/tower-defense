@@ -1,5 +1,7 @@
 package towerINT;
 
+import javafx.scene.image.Image;
+
 /**Définit les différents types de tours*/
 enum TowerType{ //TODO: Donner de vrais noms aux tours
     Type1,
@@ -10,6 +12,7 @@ public class Tower {
     private double puissance;
     private double rapidite;
     private double cout;
+    private Image img;
 
     Tower(TowerType t){
         switch (t){ //TODO: donner des valeurs cohérentes aux champs

@@ -1,5 +1,7 @@
 package towerINT;
 
+import javafx.scene.image.Image;
+
 /**Définit les différents types de monstres*/
 enum monsterType{   //TODO: ajouter d'autres types
     zombie,
@@ -10,6 +12,7 @@ public class Monster {
     private double pv;
     private double resistance;
     private double vitesse;
+    private Image img;
 
     Monster(monsterType t){
         switch (t){ //TODO: implémenter d'autres types
