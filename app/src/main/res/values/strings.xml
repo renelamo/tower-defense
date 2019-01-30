@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Tower\'INT</string>
+    <string name="startString">Start</string>
+    <string name="optionsString">Options</string>
 </resources>
