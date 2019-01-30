@@ -2,4 +2,6 @@
     <string name="app_name">Tower\'INT</string>
     <string name="startString">Start</string>
     <string name="optionsString">Options</string>
+    <string name="exitString">Exit</string>
+    <string name="background_image_description">background Image</string>
 </resources>
