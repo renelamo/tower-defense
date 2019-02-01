@@ -2,6 +2,7 @@ package com.towerint;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Intent;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,11 +17,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final Button exitButton=findViewById(R.id.exitButton);
-        /**Définition de la fonction appelée par exitButton*/
+        /*Définition de la fonction appelée par exitButton*/
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        final Button optionButton=findViewById(R.id.optionsButton);
+
+        /*Définition du layout appelé par optionButton*/
+        optionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this, optionsActivity.class);
+                startActivity(intent);
             }
         });
     }
