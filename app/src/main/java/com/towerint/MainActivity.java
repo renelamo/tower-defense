@@ -16,7 +16,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /*Déclaration des boutons*/
         final Button exitButton=findViewById(R.id.exitButton);
+        final Button optionButton=findViewById(R.id.optionsButton);
+
         /*Définition de la fonction appelée par exitButton*/
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -25,9 +28,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final Button optionButton=findViewById(R.id.optionsButton);
-
-        /*Définition du layout appelé par optionButton*/
+        /*Appel du layout d'options*/
         optionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
