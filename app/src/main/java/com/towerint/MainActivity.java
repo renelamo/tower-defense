@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
         /*Déclaration des boutons*/
         final Button exitButton=findViewById(R.id.exitButton);
         final Button optionButton=findViewById(R.id.optionsButton);
+        final Button startButton=findViewById(R.id.startButton);
 
         /*Définition de la fonction appelée par exitButton*/
         exitButton.setOnClickListener(new View.OnClickListener() {
@@ -33,6 +34,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(MainActivity.this, optionsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        /*Appel de l'activite de jeu*/
+        startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, gameActivity.class);
                 startActivity(intent);
             }
         });
