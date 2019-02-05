@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
+    private Button mPlayButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +23,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        mPlayButton= (Button) findViewById(R.id.activity_main_play_btn);
+        mPlayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }
