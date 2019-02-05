@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">Tower\'INT</string>
-    <string name="startString">Start</string>
-    <string name="optionsString">Options</string>
-    <string name="exitString">Exit</string>
+    <string name="startString"><b>Start</b></string>
+    <string name="optionsString"><b>Options</b></string>
+    <string name="exitString"><b>Exit</b></string>
     <string name="background_image_description">background Image</string>
+    <string name="option_menu_title"><b>Options</b></string>
+    <string name="options_menu_background_description">options_menu_background</string>
+    <string name="return_string"><b>&lt;Retour</b></string>
 </resources>

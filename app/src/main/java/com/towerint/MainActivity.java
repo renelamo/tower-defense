@@ -2,6 +2,7 @@ package com.towerint;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Intent;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,8 +18,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /*Déclaration des boutons*/
         final Button exitButton=findViewById(R.id.exitButton);
-        /**Définition de la fonction appelée par exitButton*/
+        final Button optionButton=findViewById(R.id.optionsButton);
+        final Button startButton=findViewById(R.id.activity_main_play_btn);
+
+        /*Définition de la fonction appelée par exitButton*/
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -26,11 +31,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mPlayButton= (Button) findViewById(R.id.activity_main_play_btn);
-        mPlayButton.setOnClickListener(new View.OnClickListener() {
+        /*Appel du layout d'options*/
+        optionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this, optionsActivity.class);
+                startActivity(intent);
+            }
+        });
 
+        /*Appel de l'activite de jeu*/
+        startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, gameActivity.class);
+                startActivity(intent);
             }
         });
     }
