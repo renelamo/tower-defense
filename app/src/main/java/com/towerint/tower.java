@@ -1,6 +1,8 @@
 package com.towerint;
 
 abstract class tower {
+    private int x;
+    private int y;
     private int radius;
     private int range;
     private int speedAttack;
