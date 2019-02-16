@@ -8,5 +8,28 @@ abstract class Attacker {
     private double speedMove;
     private double speedAttack;
     //private image; TODO créer une classe pour l'image
-    private projectile projectile; // TODO créer classe projectile
+    private Projectile projectile; // TODO créer classe Projectile
+
+    public double getX(){
+        return x;
+    }
+    public double getY(){
+        return y;
+    }
+    public double getRadius(){
+        return radius;
+    }
+    public double getRange(){
+        return range;
+    }
+    public double getSpeedMove(){
+        return speedMove;
+    }
+    public double getSpeedAttack(){
+        return speedAttack;
+    }
+    public Projectile getProjectile(){
+        return projectile;
+    }
+
 }

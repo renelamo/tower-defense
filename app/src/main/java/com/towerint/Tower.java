@@ -8,7 +8,7 @@ abstract class Tower {
     private double speedAttack;
     private double cost;
     //private image; TODO créer une classe pour l'image
-    private projectile projectile;
+    private Projectile projectile;
     private double popularity_max;
     private double ProbabilityLoosePopularity;
     // TODO Eventuellement variable qui définit quelles sont les cibles de la tour
@@ -32,7 +32,7 @@ abstract class Tower {
     public double getCost(){
         return cost;
     }
-    public projectile getProjectile(){
+    public Projectile getProjectile(){
         return projectile;
     }
 
