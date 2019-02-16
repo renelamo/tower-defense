@@ -1,8 +1,8 @@
 package com.towerint;
 
 abstract class attacker {
-    private int x;
-    private int y;
+    private double x;
+    private double y;
     private int radius;
     private int range;
     private int speedMove;

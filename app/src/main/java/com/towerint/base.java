@@ -1,7 +1,7 @@
 package com.towerint;
 
 public class base {
-    private int x;
-    private int y;
+    private double x;
+    private double y;
     private int lifePoints;
 }
