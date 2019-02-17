@@ -12,24 +12,32 @@ abstract class Attacker {
 
     public double getX(){
         return x;
-    }
+    };
     public double getY(){
         return y;
-    }
+    };
     public double getRadius(){
         return radius;
-    }
+    };
     public double getRange(){
         return range;
-    }
+    };
     public double getSpeedMove(){
         return speedMove;
-    }
+    };
     public double getSpeedAttack(){
         return speedAttack;
-    }
+    };
     public Projectile getProjectile(){
         return projectile;
-    }
+    };
 
+
+    public void setX(double x) {
+        this.x = x;
+    };
+
+    public void setY(double y) {
+        this.y = y;
+    };
 }

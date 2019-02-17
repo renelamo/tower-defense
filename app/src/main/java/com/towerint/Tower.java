@@ -16,24 +16,31 @@ abstract class Tower {
 
     public double getX(){
         return x;
-    }
+    };
     public double getY(){
         return y;
     }
     public double getRadius(){
         return radius;
-    }
+    };
     public double getRange(){
         return range;
-    }
+    };
     public double getSpeedAttack(){
         return speedAttack;
-    }
+    };
     public double getCost(){
         return cost;
-    }
+    };
     public Projectile getProjectile(){
         return projectile;
-    }
+    };
 
+    public void setX(double x) {
+        this.x = x;
+    };
+
+    public void setY(double y) {
+        this.y = y;
+    };
 }

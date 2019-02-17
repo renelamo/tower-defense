@@ -9,14 +9,22 @@ abstract class Projectile {
 
     public double getX(){
         return x;
-    }
+    };
     public double getY(){
         return y;
-    }
+    };
     public double getSpeed(){
         return speed;
-    }
+    };
     public double getPower(){
         return power;
-    }
+    };
+
+    public void setX(double x) {
+        this.x = x;
+    };
+
+    public void setY(double y) {
+        this.y = y;
+    };
 }
