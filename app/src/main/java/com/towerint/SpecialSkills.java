@@ -5,7 +5,9 @@ public class SpecialSkills {
     private double y;
     private double radius;
     private double popularityCost;
-    //TODO définir les eventuels effets
+    //private specialEffect specialEffect;
+    //TODO definir la classe effet special et décider si ca peut changer temporairement les stats des tours/attaquants dans une zone donnée
+    //TODO comme ca on met un setteur sur les parametres des ces tours/attaquants
 
     public double getX(){
         return x;
@@ -19,11 +21,13 @@ public class SpecialSkills {
     public double getPopularityCost(){
         return popularityCost;
     };
+    //public specialEffect getSpecialEffect (){
+    //    return specialEffect;
+    //};
 
     public void setX(double x) {
         this.x = x;
     };
-
     public void setY(double y) {
         this.y = y;
     };
