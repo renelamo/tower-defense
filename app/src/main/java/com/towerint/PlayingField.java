@@ -5,6 +5,6 @@ abstract class PlayingField {
     private double xMax;
     private double yMin;
     private double yMax;
-    private Zone zoneAttacker;
-    private Zone zoneTower;
+    private Way way;
+    private double weigthWay;
 }
