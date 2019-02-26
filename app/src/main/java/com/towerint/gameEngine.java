@@ -14,6 +14,7 @@ import android.content.res.AssetManager;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Bitmap;
 
 
 class gameEngine extends SurfaceView implements Runnable {
@@ -33,8 +34,8 @@ class gameEngine extends SurfaceView implements Runnable {
     private Heading heading = Heading.RIGHT;
 
     // To hold the screen size in pixels
-    private int screenX;
-    private int screenY;
+    public static int screenX;
+    public static int screenY;
 
     // The size in segments of the playable area
     private final int NUM_BLOCKS_WIDE = 40;
@@ -50,7 +51,7 @@ class gameEngine extends SurfaceView implements Runnable {
 // We will draw the frame much more often
 
     // How many points does the player have
-    private int score;
+    public int score;
 
     // Everything we need for drawing
 // Is the game currently playing?
@@ -64,6 +65,8 @@ class gameEngine extends SurfaceView implements Runnable {
 
     // Some paint for our canvas
     private Paint paint;
+
+    private Bitmap bitmap;
 
 
 
@@ -128,22 +131,39 @@ class gameEngine extends SurfaceView implements Runnable {
 
 
 
-public void draw() {
+ public void draw() {
         // Get a lock on the canvas
         if (surfaceHolder.getSurface().isValid()) {
         canvas = surfaceHolder.lockCanvas();
 
-        // Fill the screen with Game Code School blue
-        canvas.drawColor(Color.argb(255, 26, 128, 182));
+            paint.setColor(Color.RED);
+            //paint.setStyle(Paint.Style.FILL_AND_STROKE);
+            paint.setStrokeWidth(20);
+
+            float left = 100;
+            float top = 100;
+            float right = 800;
+            float bottom = 1200;
+
+            canvas.drawLine(left, top, right, bottom, paint);
+
+        // Fill the screen with color
+        canvas.drawColor(Color.argb(255, 40, 200, 60));
 
         // Scale the HUD text
-        paint.setTextSize(90);
-        canvas.drawText("Score:" + score, 10, 70, paint);
+        paint.setTextSize(60);
+        canvas.drawText("Score :" + score, 10, 70, paint);
+        canvas.drawLine(left, top, right, bottom, paint);
 
 
         // Unlock the canvas and reveal the graphics for this frame
         surfaceHolder.unlockCanvasAndPost(canvas);
+            canvas.drawRGB(0, 0, 0);
+            Paint paint = new Paint();
+            paint.setAntiAlias(true);
         }
+
+
         }
 
 
@@ -163,5 +183,7 @@ public void draw() {
 
         return false;
     }
+
+
 }
 

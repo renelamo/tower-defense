@@ -26,12 +26,11 @@ import java.io.InputStream;
 import java.util.Random;
 
 public class gameActivity extends AppCompatActivity {
-    gameEngine gameEngine;
+    public static gameEngine gameEngine;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
         // Get the pixel dimensions of the screen
         Display display = getWindowManager().getDefaultDisplay();
 
@@ -42,9 +41,18 @@ public class gameActivity extends AppCompatActivity {
         // Create a new instance of the gameEngine class
         gameEngine = new gameEngine(this, size);
 
+
+        // remove title
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+
         // Make gameEngine the view of the Activity
         setContentView(gameEngine);
+
     }
+
 
     // Start the thread in gameEngine
     @Override
@@ -59,10 +67,5 @@ public class gameActivity extends AppCompatActivity {
         super.onPause();
         gameEngine.pause();
     }
-
-
-
-
-
 
 }
