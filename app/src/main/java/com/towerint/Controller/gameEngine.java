@@ -1,9 +1,8 @@
-package com.towerint;
+package com.towerint.Controller;
 
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Point;
-import android.media.AudioManager;
 import android.media.SoundPool;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -17,16 +16,11 @@ import android.graphics.Paint;
 import android.graphics.Bitmap;
 
 
-class gameEngine extends SurfaceView implements Runnable {
+public class gameEngine extends SurfaceView implements Runnable {
     private Thread thread = null;
 
     // To hold a reference to the Activity
     private Context context;
-/*
-    // for plaing sound effects
-    private SoundPool soundPool;
-    private int eat_bob = -1;
-    private int snake_crash = -1; */
 
     // For tracking movement Heading
     public enum Heading {UP, RIGHT, DOWN, LEFT}
@@ -122,6 +116,8 @@ class gameEngine extends SurfaceView implements Runnable {
 
         // Setup nextFrameTime so an update is triggered
         nextFrameTime = System.currentTimeMillis();
+
+        //lance la musique
     }
 
 
