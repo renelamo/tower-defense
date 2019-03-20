@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         /*Ajout de la musique*/
         MediaPlayer backgroundMusic=MediaPlayer.create(MainActivity.this, R.raw.airship_thunderchild_by_otto_halmn);
         backgroundMusic.start();
+        backgroundMusic.setLooping(true);
 
         /*Déclaration des boutons*/
         final Button exitButton=findViewById(R.id.exitButton);
