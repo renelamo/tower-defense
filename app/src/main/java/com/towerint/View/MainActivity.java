@@ -12,6 +12,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
+import com.towerint.R;
+
 public class MainActivity extends AppCompatActivity {
     private Button mPlayButton;
 

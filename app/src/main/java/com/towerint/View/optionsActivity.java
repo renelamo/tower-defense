@@ -17,6 +17,8 @@ public class optionsActivity extends AppCompatActivity {
         /*Déclaration des boutons*/
         final Button returnButton=findViewById(R.id.returnButton);
 
+        //TODO: créer un bouton pour couper le son
+
         /*Connecte le bouton de retour*/
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
