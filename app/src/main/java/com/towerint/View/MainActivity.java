@@ -1,19 +1,20 @@
 package com.towerint.View;
 
+import android.app.Activity;
+import android.app.Application;
 import android.content.Intent;
-import android.media.SoundPool;
+import android.media.MediaPlayer;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.media.AudioManager;
-
-import com.towerint.R;
 
 public class MainActivity extends AppCompatActivity {
     private Button mPlayButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,10 @@ public class MainActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_main);
+
+        /*Ajout de la musique*/
+        MediaPlayer backgroundMusic=MediaPlayer.create(MainActivity.this, R.raw.airship_thunderchild_by_otto_halmn);
+        backgroundMusic.start();
 
         /*Déclaration des boutons*/
         final Button exitButton=findViewById(R.id.exitButton);
@@ -56,14 +61,5 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        /*
-        SoundPool.Builder builder=new SoundPool.Builder();
-        SoundPool soundManager=builder.build();
-        */
-        SoundPool soundManager= new SoundPool(2, AudioManager.STREAM_MUSIC, 0);
-        int nyanCat=soundManager.load(getApplicationContext(),R.raw.nyancat,1);
-        soundManager.play(nyanCat, 1, 1, 1, -1, 1);
-
     }
 }
