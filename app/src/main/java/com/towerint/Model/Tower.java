@@ -12,7 +12,7 @@ abstract class Tower {
     private double popularity_max;
     private double ProbabilityLoosePopularity;
     // TODO Eventuellement variable qui définit quelles sont les cibles de la tour
-
+    private String destroySound;
 
     public double getX(){
         return x;
@@ -34,6 +34,9 @@ abstract class Tower {
     };
     public Projectile getProjectile(){
         return projectile;
+    };
+    public String getDestroySound() {
+        return destroySound;
     };
 
     public void setX(double x) {

@@ -4,6 +4,7 @@ public class Base {
     private double x;
     private double y;
     private double lifePoints;
+    private String destroySound;
 
     public double getX(){
         return x;
@@ -13,6 +14,9 @@ public class Base {
     };
     public double getLifePoints(){
         return lifePoints;
+    };
+    public double getDestroySound(){
+        return destroySound;
     };
 
     public void setX(double x) {

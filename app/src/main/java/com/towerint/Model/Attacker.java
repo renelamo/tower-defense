@@ -9,6 +9,7 @@ abstract class Attacker {
     private double speedAttack;
     //private image; TODO créer une classe pour l'image
     private Projectile projectile; // TODO créer classe Projectile
+    private String deathSound;
 
     public double getX(){
         return x;
@@ -31,7 +32,7 @@ abstract class Attacker {
     public Projectile getProjectile(){
         return projectile;
     };
-
+    public String getDeathSound() { return deathSound;};
 
     public void setX(double x) {
         this.x = x;

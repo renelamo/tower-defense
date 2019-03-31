@@ -4,8 +4,8 @@ abstract class Projectile {
     private double x;
     private double y;
     private double speed; // la vitesse à laquelle se déplace le projectile
-    private double power;
-    //private image; TODO créer une classe pour l'image
+    private double power; //private image; TODO créer une classe pour l'image
+    private String projectileTouch;
 
     public double getX(){
         return x;
@@ -18,6 +18,9 @@ abstract class Projectile {
     };
     public double getPower(){
         return power;
+    };
+    public String getProjectileTouch() {
+        return projectileTouch;
     };
 
     public void setX(double x) {
