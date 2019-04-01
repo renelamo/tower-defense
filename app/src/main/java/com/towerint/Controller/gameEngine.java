@@ -74,7 +74,7 @@ public class gameEngine extends SurfaceView implements Runnable {
     public gameEngine(Context context, Point size) {
         super(context);
 
-        context = context;
+        this.context = context;
 
         screenX = size.x;
         screenY = size.y;
@@ -123,7 +123,7 @@ public class gameEngine extends SurfaceView implements Runnable {
 
 
         //TODO: je rajoute ici du code de test
-        tower=new TowerType1(GameView, 10,10);
+        tower=new TowerType1(10,10);
 
         // Setup nextFrameTime so an update is triggered
         nextFrameTime = System.currentTimeMillis();
@@ -160,7 +160,7 @@ public class gameEngine extends SurfaceView implements Runnable {
         canvas.drawText("Score :" + score, 10, 70, paint);
         canvas.drawLine(left, top, right, bottom, paint);
 
-            tower.draw(canvas, new Paint());
+        tower.draw(canvas, paint);
 
         // Unlock the canvas and reveal the graphics for this frame
         surfaceHolder.unlockCanvasAndPost(canvas);

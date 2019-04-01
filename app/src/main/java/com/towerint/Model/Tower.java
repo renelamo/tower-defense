@@ -11,15 +11,13 @@ abstract class Tower extends Printable{
     protected double range;
     protected double speedAttack;
     protected double cost;
-    private GameView parent;
     protected Projectile projectile;
     protected double manaMax;
     protected double probabilityLooseMana;
     // TODO Eventuellement variable qui définit quelles sont les cibles de la tour
 
-    Tower(GameView parent, int posX, int posY){
+    Tower(int posX, int posY){
         super(posX,posY);
-        this.parent=parent;
     }
 
     //TODO: je ne pense pas que tous ces getters soient utiles...
