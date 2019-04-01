@@ -1,36 +1,28 @@
 package com.towerint.Model;
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 
 import com.towerint.Controller.GameView;
 
-abstract class Tower {
-    private double x;
-    private double y;
+abstract class Tower extends Printable{
     protected double radius;
     protected double range;
     protected double speedAttack;
     protected double cost;
-    protected Bitmap image;
     private GameView parent;
     protected Projectile projectile;
     protected double manaMax;
-    protected double ProbabilityLooseMana;
+    protected double probabilityLooseMana;
     // TODO Eventuellement variable qui définit quelles sont les cibles de la tour
 
     Tower(GameView parent, int posX, int posY){
-        x=posX;
-        y=posY;
+        super(posX,posY);
         this.parent=parent;
     }
 
     //TODO: je ne pense pas que tous ces getters soient utiles...
-    public double getX(){
-        return x;
-    };
-    public double getY(){
-        return y;
-    }
     public double getRadius(){
         return radius;
     };
@@ -47,11 +39,4 @@ abstract class Tower {
         return projectile;
     };
 
-    public void setX(double x) {
-        this.x = x;
-    };
-
-    public void setY(double y) {
-        this.y = y;
-    };
 }

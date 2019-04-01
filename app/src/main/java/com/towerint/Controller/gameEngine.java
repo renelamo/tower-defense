@@ -16,17 +16,18 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Bitmap;
 
+import com.towerint.Model.TowerType1;
+
 
 public class gameEngine extends SurfaceView implements Runnable {
     private Thread thread = null;
 
+    TowerType1 tower;
+
+
     // To hold a reference to the Activity
     private Context context;
-/*
-    // for plaing sound effects
-    private SoundPool soundPool;
-    private int eat_bob = -1;
-    private int snake_crash = -1; */
+
 
     // For tracking movement Heading
     public enum Heading {UP, RIGHT, DOWN, LEFT}
@@ -120,6 +121,10 @@ public class gameEngine extends SurfaceView implements Runnable {
         // Reset the score
         score = 0;
 
+
+        //TODO: je rajoute ici du code de test
+        tower=new TowerType1(GameView, 10,10);
+
         // Setup nextFrameTime so an update is triggered
         nextFrameTime = System.currentTimeMillis();
     }
@@ -155,6 +160,7 @@ public class gameEngine extends SurfaceView implements Runnable {
         canvas.drawText("Score :" + score, 10, 70, paint);
         canvas.drawLine(left, top, right, bottom, paint);
 
+            tower.draw(canvas, new Paint());
 
         // Unlock the canvas and reveal the graphics for this frame
         surfaceHolder.unlockCanvasAndPost(canvas);
