@@ -7,8 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.View;
 
-import com.towerint.Model.TowerType1;
-import com.towerint.View.gameActivity;
+import com.towerint.View.GameActivity;
 
 
 public class GameView extends View {
@@ -41,7 +40,7 @@ public class GameView extends View {
 
         // Scale the HUD text
         paint.setTextSize(60);
-        canvas.drawText("Score :" + gameActivity.gameEngine.score, 20, 100, paint);
+        canvas.drawText("Score :" + GameActivity.gameEngine.score, 20, 100, paint);
 
 
     }

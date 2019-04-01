@@ -7,7 +7,7 @@ import android.widget.Button;
 
 import com.towerint.R;
 
-public class optionsActivity extends AppCompatActivity {
+public class OptionsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

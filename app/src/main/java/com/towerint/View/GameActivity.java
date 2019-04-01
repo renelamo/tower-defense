@@ -12,7 +12,7 @@ import android.view.WindowManager;
 
 import com.towerint.Controller.GameEngine;
 
-public class gameActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity {
     public static com.towerint.Controller.GameEngine gameEngine;
 
     @Override
