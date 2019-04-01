@@ -136,16 +136,12 @@ class gameEngine extends SurfaceView implements Runnable {
         if (surfaceHolder.getSurface().isValid()) {
         canvas = surfaceHolder.lockCanvas();
 
-            paint.setColor(Color.RED);
+            paint.setColor(Color.WHITE);
             //paint.setStyle(Paint.Style.FILL_AND_STROKE);
-            paint.setStrokeWidth(20);
+            paint.setStrokeWidth(10);
 
-            float left = 100;
-            float top = 100;
-            float right = 800;
-            float bottom = 1200;
+            int[] pointscourbe = new int[screenX];
 
-            canvas.drawLine(left, top, right, bottom, paint);
 
         // Fill the screen with color
         canvas.drawColor(Color.argb(255, 40, 200, 60));
@@ -153,10 +149,16 @@ class gameEngine extends SurfaceView implements Runnable {
         // Scale the HUD text
         paint.setTextSize(60);
         canvas.drawText("Score :" + score, 10, 70, paint);
-        canvas.drawLine(left, top, right, bottom, paint);
+            for (int i=0; i<screenX; i++){
+                pointscourbe[i]= (int) (Math.sin(6*Math.PI*i/screenX)*screenY/5);
+                canvas.drawPoint(i,Math.abs(pointscourbe[i]-2*screenY/5),paint);
+                canvas.drawPoint(i,Math.abs(pointscourbe[i]-3*screenY/5),paint);
+
+            }
 
 
-        // Unlock the canvas and reveal the graphics for this frame
+
+            // Unlock the canvas and reveal the graphics for this frame
         surfaceHolder.unlockCanvasAndPost(canvas);
             canvas.drawRGB(0, 0, 0);
             Paint paint = new Paint();
