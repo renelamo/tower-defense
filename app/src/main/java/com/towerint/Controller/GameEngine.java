@@ -19,11 +19,10 @@ import android.graphics.Bitmap;
 import com.towerint.Model.TowerType1;
 
 
-public class gameEngine extends SurfaceView implements Runnable {
+public class GameEngine extends SurfaceView implements Runnable {
     private Thread thread = null;
 
     TowerType1 tower;
-
 
     // To hold a reference to the Activity
     private Context context;
@@ -71,7 +70,7 @@ public class gameEngine extends SurfaceView implements Runnable {
 
 
 
-    public gameEngine(Context context, Point size) {
+    public GameEngine(Context context, Point size) {
         super(context);
 
         this.context = context;
@@ -123,7 +122,7 @@ public class gameEngine extends SurfaceView implements Runnable {
 
 
         //TODO: je rajoute ici du code de test
-        tower=new TowerType1(10,10);
+        tower=new TowerType1(10,10,this);
 
         // Setup nextFrameTime so an update is triggered
         nextFrameTime = System.currentTimeMillis();

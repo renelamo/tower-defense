@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
+import com.towerint.Controller.GameEngine;
 import com.towerint.Controller.GameView;
 
 abstract class Tower extends Printable{
@@ -16,8 +17,8 @@ abstract class Tower extends Printable{
     protected double probabilityLooseMana;
     // TODO Eventuellement variable qui définit quelles sont les cibles de la tour
 
-    Tower(int posX, int posY){
-        super(posX,posY);
+    Tower(int posX, int posY, GameEngine parentEngine, int resource){
+        super(posX,posY, parentEngine, resource);
     }
 
     //TODO: je ne pense pas que tous ces getters soient utiles...

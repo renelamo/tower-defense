@@ -10,10 +10,10 @@ import android.view.Display;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.towerint.Controller.gameEngine;
+import com.towerint.Controller.GameEngine;
 
 public class gameActivity extends AppCompatActivity {
-    public static com.towerint.Controller.gameEngine gameEngine;
+    public static com.towerint.Controller.GameEngine gameEngine;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,7 +26,7 @@ public class gameActivity extends AppCompatActivity {
         display.getSize(size);
 
         // Create a new instance of the gameEngine class
-        gameEngine = new gameEngine(this, size);
+        gameEngine = new GameEngine(this, size);
 
 
         // remove title
