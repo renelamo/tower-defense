@@ -1,32 +1,19 @@
-package com.towerint;
+package com.towerint.View;
 
-import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.res.AssetManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Rect;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.Display;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Random;
+import com.towerint.Controller.gameEngine;
 
 public class gameActivity extends AppCompatActivity {
-    public static gameEngine gameEngine;
+    public static com.towerint.Controller.gameEngine gameEngine;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

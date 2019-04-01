@@ -1,14 +1,13 @@
-package com.towerint;
+package com.towerint.Controller;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Point;
-import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.View;
+
+import com.towerint.View.gameActivity;
 
 
 public class GameView extends View {

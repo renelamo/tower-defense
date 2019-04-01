@@ -1,4 +1,4 @@
-package com.towerint;
+package com.towerint.Controller;
 
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
@@ -17,7 +17,7 @@ import android.graphics.Paint;
 import android.graphics.Bitmap;
 
 
-class gameEngine extends SurfaceView implements Runnable {
+public class gameEngine extends SurfaceView implements Runnable {
     private Thread thread = null;
 
     // To hold a reference to the Activity

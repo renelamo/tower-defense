@@ -1,4 +1,4 @@
-package com.towerint;
+package com.towerint.Model;
 
 public class Base {
     private double x;

@@ -1,4 +1,4 @@
-package com.towerint;
+package com.towerint.Model;
 
 public class SpecialSkills {
     private double x;

@@ -1,9 +1,11 @@
-package com.towerint;
+package com.towerint.View;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.towerint.R;
 
 public class optionsActivity extends AppCompatActivity {
 

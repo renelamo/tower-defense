@@ -1,16 +1,15 @@
-package com.towerint;
+package com.towerint.View;
 
-import android.app.Activity;
-import android.app.Application;
 import android.content.Intent;
 import android.media.MediaPlayer;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+
+import com.towerint.R;
 
 public class MainActivity extends AppCompatActivity {
     private Button mPlayButton;

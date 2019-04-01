@@ -1,4 +1,4 @@
-package com.towerint;
+package com.towerint.Model;
 
 abstract class Projectile {
     private double x;
