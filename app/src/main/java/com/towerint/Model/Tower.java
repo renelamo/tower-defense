@@ -1,19 +1,30 @@
 package com.towerint.Model;
 
+import android.graphics.Bitmap;
+
+import com.towerint.Controller.GameView;
+
 abstract class Tower {
     private double x;
     private double y;
-    private double radius;
-    private double range;
-    private double speedAttack;
-    private double cost;
-    //private image; TODO créer une classe pour l'image
-    private Projectile projectile;
-    private double popularity_max;
-    private double ProbabilityLoosePopularity;
+    protected double radius;
+    protected double range;
+    protected double speedAttack;
+    protected double cost;
+    protected Bitmap image;
+    private GameView parent;
+    protected Projectile projectile;
+    protected double manaMax;
+    protected double ProbabilityLooseMana;
     // TODO Eventuellement variable qui définit quelles sont les cibles de la tour
 
+    Tower(GameView parent, int posX, int posY){
+        x=posX;
+        y=posY;
+        this.parent=parent;
+    }
 
+    //TODO: je ne pense pas que tous ces getters soient utiles...
     public double getX(){
         return x;
     };
