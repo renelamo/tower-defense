@@ -1,8 +1,9 @@
-package com.towerint;
+package com.towerint.View;
 
 import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+
+import com.towerint.R;
 
 public class MainActivity extends AppCompatActivity {
     private Button mPlayButton;
@@ -25,6 +28,11 @@ public class MainActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_main);
+
+        /*Ajout de la musique*/
+        MediaPlayer backgroundMusic=MediaPlayer.create(MainActivity.this, R.raw.airship_thunderchild_by_otto_halmn);
+        backgroundMusic.start();
+        backgroundMusic.setLooping(true);
 
         /*Déclaration des boutons*/
         final Button exitButton=findViewById(R.id.exitButton);
