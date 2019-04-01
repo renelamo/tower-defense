@@ -7,7 +7,7 @@ import android.widget.Button;
 
 import com.towerint.R;
 
-public class optionsActivity extends AppCompatActivity {
+public class OptionsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,8 +16,6 @@ public class optionsActivity extends AppCompatActivity {
 
         /*Déclaration des boutons*/
         final Button returnButton=findViewById(R.id.returnButton);
-
-        //TODO: créer un bouton pour couper le son
 
         /*Connecte le bouton de retour*/
         returnButton.setOnClickListener(new View.OnClickListener() {

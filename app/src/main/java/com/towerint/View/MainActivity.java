@@ -1,10 +1,7 @@
 package com.towerint.View;
 
-import android.app.Activity;
-import android.app.Application;
 import android.content.Intent;
 import android.media.MediaPlayer;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -51,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         optionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this, optionsActivity.class);
+                Intent intent=new Intent(MainActivity.this, OptionsActivity.class);
                 startActivity(intent);
             }
         });
@@ -60,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, gameActivity.class);
+                Intent intent = new Intent(MainActivity.this, GameActivity.class);
                 startActivity(intent);
             }
         });

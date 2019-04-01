@@ -3,6 +3,7 @@ package com.towerint.Controller;
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Point;
+import android.media.AudioManager;
 import android.media.SoundPool;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -15,12 +16,17 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Bitmap;
 
+import com.towerint.Model.TowerType1;
 
-public class gameEngine extends SurfaceView implements Runnable {
+
+public class GameEngine extends SurfaceView implements Runnable {
     private Thread thread = null;
+
+    TowerType1 tower;
 
     // To hold a reference to the Activity
     private Context context;
+
 
     // For tracking movement Heading
     public enum Heading {UP, RIGHT, DOWN, LEFT}
@@ -64,10 +70,10 @@ public class gameEngine extends SurfaceView implements Runnable {
 
 
 
-    public gameEngine(Context context, Point size) {
+    public GameEngine(Context context, Point size) {
         super(context);
 
-        context = context;
+        this.context = context;
 
         screenX = size.x;
         screenY = size.y;
@@ -114,10 +120,12 @@ public class gameEngine extends SurfaceView implements Runnable {
         // Reset the score
         score = 0;
 
+
+        //TODO: je rajoute ici du code de test
+        tower=new TowerType1(10,10,this);
+
         // Setup nextFrameTime so an update is triggered
         nextFrameTime = System.currentTimeMillis();
-
-        //lance la musique
     }
 
 
@@ -132,12 +140,16 @@ public class gameEngine extends SurfaceView implements Runnable {
         if (surfaceHolder.getSurface().isValid()) {
         canvas = surfaceHolder.lockCanvas();
 
-            paint.setColor(Color.WHITE);
+            paint.setColor(Color.RED);
             //paint.setStyle(Paint.Style.FILL_AND_STROKE);
-            paint.setStrokeWidth(10);
+            paint.setStrokeWidth(20);
 
-            int[] pointscourbe = new int[screenX];
+            float left = 100;
+            float top = 100;
+            float right = 800;
+            float bottom = 1200;
 
+            canvas.drawLine(left, top, right, bottom, paint);
 
         // Fill the screen with color
         canvas.drawColor(Color.argb(255, 40, 200, 60));
@@ -145,16 +157,11 @@ public class gameEngine extends SurfaceView implements Runnable {
         // Scale the HUD text
         paint.setTextSize(60);
         canvas.drawText("Score :" + score, 10, 70, paint);
-            for (int i=0; i<screenX; i++){
-                pointscourbe[i]= (int) (Math.sin(6*Math.PI*i/screenX)*screenY/5);
-                canvas.drawPoint(i,Math.abs(pointscourbe[i]-2*screenY/5),paint);
-                canvas.drawPoint(i,Math.abs(pointscourbe[i]-3*screenY/5),paint);
+        canvas.drawLine(left, top, right, bottom, paint);
 
-            }
+        tower.draw(canvas, paint);
 
-
-
-            // Unlock the canvas and reveal the graphics for this frame
+        // Unlock the canvas and reveal the graphics for this frame
         surfaceHolder.unlockCanvasAndPost(canvas);
             canvas.drawRGB(0, 0, 0);
             Paint paint = new Paint();
