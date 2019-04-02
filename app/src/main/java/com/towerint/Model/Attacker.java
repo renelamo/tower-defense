@@ -1,29 +1,23 @@
 package com.towerint.Model;
 
-abstract class Attacker {
-    private double x;
-    private double y;
+import com.towerint.Controller.GameEngine;
+
+abstract class Attacker extends Printable {
     private double radius;
     private double range;
-    private double speedMove;
+    private int speedMoveX;
+    private int speedMoveY;
     private double speedAttack;
-    //private image; TODO créer une classe pour l'image
     private Projectile projectile; // TODO créer classe Projectile
 
-    public double getX(){
-        return x;
-    };
-    public double getY(){
-        return y;
-    };
+    Attacker(int posX, int posY, GameEngine parent, int resource){
+        super(posX, posY,parent, resource);
+    }
     public double getRadius(){
         return radius;
     };
     public double getRange(){
         return range;
-    };
-    public double getSpeedMove(){
-        return speedMove;
     };
     public double getSpeedAttack(){
         return speedAttack;
@@ -32,12 +26,13 @@ abstract class Attacker {
         return projectile;
     };
 
+    void move(){
+        setX(getX()+speedMoveX);
+        setY(getY()+speedMoveY);
+    }
 
-    public void setX(double x) {
-        this.x = x;
-    };
-
-    public void setY(double y) {
-        this.y = y;
-    };
+    void setSpeed(int x, int y){
+        speedMoveX=x;
+        speedMoveY=y;
+    }
 }
