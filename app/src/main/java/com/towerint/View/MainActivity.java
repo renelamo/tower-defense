@@ -24,19 +24,20 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        setContentView(R.layout.activity_main);
+        //setContentView(R.layout.activity_main);
+        setContentView(new GameSurface(this));
 
         /*Ajout de la musique*/
-        MediaPlayer backgroundMusic=MediaPlayer.create(MainActivity.this, R.raw.airship_thunderchild_by_otto_halmn);
+        /*MediaPlayer backgroundMusic=MediaPlayer.create(MainActivity.this, R.raw.airship_thunderchild_by_otto_halmn);
         backgroundMusic.start();
         backgroundMusic.setLooping(true);
 
-        /*Déclaration des boutons*/
+        /*Déclaration des boutons
         final Button exitButton=findViewById(R.id.exitButton);
         final Button optionButton=findViewById(R.id.optionsButton);
         final Button startButton=findViewById(R.id.activity_main_play_btn);
 
-        /*Définition de la fonction appelée par exitButton*/
+        /*Définition de la fonction appelée par exitButton
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*Appel du layout d'options*/
+        /*Appel du layout d'options
         optionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,13 +54,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*Appel de l'activite de jeu*/
+        /*Appel de l'activite de jeu
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, GameActivity.class);
                 startActivity(intent);
             }
-        });
+        }); */
     }
 }
