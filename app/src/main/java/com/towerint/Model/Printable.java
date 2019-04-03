@@ -14,6 +14,7 @@ abstract class Printable {
     private Bitmap image;
     private int resource;
 
+    //TODO: il faudra connaitre la taille de l'image pour l'afficher centrée sur la position de l'objet. Elle s'affiche actuellement en bas à droite.
     Printable(int posX, int posY, GameEngine engine, int resource){
         x=posX;
         y=posY;

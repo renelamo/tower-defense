@@ -2,7 +2,7 @@ package com.towerint.Model;
 
 import com.towerint.Controller.GameEngine;
 
-abstract class Attacker extends Printable {
+public abstract class Attacker extends Printable {
     private double radius;
     private double range;
     private int speedMoveX;

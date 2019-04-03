@@ -7,7 +7,7 @@ import android.graphics.Paint;
 import com.towerint.Controller.GameEngine;
 import com.towerint.Controller.GameView;
 
-abstract class Tower extends Printable{
+public abstract class Tower extends Printable{
     protected double radius;
     protected double range;
     protected double speedAttack;

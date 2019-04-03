@@ -9,6 +9,8 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 import android.content.res.AssetManager;
 import android.graphics.Canvas;
@@ -16,15 +18,17 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Bitmap;
 
+import com.towerint.Model.Attacker;
 import com.towerint.Model.AttackerType1;
+import com.towerint.Model.Tower;
 import com.towerint.Model.TowerType1;
 
 
 public class GameEngine extends SurfaceView implements Runnable {
     private Thread thread = null;
 
-    TowerType1 tower;
-    AttackerType1 attacker;
+    List<Tower> towers;
+    List<Attacker> attackers;
 
     // To hold a reference to the Activity
     private Context context;
@@ -84,6 +88,10 @@ public class GameEngine extends SurfaceView implements Runnable {
         surfaceHolder = getHolder();
         paint = new Paint();
 
+        //Initialisation des listes de tours et attaquants
+        towers=new LinkedList<>();
+        attackers=new LinkedList<>();
+
         // Start the game
         newGame();
     }
@@ -107,6 +115,7 @@ public class GameEngine extends SurfaceView implements Runnable {
         try {
             thread.join();
         } catch (InterruptedException e) {
+            e.printStackTrace();
             // Error
         }
     }
@@ -124,8 +133,11 @@ public class GameEngine extends SurfaceView implements Runnable {
 
 
         //TODO: je rajoute ici du code de test
-        tower=new TowerType1(10,10,this);
-        attacker=new AttackerType1(10, 10, this);
+        towers.add(new TowerType1(10,10,this));
+        attackers.add(new AttackerType1(10, 10, this));
+        Attacker attacker2=new AttackerType1(500,500,this);
+        attacker2.setSpeed(-10,-10);
+        attackers.add(attacker2);
 
         // Setup nextFrameTime so an update is triggered
         nextFrameTime = System.currentTimeMillis();
@@ -133,48 +145,55 @@ public class GameEngine extends SurfaceView implements Runnable {
 
 
     public void update() {
-        attacker.move();
+        for(Attacker attacker:attackers){
+            attacker.move();
         }
+    }
 
 
 
 
  public void draw() {
-        // Get a lock on the canvas
-        if (surfaceHolder.getSurface().isValid()) {
-        canvas = surfaceHolder.lockCanvas();
+    // Get a lock on the canvas
+    if (surfaceHolder.getSurface().isValid()) {
+    canvas = surfaceHolder.lockCanvas();
 
-            paint.setColor(Color.RED);
-            //paint.setStyle(Paint.Style.FILL_AND_STROKE);
-            paint.setStrokeWidth(20);
+    paint.setColor(Color.RED);
+    //paint.setStyle(Paint.Style.FILL_AND_STROKE);
+    paint.setStrokeWidth(20);
 
-            float left = 100;
-            float top = 100;
-            float right = 800;
-            float bottom = 1200;
+    float left = 100;
+    float top = 100;
+    float right = 800;
+    float bottom = 1200;
 
-            canvas.drawLine(left, top, right, bottom, paint);
+    canvas.drawLine(left, top, right, bottom, paint);
 
-        // Fill the screen with color
-        canvas.drawColor(Color.argb(255, 40, 200, 60));
+    // Fill the screen with color
+    canvas.drawColor(Color.argb(255, 40, 200, 60));
 
-        // Scale the HUD text
-        paint.setTextSize(60);
-        canvas.drawText("Score :" + score, 10, 70, paint);
-        canvas.drawLine(left, top, right, bottom, paint);
+    // Scale the HUD text
+    paint.setTextSize(60);
+    canvas.drawText("Score :" + score, 10, 70, paint);
+    canvas.drawLine(left, top, right, bottom, paint);
 
+    //affichage de tous les printables
+    for(Tower tower:towers){
         tower.draw(canvas, paint);
+    }
+    for(Attacker attacker:attackers){
         attacker.draw(canvas, paint);
+    }
 
-        // Unlock the canvas and reveal the graphics for this frame
-        surfaceHolder.unlockCanvasAndPost(canvas);
-            canvas.drawRGB(0, 0, 0);
-            Paint paint = new Paint();
-            paint.setAntiAlias(true);
-        }
+    // Unlock the canvas and reveal the graphics for this frame
+    surfaceHolder.unlockCanvasAndPost(canvas);
+        canvas.drawRGB(0, 0, 0);
+        Paint paint = new Paint();
+        paint.setAntiAlias(true);
+    }
 
 
-        }
+}
 
 
     public boolean updateRequired() {
