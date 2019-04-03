@@ -47,7 +47,7 @@ abstract class Printable {
         return true;
     }
 
-    public boolean rotate(float theta){
+    public boolean rotate(float theta){//Prend une valeur entre -180 et +180 degrés
         if(theta<-180 || theta>180)
             return false;
         facing=theta;
@@ -57,6 +57,9 @@ abstract class Printable {
         width=image.getWidth();
         height=image.getHeight();
         return true;
+    }
+    public boolean rotate(double theta){
+        return rotate((float)theta);
     }
 
     public boolean setPos(int x, int y){

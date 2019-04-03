@@ -29,14 +29,24 @@ public abstract class Attacker extends Printable {
     };
 
     public void move(){
-        if(!setX(getX()+speedMoveX))
-            speedMoveX=-speedMoveX;
-        if(!setY(getY()+speedMoveY))
-            speedMoveY=-speedMoveY;
+        if(!setX(getX()+speedMoveX)) {
+            speedMoveX = -speedMoveX;
+            speedToFace();
+        }
+        if(!setY(getY()+speedMoveY)) {
+            speedMoveY = -speedMoveY;
+            speedToFace();
+        }
     }
 
     public void setSpeed(int x, int y){ //En px/s
         speedMoveX=x/(float)FPS;
         speedMoveY=y/(float)FPS;
+        speedToFace();
+    }
+
+    public void speedToFace(){
+        //TODO: Ne donne pas les bons angles et ralentit beaucoup l'appli (jusqu'au crash)
+        //rotate(Math.atan2(-speedMoveY, speedMoveX)*180/Math.PI);
     }
 }
