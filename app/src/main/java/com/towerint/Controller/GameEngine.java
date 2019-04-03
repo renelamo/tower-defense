@@ -133,10 +133,11 @@ public class GameEngine extends SurfaceView implements Runnable {
 
 
         //TODO: je rajoute ici du code de test
-        towers.add(new TowerType1(10,10,this));
-        attackers.add(new AttackerType1(10, 10, this));
+        towers.add(new TowerType1(100,100,this));
+        attackers.add(new AttackerType1(100, 100, this));
         Attacker attacker2=new AttackerType1(500,500,this);
         attacker2.setSpeed(-10,-10);
+        attacker2.setFacing(-45-90);
         attackers.add(attacker2);
 
         // Setup nextFrameTime so an update is triggered
