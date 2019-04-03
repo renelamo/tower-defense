@@ -16,6 +16,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Bitmap;
 
+import com.towerint.Model.AttackerType1;
 import com.towerint.Model.TowerType1;
 
 
@@ -23,6 +24,7 @@ public class GameEngine extends SurfaceView implements Runnable {
     private Thread thread = null;
 
     TowerType1 tower;
+    AttackerType1 attacker;
 
     // To hold a reference to the Activity
     private Context context;
@@ -123,6 +125,7 @@ public class GameEngine extends SurfaceView implements Runnable {
 
         //TODO: je rajoute ici du code de test
         tower=new TowerType1(10,10,this);
+        attacker=new AttackerType1(10, 10, this);
 
         // Setup nextFrameTime so an update is triggered
         nextFrameTime = System.currentTimeMillis();
@@ -130,6 +133,7 @@ public class GameEngine extends SurfaceView implements Runnable {
 
 
     public void update() {
+        attacker.move();
         }
 
 
@@ -160,6 +164,7 @@ public class GameEngine extends SurfaceView implements Runnable {
         canvas.drawLine(left, top, right, bottom, paint);
 
         tower.draw(canvas, paint);
+        attacker.draw(canvas, paint);
 
         // Unlock the canvas and reveal the graphics for this frame
         surfaceHolder.unlockCanvasAndPost(canvas);

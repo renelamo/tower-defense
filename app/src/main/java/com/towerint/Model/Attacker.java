@@ -26,12 +26,12 @@ abstract class Attacker extends Printable {
         return projectile;
     };
 
-    void move(){
+    public void move(){
         setX(getX()+speedMoveX);
         setY(getY()+speedMoveY);
     }
 
-    void setSpeed(int x, int y){
+    public void setSpeed(int x, int y){
         speedMoveX=x;
         speedMoveY=y;
     }

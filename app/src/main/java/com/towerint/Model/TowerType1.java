@@ -10,7 +10,7 @@ import com.towerint.R;
 
 public class TowerType1 extends Tower {
     public TowerType1(int posX, int posY, GameEngine engine){
-        super(posX, posY, engine, R.drawable.tower);
+        super(posX, posY, engine, R.drawable.tower1);
         radius=2;
         range=10;
         speedAttack=10;
