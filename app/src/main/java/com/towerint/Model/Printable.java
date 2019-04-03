@@ -9,8 +9,8 @@ import android.graphics.Paint;
 import com.towerint.Controller.GameEngine;
 
 abstract class Printable {
-    private int x;
-    private int y;
+    private float x;
+    private float y;
     private float facing; //Angle (en degrés) de rotation de l'image.
     private int height;
     private int width;
@@ -30,47 +30,48 @@ abstract class Printable {
     }
 
     public void draw(Canvas canvas, Paint paint){
-        Matrix matrix=new Matrix(); //TODO: ce n'est pas optimisé de recalculer la nouvelle image à chaque affichage
-        matrix.preRotate(facing);
-        Bitmap buff=Bitmap.createBitmap(image, 0,0,width, height,matrix, true);
-        int w=buff.getWidth();
-        int h=buff.getHeight();
-        canvas.drawBitmap(buff, x-w/2, y-h/2, paint);
+        canvas.drawBitmap(image, x-width/2, y-height/2, paint);
     }
 
-    public void setX(int x) {
-        if(x<0)
-            return;
+    public boolean setX(float x) {
+        if(x<=0 || x>=parent.getWidth())
+            return false;
         this.x = x;
+        return true;
     }
 
-    public void setY(int y) {
-        if(y<0)
-            return;
+    public boolean setY(float y) {
+        if(y<=0|| y>=parent.getHeight())
+            return false;
         this.y = y;
+        return true;
     }
 
-    public void setFacing(float theta){
+    public boolean rotate(float theta){
         if(theta<-180 || theta>180)
-            return;
+            return false;
         facing=theta;
+        Matrix matrix=new Matrix();
+        matrix.preRotate(facing);
+        image=Bitmap.createBitmap(image, 0,0,width, height,matrix, true);
+        width=image.getWidth();
+        height=image.getHeight();
+        return true;
     }
 
-    public void setPos(int x, int y){
-        setPos(x, y, 0);
+    public boolean setPos(int x, int y){
+        return setPos(x, y, 0);
     }
 
-    public void setPos(int x, int y, float theta){
-        setX(x);
-        setY(y);
-        setFacing(theta);
+    public boolean setPos(int x, int y, float theta){
+        return setX(x) && setY(y) && rotate(theta);
     }
 
-    int getX(){
+    float getX(){
         return x;
     }
 
-    int getY(){
+    float getY(){
         return y;
     }
 }

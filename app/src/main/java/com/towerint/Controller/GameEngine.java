@@ -1,18 +1,13 @@
 package com.towerint.Controller;
 
 import android.content.Context;
-import android.content.res.AssetFileDescriptor;
 import android.graphics.Point;
-import android.media.AudioManager;
-import android.media.SoundPool;
-import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import java.io.IOException;
+
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
-import android.content.res.AssetManager;
+
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -50,9 +45,9 @@ public class GameEngine extends SurfaceView implements Runnable {
     // Control pausing between updates
     private long nextFrameTime;
     // Update the game 10 times per second
-    private final long FPS = 10;
+    public static final long FPS = 60;
     // There are 1000 milliseconds in a second
-    private final long MILLIS_PER_SECOND = 1000;
+    private static final long MILLIS_PER_SECOND = 1000;
 
 // We will draw the frame much more often
 
@@ -136,8 +131,8 @@ public class GameEngine extends SurfaceView implements Runnable {
         towers.add(new TowerType1(100,100,this));
         attackers.add(new AttackerType1(100, 100, this));
         Attacker attacker2=new AttackerType1(500,500,this);
-        attacker2.setSpeed(-10,-10);
-        attacker2.setFacing(-45-90);
+        attacker2.setSpeed(-100,-100);
+        attacker2.rotate(-45-90);
         attackers.add(attacker2);
 
         // Setup nextFrameTime so an update is triggered
@@ -159,6 +154,7 @@ public class GameEngine extends SurfaceView implements Runnable {
     if (surfaceHolder.getSurface().isValid()) {
     canvas = surfaceHolder.lockCanvas();
 
+    /*
     paint.setColor(Color.RED);
     //paint.setStyle(Paint.Style.FILL_AND_STROKE);
     paint.setStrokeWidth(20);
@@ -169,14 +165,15 @@ public class GameEngine extends SurfaceView implements Runnable {
     float bottom = 1200;
 
     canvas.drawLine(left, top, right, bottom, paint);
+    */
 
     // Fill the screen with color
-    canvas.drawColor(Color.argb(255, 40, 200, 60));
+    canvas.drawColor(Color.argb(255, 255, 255, 255));
 
     // Scale the HUD text
     paint.setTextSize(60);
     canvas.drawText("Score :" + score, 10, 70, paint);
-    canvas.drawLine(left, top, right, bottom, paint);
+    //canvas.drawLine(left, top, right, bottom, paint);
 
     //affichage de tous les printables
     for(Tower tower:towers){

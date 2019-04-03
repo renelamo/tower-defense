@@ -6,5 +6,6 @@ import com.towerint.R;
 public class AttackerType1 extends Attacker{
     public AttackerType1(int posX, int posY, GameEngine engine){
         super(posX,posY, engine, R.drawable.attacker1);
+        setSpeed(0,100);
     }
 }

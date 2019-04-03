@@ -44,8 +44,6 @@ public class GameView extends View {
         // Scale the HUD text
         paint.setTextSize(60);
         canvas.drawText("Score :" + GameActivity.gameEngine.score, 20, 100, paint);
-
-
     }
 
 
