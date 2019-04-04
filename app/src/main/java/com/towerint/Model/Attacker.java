@@ -9,7 +9,8 @@ public abstract class Attacker extends Printable {
     private double range;
     private float speedMoveX;
     private float speedMoveY;
-    private double speedAttack;
+    private double attackCooldown;
+    private int health;
     private Projectile projectile; // TODO créer classe Projectile
 
     Attacker(int posX, int posY, GameEngine parent, int resource){
@@ -21,8 +22,8 @@ public abstract class Attacker extends Printable {
     public double getRange(){
         return range;
     };
-    public double getSpeedAttack(){
-        return speedAttack;
+    public double getAttackCooldown(){
+        return attackCooldown;
     };
     public Projectile getProjectile(){
         return projectile;
@@ -46,7 +47,6 @@ public abstract class Attacker extends Printable {
     }
 
     public void speedToFace(){
-        //TODO: Ne donne pas les bons angles et ralentit beaucoup l'appli (jusqu'au crash)
-        //rotate(Math.atan2(-speedMoveY, speedMoveX)*180/Math.PI);
+        rotate(Math.atan2(speedMoveY, speedMoveX)*180/Math.PI);
     }
 }

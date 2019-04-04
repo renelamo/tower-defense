@@ -30,7 +30,10 @@ abstract class Printable {
     }
 
     public void draw(Canvas canvas, Paint paint){
+        canvas.save();
+        canvas.rotate(facing, x, y);
         canvas.drawBitmap(image, x-width/2, y-height/2, paint);
+        canvas.restore();
     }
 
     public boolean setX(float x) {
@@ -47,19 +50,11 @@ abstract class Printable {
         return true;
     }
 
-    public boolean rotate(float theta){//Prend une valeur entre -180 et +180 degrés
-        if(theta<-180 || theta>180)
-            return false;
+    public void rotate(float theta){//Prend une valeur entre -180 et +180 degrés
         facing=theta;
-        Matrix matrix=new Matrix();
-        matrix.preRotate(facing);
-        image=Bitmap.createBitmap(image, 0,0,width, height,matrix, true);
-        width=image.getWidth();
-        height=image.getHeight();
-        return true;
     }
-    public boolean rotate(double theta){
-        return rotate((float)theta);
+    public void rotate(double theta){
+        rotate((float)theta);
     }
 
     public boolean setPos(int x, int y){
@@ -67,14 +62,15 @@ abstract class Printable {
     }
 
     public boolean setPos(int x, int y, float theta){
-        return setX(x) && setY(y) && rotate(theta);
+        rotate(theta);
+        return setX(x) && setY(y);
     }
 
-    float getX(){
+    public float getX(){
         return x;
     }
 
-    float getY(){
+    public float getY(){
         return y;
     }
 }
