@@ -2,15 +2,12 @@ package com.towerint.Model;
 
 import com.towerint.Controller.GameEngine;
 
-import static com.towerint.Controller.GameEngine.FPS;
-
 public abstract class Attacker extends Printable {
     private double radius;
     private double range;
-    private float speedMoveX;
-    private float speedMoveY;
-    private double attackCooldown;
-    private int health;
+    private int speedMoveX;
+    private int speedMoveY;
+    private double speedAttack;
     private Projectile projectile; // TODO créer classe Projectile
 
     Attacker(int posX, int posY, GameEngine parent, int resource){
@@ -22,31 +19,31 @@ public abstract class Attacker extends Printable {
     public double getRange(){
         return range;
     };
-    public double getAttackCooldown(){
-        return attackCooldown;
+    public double getSpeedAttack(){
+        return speedAttack;
     };
     public Projectile getProjectile(){
         return projectile;
     };
 
     public void move(){
-        if(!setX(getX()+speedMoveX)) {
-            speedMoveX = -speedMoveX;
-            speedToFace();
-        }
-        if(!setY(getY()+speedMoveY)) {
-            speedMoveY = -speedMoveY;
-            speedToFace();
-        }
+        setX(getX()+speedMoveX);
+        setY(speedMoveY);
+    }
+    public void setSpeedMoveY(int y){
+        this.speedMoveY=y;
     }
 
-    public void setSpeed(int x, int y){ //En px/s
-        speedMoveX=x/(float)FPS;
-        speedMoveY=y/(float)FPS;
-        speedToFace();
+    public int getSpeedMoveX(){
+        return this.speedMoveX;
     }
 
-    public void speedToFace(){
-        rotate(Math.atan2(speedMoveY, speedMoveX)*180/Math.PI);
+    public void setSpeedMoveX(int x){
+        this.speedMoveX=x;
+    }
+
+    public void setSpeed(int x, int y){
+        speedMoveX=x;
+        speedMoveY=y;
     }
 }

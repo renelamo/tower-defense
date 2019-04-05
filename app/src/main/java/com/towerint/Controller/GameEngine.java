@@ -175,6 +175,13 @@ public class GameEngine extends SurfaceView implements Runnable {
     paint.setTextSize(60);
     canvas.drawText("Score :" + score, 10, 70, paint);
     //canvas.drawLine(left, top, right, bottom, paint);
+    for (int i=0 ; i<screenX; i++){
+
+            float y= (float) ((float) screenY*Math.sin(2*Math.PI*i/screenX)/2);
+            float x= (float) i;
+            canvas.drawPoint(x,screenY/2+ y,paint);
+        }
+
 
     //affichage de tous les printables
     for(Tower tower:towers){
