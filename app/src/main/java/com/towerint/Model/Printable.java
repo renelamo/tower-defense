@@ -17,6 +17,7 @@ abstract class Printable {
     private Bitmap image;
     private int resource;
 
+    /////////CONSTRUCTEURS//////////////////////////
     Printable(int posX, int posY, GameEngine engine, int resource){
         position=new Vector2(posX, posY);
         parent=engine;
@@ -27,20 +28,23 @@ abstract class Printable {
         width=image.getWidth();
     }
 
-    public void draw(Canvas canvas, Paint paint){
-        canvas.save();
-        canvas.rotate(facing, position.getX(), position.getY());
-        canvas.drawBitmap(image, position.getX()-width/2, position.getY()-height/2, paint);
-        canvas.restore();
+    Printable(GameEngine parent, int resource){
+        this.parent=parent;
+        this.resource=resource;
+        image= BitmapFactory.decodeResource(parent.getResources(),resource);
+        height=image.getHeight();
+        width=image.getWidth();
     }
 
-    public void rotate(float theta){//Prend une valeur entre -180 et +180 degrés
-        facing=theta;
-    }
-    public void rotate(double theta){
-        rotate((float)theta);
+    /////////////GETTERS//////////////////////////////
+
+    public Vector2 getPosition(){
+        return position;
     }
 
+    ////////////SETTERS///////////////////////////////
+
+    @Deprecated
     public boolean setPos(int x, int y){
         return setPos(x, y, 0);
     }
@@ -55,13 +59,27 @@ abstract class Printable {
         position.setC(x,y);
         return true;
     }
+
+    @Deprecated
     public boolean setPos(int x, int y, float theta){
         setPos(new Vector2(x,y));
         rotate(theta);
         return true;
     }
 
-    public Vector2 getPosition(){
-        return position;
+    /////////////AUTRES METHODES/////////////////////
+
+    public void draw(Canvas canvas, Paint paint){
+        canvas.save();
+        canvas.rotate(facing, position.getX(), position.getY());
+        canvas.drawBitmap(image, position.getX()-width/2, position.getY()-height/2, paint);
+        canvas.restore();
+    }
+
+    public void rotate(float theta){ //En degrés
+        facing=theta;
+    }
+    public void rotate(double theta){
+        rotate((float)theta);
     }
 }
