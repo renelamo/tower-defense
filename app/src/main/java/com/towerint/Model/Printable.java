@@ -9,8 +9,7 @@ import android.graphics.Paint;
 import com.towerint.Controller.GameEngine;
 
 abstract class Printable {
-    private float x;
-    private float y;
+    private Vector2 position;
     private float facing; //Angle (en degrés) de rotation de l'image.
     private int height;
     private int width;
@@ -19,8 +18,7 @@ abstract class Printable {
     private int resource;
 
     Printable(int posX, int posY, GameEngine engine, int resource){
-        x=posX;
-        y=posY;
+        position=new Vector2(posX, posY);
         parent=engine;
         this.resource=resource;
         facing=0;
@@ -31,23 +29,9 @@ abstract class Printable {
 
     public void draw(Canvas canvas, Paint paint){
         canvas.save();
-        canvas.rotate(facing, x, y);
-        canvas.drawBitmap(image, x-width/2, y-height/2, paint);
+        canvas.rotate(facing, position.getX(), position.getY());
+        canvas.drawBitmap(image, position.getX()-width/2, position.getY()-height/2, paint);
         canvas.restore();
-    }
-
-    public boolean setX(float x) {
-        if(x<=0 || x>=parent.getWidth())
-            return false;
-        this.x = x;
-        return true;
-    }
-
-    public boolean setY(float y) {
-        if(y<=0|| y>=parent.getHeight())
-            return false;
-        this.y = y;
-        return true;
     }
 
     public void rotate(float theta){//Prend une valeur entre -180 et +180 degrés
@@ -61,16 +45,23 @@ abstract class Printable {
         return setPos(x, y, 0);
     }
 
+    public boolean setPos(Vector2 v){
+        float x=v.getX();
+        float y=v.getY();
+        if(x<=0 || x>=parent.getWidth())
+            return false;
+        if(y<=0|| y>=parent.getHeight())
+            return false;
+        position.setC(x,y);
+        return true;
+    }
     public boolean setPos(int x, int y, float theta){
+        setPos(new Vector2(x,y));
         rotate(theta);
-        return setX(x) && setY(y);
+        return true;
     }
 
-    public float getX(){
-        return x;
-    }
-
-    public float getY(){
-        return y;
+    public Vector2 getPosition(){
+        return position;
     }
 }

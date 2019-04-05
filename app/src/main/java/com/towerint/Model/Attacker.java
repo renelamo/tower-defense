@@ -7,14 +7,16 @@ import static com.towerint.Controller.GameEngine.FPS;
 public abstract class Attacker extends Printable {
     private double radius;
     private double range;
-    private float speedMoveX;
-    private float speedMoveY;
+    private Vector2 speed;// en px par frame
+    private float maxSpeed;
+    private Node node;
     private double attackCooldown;
     private int health;
     private Projectile projectile; // TODO créer classe Projectile
 
     Attacker(int posX, int posY, GameEngine parent, int resource){
         super(posX, posY,parent, resource);
+        speed=new Vector2();
     }
     public double getRadius(){
         return radius;
@@ -30,23 +32,38 @@ public abstract class Attacker extends Printable {
     };
 
     public void move(){
-        if(!setX(getX()+speedMoveX)) {
-            speedMoveX = -speedMoveX;
-            speedToFace();
-        }
-        if(!setY(getY()+speedMoveY)) {
-            speedMoveY = -speedMoveY;
-            speedToFace();
+        setPos(speed.add(getPosition()));
+        if(node.getPosition().diff(this.getPosition()).getNorm()<maxSpeed){ //Si la distance entre l'attaquant et le prochain noeud est inférieure à la distance parcourue en 1 frame, on se dirrige vers le noeud suivant;
+            if(!node.hasNext()){
+                //TODO: destruction base
+            }
+            setSpeed(node.getDirection());
+            node = node.getNext();
         }
     }
 
     public void setSpeed(int x, int y){ //En px/s
-        speedMoveX=x/(float)FPS;
-        speedMoveY=y/(float)FPS;
+        speed.setC(x/FPS,y/FPS);
         speedToFace();
     }
 
+    public void setSpeed(Vector2 v){
+        float n=v.getNorm()*maxSpeed;
+        setSpeed((int)(v.getX()*n),(int)(v.getY()*n));
+    }
+
+    public void setSpeed(float s){
+        if(speed.getNorm()!=0) {
+            speed.mult(s / speed.getNorm());
+        }
+        maxSpeed=s/FPS;
+    }
+
     public void speedToFace(){
-        rotate(Math.atan2(speedMoveY, speedMoveX)*180/Math.PI);
+        rotate(speed.getTheta());
+    }
+
+    public void follow(Way w){
+        node=w.getFirstNode();
     }
 }

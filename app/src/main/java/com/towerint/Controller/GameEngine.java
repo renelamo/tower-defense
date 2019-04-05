@@ -12,11 +12,14 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Bitmap;
+import android.view.Window;
 
 import com.towerint.Model.Attacker;
 import com.towerint.Model.AttackerType1;
+import com.towerint.Model.Node;
 import com.towerint.Model.Tower;
 import com.towerint.Model.TowerType1;
+import com.towerint.Model.Way;
 
 
 public class GameEngine extends SurfaceView implements Runnable {
@@ -24,6 +27,7 @@ public class GameEngine extends SurfaceView implements Runnable {
 
     List<Tower> towers;
     List<Attacker> attackers;
+    Way way;
 
     // To hold a reference to the Activity
     private Context context;
@@ -126,14 +130,19 @@ public class GameEngine extends SurfaceView implements Runnable {
         // Reset the score
         score = 0;
 
+        way=new Way();
+        way.add(new Node(0,0));
+        way.add(new Node(500,500));
+        way.add(0,500);
 
         //TODO: je rajoute ici du code de test
         towers.add(new TowerType1(100,100,this));
         attackers.add(new AttackerType1(100, 100, this));
         Attacker attacker2=new AttackerType1(500,500,this);
-        attacker2.setSpeed(-100,-100);
-        attacker2.rotate(-45-90);
         attackers.add(attacker2);
+        for(Attacker attacker:attackers){
+            attacker.follow(way);
+        }
 
         // Setup nextFrameTime so an update is triggered
         nextFrameTime = System.currentTimeMillis();
@@ -144,7 +153,7 @@ public class GameEngine extends SurfaceView implements Runnable {
         for(Attacker attacker:attackers){
             attacker.move();
         }
-        towers.get(0).faceToPoint((int)attackers.get(1).getX(), (int)attackers.get(1).getY());
+        towers.get(0).faceToPoint(attackers.get(0).getPosition());
     }
 
 
