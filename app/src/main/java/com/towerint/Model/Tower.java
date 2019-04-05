@@ -39,7 +39,7 @@ public abstract class Tower extends Printable{
     };
 
     public void faceToPoint(Vector2 v){
-        rotate(this.getPosition().diff(v).getTheta());
+        rotate(this.getPosition().diff(v).getTheta()-90);
     }
 
 }

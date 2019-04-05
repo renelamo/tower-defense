@@ -48,9 +48,9 @@ abstract class Printable {
     public boolean setPos(Vector2 v){
         float x=v.getX();
         float y=v.getY();
-        if(x<=0 || x>=parent.getWidth())
+        if(x<0 || x>parent.getWidth())
             return false;
-        if(y<=0|| y>=parent.getHeight())
+        if(y<0|| y>parent.getHeight())
             return false;
         position.setC(x,y);
         return true;

@@ -33,4 +33,9 @@ public class Node {
     public Vector2 getDirection(){
         return this.next.getPosition().diff(this.position);
     }
+
+    @Override
+    public String toString() {
+        return position.toString();
+    }
 }

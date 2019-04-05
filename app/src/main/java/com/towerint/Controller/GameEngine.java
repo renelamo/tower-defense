@@ -56,7 +56,7 @@ public class GameEngine extends SurfaceView implements Runnable {
 // We will draw the frame much more often
 
     // How many points does the player have
-    public int score;
+    public String score;
 
     // Everything we need for drawing
 // Is the game currently playing?
@@ -128,18 +128,18 @@ public class GameEngine extends SurfaceView implements Runnable {
 
     public void newGame() {
         // Reset the score
-        score = 0;
+        score = "0";
 
-        way=new Way();
-        way.add(new Node(0,0));
-        way.add(new Node(500,500));
+        way=new Way(new Node(0,0));
+        way.add(500,500);
         way.add(0,500);
+        way.add(0,0);
 
         //TODO: je rajoute ici du code de test
         towers.add(new TowerType1(100,100,this));
         attackers.add(new AttackerType1(100, 100, this));
-        Attacker attacker2=new AttackerType1(500,500,this);
-        attackers.add(attacker2);
+        //Attacker attacker2=new AttackerType1(500,500,this);
+        //attackers.add(attacker2);
         for(Attacker attacker:attackers){
             attacker.follow(way);
         }
@@ -164,6 +164,17 @@ public class GameEngine extends SurfaceView implements Runnable {
     if (surfaceHolder.getSurface().isValid()) {
     canvas = surfaceHolder.lockCanvas();
 
+    // Fill the screen with color
+    canvas.drawColor(Color.argb(255, 255, 255, 255));
+
+    //affichage de tous les printables
+    for(Tower tower:towers){
+        tower.draw(canvas, paint);
+    }
+    for(Attacker attacker:attackers){
+        attacker.draw(canvas, paint);
+    }
+
     /*
     paint.setColor(Color.RED);
     //paint.setStyle(Paint.Style.FILL_AND_STROKE);
@@ -177,21 +188,10 @@ public class GameEngine extends SurfaceView implements Runnable {
     canvas.drawLine(left, top, right, bottom, paint);
     */
 
-    // Fill the screen with color
-    canvas.drawColor(Color.argb(255, 255, 255, 255));
-
     // Scale the HUD text
     paint.setTextSize(60);
     canvas.drawText("Score :" + score, 10, 70, paint);
     //canvas.drawLine(left, top, right, bottom, paint);
-
-    //affichage de tous les printables
-    for(Tower tower:towers){
-        tower.draw(canvas, paint);
-    }
-    for(Attacker attacker:attackers){
-        attacker.draw(canvas, paint);
-    }
 
     // Unlock the canvas and reveal the graphics for this frame
     surfaceHolder.unlockCanvasAndPost(canvas);

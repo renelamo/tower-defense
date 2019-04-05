@@ -1,6 +1,6 @@
 package com.towerint.Model;
 
-public class Vector2 {
+public class Vector2 { //TODO: si ca ne fait pas lagger, rmplacer les float par des double
     private float x;
     private float y;
 
@@ -77,5 +77,10 @@ public class Vector2 {
     public void mult(float f){
         x*=f;
         y*=f;
+    }
+
+    @Override
+    public String toString() {
+        return "("+x+","+y+")";
     }
 }
