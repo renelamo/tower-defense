@@ -63,8 +63,16 @@ abstract class Printable {
     @Deprecated
     public boolean setPos(int x, int y, float theta){
         setPos(new Vector2(x,y));
-        rotate(theta);
+        setRotation(theta);
         return true;
+    }
+
+    @Deprecated //TODO: passer tous les float en double
+    public void setRotation(float theta){ //En degrés
+        facing=theta;
+    }
+    public void setRotation(double theta){
+        setRotation((float)theta);
     }
 
     /////////////AUTRES METHODES/////////////////////
@@ -74,12 +82,5 @@ abstract class Printable {
         canvas.rotate(facing, position.getX(), position.getY());
         canvas.drawBitmap(image, position.getX()-width/2, position.getY()-height/2, paint);
         canvas.restore();
-    }
-
-    public void rotate(float theta){ //En degrés
-        facing=theta;
-    }
-    public void rotate(double theta){
-        rotate((float)theta);
     }
 }

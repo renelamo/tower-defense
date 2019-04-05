@@ -79,7 +79,7 @@ public abstract class Attacker extends Printable {
     }
 
     public void speedToFace(){
-        rotate(speed.getTheta());
+        this.setRotation(speed.getTheta());
     }
 
     public void follow(Way w){
