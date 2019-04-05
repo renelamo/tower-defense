@@ -5,6 +5,9 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.View;
 
 import com.towerint.View.GameActivity;
@@ -41,8 +44,6 @@ public class GameView extends View {
         // Scale the HUD text
         paint.setTextSize(60);
         canvas.drawText("Score :" + GameActivity.gameEngine.score, 20, 100, paint);
-
-
     }
 
 
