@@ -2,11 +2,13 @@ package com.towerint.Model;
 
 import com.towerint.Controller.GameEngine;
 
+import static com.towerint.Controller.GameEngine.FPS;
+
 public abstract class Attacker extends Printable {
     private double radius;
     private double range;
-    private int speedMoveX;
-    private int speedMoveY;
+    private float speedMoveX;
+    private float speedMoveY;
     private double speedAttack;
     private Projectile projectile; // TODO créer classe Projectile
 
@@ -30,16 +32,16 @@ public abstract class Attacker extends Printable {
         setX(getX()+speedMoveX);
         setY(speedMoveY);
     }
-    public void setSpeedMoveY(int y){
-        this.speedMoveY=y;
+    public void setSpeedMoveY(float y){
+        this.speedMoveY=y/FPS;
     }
 
-    public int getSpeedMoveX(){
+    public float getSpeedMoveX(){
         return this.speedMoveX;
     }
 
-    public void setSpeedMoveX(int x){
-        this.speedMoveX=x;
+    public void setSpeedMoveX(float x){
+        this.speedMoveX=x/FPS;
     }
 
     public void setSpeed(int x, int y){

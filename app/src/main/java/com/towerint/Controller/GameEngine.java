@@ -129,10 +129,8 @@ public class GameEngine extends SurfaceView implements Runnable {
 
         //TODO: je rajoute ici du code de test
         towers.add(new TowerType1(100,100,this));
-        attackers.add(new AttackerType1(100, 100, this));
-        Attacker attacker2=new AttackerType1(500,500,this);
-        attacker2.setSpeed(-100,-100);
-        attacker2.rotate(-45-90);
+        Attacker attacker2=new AttackerType1(0,screenY/2,this);
+        attacker2.setSpeed(0,0);
         attackers.add(attacker2);
 
         // Setup nextFrameTime so an update is triggered
@@ -141,10 +139,12 @@ public class GameEngine extends SurfaceView implements Runnable {
 
 
     public void update() {
-        for(Attacker attacker:attackers){
-            attacker.move();
-        }
-        towers.get(0).faceToPoint((int)attackers.get(1).getX(), (int)attackers.get(1).getY());
+        attackers.get(0).setSpeedMoveX(5);
+        float newY= (float) (screenY*Math.sin(Math.PI*2*attackers.get(0).getX()/screenX)/2);
+        attackers.get(0).setSpeedMoveY(screenY/2+newY);
+        attackers.get(0).move();
+
+        towers.get(0).faceToPoint((int)attackers.get(0).getX(), (int)attackers.get(0).getY());
     }
 
 
@@ -155,8 +155,8 @@ public class GameEngine extends SurfaceView implements Runnable {
     if (surfaceHolder.getSurface().isValid()) {
     canvas = surfaceHolder.lockCanvas();
 
-    /*
-    paint.setColor(Color.RED);
+
+    paint.setColor(Color.WHITE);
     //paint.setStyle(Paint.Style.FILL_AND_STROKE);
     paint.setStrokeWidth(20);
 
@@ -165,11 +165,9 @@ public class GameEngine extends SurfaceView implements Runnable {
     float right = 800;
     float bottom = 1200;
 
-    canvas.drawLine(left, top, right, bottom, paint);
-    */
 
     // Fill the screen with color
-    canvas.drawColor(Color.argb(255, 255, 255, 255));
+    canvas.drawColor(Color.argb(250, 150, 205, 40));
 
     // Scale the HUD text
     paint.setTextSize(60);
@@ -177,7 +175,7 @@ public class GameEngine extends SurfaceView implements Runnable {
     //canvas.drawLine(left, top, right, bottom, paint);
     for (int i=0 ; i<screenX; i++){
 
-            float y= (float) ((float) screenY*Math.sin(2*Math.PI*i/screenX)/2);
+            float y= (float) ((float) (screenY-10)*Math.sin(2*Math.PI*i/screenX)/2);
             float x= (float) i;
             canvas.drawPoint(x,screenY/2+ y,paint);
         }
