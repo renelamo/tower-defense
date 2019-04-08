@@ -139,9 +139,9 @@ public class GameEngine extends SurfaceView implements Runnable {
 
 
     public void update() {
-        attackers.get(0).setSpeedMoveX(5);
+        attackers.get(0).setSpeedMoveX(2*FPS);
         float newY= (float) (screenY*Math.sin(Math.PI*2*attackers.get(0).getX()/screenX)/2);
-        attackers.get(0).setSpeedMoveY(screenY/2+newY);
+        attackers.get(0).setSpeedMoveY((screenY/2+newY)*FPS);
         attackers.get(0).move();
 
         towers.get(0).faceToPoint((int)attackers.get(0).getX(), (int)attackers.get(0).getY());
