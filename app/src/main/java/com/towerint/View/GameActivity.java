@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import com.towerint.Controller.GameEngine;
 
 
+
 public class GameActivity extends AppCompatActivity {
     public static com.towerint.Controller.GameEngine gameEngine;
     public static boolean isTouch = false;
@@ -69,6 +70,7 @@ public class GameActivity extends AppCompatActivity {
                 isTouch = true;
                  Music music = new Music();
                 music.touchMusic(GameEngine.context);
+
                 break;
 
             case MotionEvent.ACTION_MOVE:

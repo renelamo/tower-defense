@@ -170,6 +170,7 @@ public class GameEngine extends SurfaceView implements Runnable {
     // Scale the HUD text
     paint.setTextSize(60);
     canvas.drawText("Score :" + score, 10, 70, paint);
+    canvas.drawText("Ressource : 0",360,70,paint);
     //canvas.drawLine(left, top, right, bottom, paint);
     for (int i=0 ; i<screenX; i++){
 
