@@ -1,7 +1,6 @@
 package com.towerint.View;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -30,14 +29,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         music.startMusic(MainActivity.this);
-
-
-
-        /*Ajout de la musique*/
-        //MediaPlayer backgroundMusic=MediaPlayer.create(MainActivity.this, R.raw.airship_thunderchild_by_otto_halmn);
-        //backgroundMusic.start();
-        //backgroundMusic.setLooping(true);
-
 
         /*Déclaration des boutons*/
         final Button exitButton=findViewById(R.id.exitButton);

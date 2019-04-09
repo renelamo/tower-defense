@@ -19,14 +19,14 @@ import com.towerint.Model.Tower;
 import com.towerint.Model.TowerType1;
 
 
+
 public class GameEngine extends SurfaceView implements Runnable {
     private Thread thread = null;
-
-    List<Tower> towers;
+    public List<Tower> towers;
     List<Attacker> attackers;
 
     // To hold a reference to the Activity
-    private Context context;
+    public static Context context;
 
 
     // For tracking movement Heading
@@ -146,8 +146,6 @@ public class GameEngine extends SurfaceView implements Runnable {
 
         towers.get(0).faceToPoint((int)attackers.get(0).getX(), (int)attackers.get(0).getY());
     }
-
-
 
 
  public void draw() {

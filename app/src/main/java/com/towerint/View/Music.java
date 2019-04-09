@@ -9,6 +9,7 @@ import com.towerint.R;
 public class Music extends OptionsActivity{
     MediaPlayer backgroundMusic;
     boolean listen = true;
+    MediaPlayer touchMusic;
 
     //Begin music
     protected void startMusic(Context context){
@@ -16,7 +17,13 @@ public class Music extends OptionsActivity{
         backgroundMusic.start();
         backgroundMusic.setLooping(true);
     }
-
+    protected void touchMusic(Context context){
+        touchMusic = MediaPlayer.create(context, R.raw.bipp);
+        touchMusic.start();
+    }
+    protected void stopTouchMusic(){
+        touchMusic.stop();
+    }
     //Play or Stop
     protected void musicState() {
         if(listen) {
