@@ -40,6 +40,10 @@ public class gameActivity extends AppCompatActivity {
 
     }
 
+        }
+    }
+
+    public void pause() {
 
     // Start the thread in gameEngine
     @Override
