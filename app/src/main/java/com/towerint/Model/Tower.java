@@ -1,11 +1,6 @@
 package com.towerint.Model;
 
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-
 import com.towerint.Controller.GameEngine;
-import com.towerint.Controller.GameView;
 
 public abstract class Tower extends Printable{
     protected double radius;
@@ -38,8 +33,8 @@ public abstract class Tower extends Printable{
         return projectile;
     };
 
-    public void faceToPoint(int x, int y){
-        rotate(Math.atan2(getY()-y, getX()-x)*180/Math.PI -90);
+    public void faceToPoint(Vector2 v){
+        this.setRotation(this.getPosition().diff(v).getTheta()-90);
     }
 
 }

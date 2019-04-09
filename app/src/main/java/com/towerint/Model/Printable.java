@@ -9,8 +9,7 @@ import android.graphics.Paint;
 import com.towerint.Controller.GameEngine;
 
 abstract class Printable {
-    private float x;
-    private float y;
+    private Vector2 position;
     private float facing; //Angle (en degrés) de rotation de l'image.
     private int height;
     private int width;
@@ -18,9 +17,9 @@ abstract class Printable {
     private Bitmap image;
     private int resource;
 
+    /////////CONSTRUCTEURS//////////////////////////
     Printable(int posX, int posY, GameEngine engine, int resource){
-        x=posX;
-        y=posY;
+        position=new Vector2(posX, posY);
         parent=engine;
         this.resource=resource;
         facing=0;
@@ -29,48 +28,59 @@ abstract class Printable {
         width=image.getWidth();
     }
 
-    public void draw(Canvas canvas, Paint paint){
-        canvas.save();
-        canvas.rotate(facing, x, y);
-        canvas.drawBitmap(image, x-width/2, y-height/2, paint);
-        canvas.restore();
+    Printable(GameEngine parent, int resource){
+        this.parent=parent;
+        this.resource=resource;
+        image= BitmapFactory.decodeResource(parent.getResources(),resource);
+        height=image.getHeight();
+        width=image.getWidth();
     }
 
-    public boolean setX(float x) {
-        if(x<=0 || x>=parent.getWidth())
-            return false;
-        this.x = x;
-        return true;
+    /////////////GETTERS//////////////////////////////
+
+    public Vector2 getPosition(){
+        return position;
     }
 
-    public boolean setY(float y) {
-        if(y<=0|| y>=parent.getHeight())
-            return false;
-        this.y = y;
-        return true;
-    }
+    ////////////SETTERS///////////////////////////////
 
-    public void rotate(float theta){//Prend une valeur entre -180 et +180 degrés
-        facing=theta;
-    }
-    public void rotate(double theta){
-        rotate((float)theta);
-    }
-
+    @Deprecated
     public boolean setPos(int x, int y){
         return setPos(x, y, 0);
     }
 
+    public boolean setPos(Vector2 v){
+        float x=v.getX();
+        float y=v.getY();
+        if(x<0 || x>parent.getWidth())
+            return false;
+        if(y<0|| y>parent.getHeight())
+            return false;
+        position.setC(x,y);
+        return true;
+    }
+
+    @Deprecated
     public boolean setPos(int x, int y, float theta){
-        rotate(theta);
-        return setX(x) && setY(y);
+        setPos(new Vector2(x,y));
+        setRotation(theta);
+        return true;
     }
 
-    public float getX(){
-        return x;
+    @Deprecated //TODO: passer tous les float en double
+    public void setRotation(float theta){ //En degrés
+        facing=theta;
+    }
+    public void setRotation(double theta){
+        setRotation((float)theta);
     }
 
-    public float getY(){
-        return y;
+    /////////////AUTRES METHODES/////////////////////
+
+    public void draw(Canvas canvas, Paint paint){
+        canvas.save();
+        canvas.rotate(facing, position.getX(), position.getY());
+        canvas.drawBitmap(image, position.getX()-width/2, position.getY()-height/2, paint);
+        canvas.restore();
     }
 }

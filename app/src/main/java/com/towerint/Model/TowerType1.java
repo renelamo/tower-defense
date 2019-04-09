@@ -1,11 +1,6 @@
 package com.towerint.Model;
 
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-
 import com.towerint.Controller.GameEngine;
-import com.towerint.Controller.GameView;
 import com.towerint.R;
 
 public class TowerType1 extends Tower {
