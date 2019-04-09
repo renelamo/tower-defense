@@ -1,30 +1,27 @@
 package com.towerint.Model;
 
-abstract class Projectile {
-    private double x;
-    private double y;
-    private double speed; // la vitesse à laquelle se déplace le projectile
+import com.towerint.Controller.GameEngine;
+
+abstract class Projectile extends Printable {
+    private double speedX;
+    private double speedY;
     private double power;
-    //private image; TODO créer une classe pour l'image
 
-    public double getX(){
-        return x;
-    };
-    public double getY(){
-        return y;
-    };
-    public double getSpeed(){
-        return speed;
-    };
-    public double getPower(){
+    Projectile(int posX, int posY, GameEngine engine, int resource) {
+        super(posX, posY, engine, resource);
+    }
+
+    public double getSpeedX() {
+        return speedX;
+    }
+
+    public double getSpeedY(){
+        return speedY;
+    }
+
+
+    public double getPower() {
         return power;
-    };
+    }
 
-    public void setX(double x) {
-        this.x = x;
-    };
-
-    public void setY(double y) {
-        this.y = y;
-    };
 }
