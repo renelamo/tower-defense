@@ -79,6 +79,14 @@ public class Vector2 { //TODO: si ca ne fait pas lagger, rmplacer les float par 
         y*=f;
     }
 
+    //pour que les valeurs cartésiennes du vecteur soient comprises dans l'intervalle spécifié
+    public void setInBounds(Vector2 vMin, Vector2 vMax){
+        if(vMax.getX()<=vMin.getX() || vMax.getY()<=vMin.getY()){
+            return;
+        }
+        setC(Math.max(Math.min(getX(), vMax.getX()), vMin.getX()), Math.max(Math.min(getY(), vMax.getY()), vMin.getY()));
+    }
+
     @Override
     public String toString() {
         return "("+x+","+y+")";

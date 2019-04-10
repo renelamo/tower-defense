@@ -67,7 +67,7 @@ public abstract class Attacker extends Printable {
     ///////////////AUTRES METHODES///////////////////////////
 
     public void move(){
-        setPos(speed.add(this.getPosition()));
+        setPos(this.getPosition().add(speed));
         //Si la distance entre l'attaquant et le prochain noeud est inférieure à la moitié de la distance parcourue en 1 frame, on se dirrige vers le noeud suivant;
         if(node.getPosition().diff(this.getPosition()).getNorm()<speed.getNorm()/2){ //TODO: je ne sais pas pourquoi speed.getNorm() est différent (environ 25 fois inférieur) de maxSpeed()
             if(!node.hasNext()){

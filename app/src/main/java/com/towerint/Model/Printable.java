@@ -59,10 +59,7 @@ abstract class Printable {
         if(y<0 || y>parent.getHeight())
             return false;
             //*/
-        if(x<0 || x>parent.screenX)
-            return false;
-        if(y<0 || y>parent.screenY)
-            return false;
+        v.setInBounds(new Vector2(0,0), new Vector2(parent.screenX, parent.screenY));
         position=v;
         return true;
     }

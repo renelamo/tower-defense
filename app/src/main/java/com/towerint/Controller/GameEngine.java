@@ -37,8 +37,8 @@ public class GameEngine extends SurfaceView implements Runnable {
     private Heading heading = Heading.RIGHT;
 
     // To hold the screen size in pixels
-    public static int screenX;
-    public static int screenY;
+    public int screenX;
+    public int screenY;
 
     // The size in segments of the playable area
     private final int NUM_BLOCKS_WIDE = 40;
