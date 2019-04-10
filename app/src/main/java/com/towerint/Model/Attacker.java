@@ -23,9 +23,11 @@ public abstract class Attacker extends Printable {
         this.parent=parent;
         speed=new Vector2();
     }
-    Attacker(Way toFollow, GameEngine parent, int resource){
+    Attacker(Way toFollow, GameEngine parent, int resource, float maxSpeed){
         super(parent, resource);
-        follow(toFollow);
+        this.maxSpeed=maxSpeed/FPS;
+        speed=new Vector2();
+        this.follow(toFollow);
     }
 
     ///////////GETTERS////////////////////////////////////////////////

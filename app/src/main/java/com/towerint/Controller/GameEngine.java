@@ -12,7 +12,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Bitmap;
-import android.view.Window;
 
 import com.towerint.Model.Attacker;
 import com.towerint.Model.AttackerType1;
@@ -28,7 +27,7 @@ public class GameEngine extends SurfaceView implements Runnable {
     List<Attacker> attackers;
     Way way;
 
-    // To hold a reference to the Activity
+    // To hold a reference to the Activity TODO: Apaparemment il ne faut pas mettre de Context en static
     public static Context context;
 
 
@@ -129,19 +128,15 @@ public class GameEngine extends SurfaceView implements Runnable {
         // Reset the score
         score = 0;
 
-        way=new Way(new Node(0,0));
-        way.add(500,500);
-        way.add(0,500);
+        way=new Way(new Node(screenX/2,0));
+        way.add(screenX/2,screenY/2);
+        way.add(0,screenY/2);
         way.add(0,0);
 
         //TODO: je rajoute ici du code de test
         towers.add(new TowerType1(100,100,this));
-        attackers.add(new AttackerType1(100, 100, this));
-        //Attacker attacker2=new AttackerType1(500,500,this);
-        //attackers.add(attacker2);
-        for(Attacker attacker:attackers){
-            attacker.follow(way);
-        }
+        attackers.add(new AttackerType1(way, this));
+        attackers.add(new AttackerType1(way, this));
 
         // Setup nextFrameTime so an update is triggered
         nextFrameTime = System.currentTimeMillis();
@@ -229,6 +224,9 @@ public class GameEngine extends SurfaceView implements Runnable {
         return false;
     }
 
-
+    @Override
+    public String toString() {
+        return this.getHeight()+","+this.getWidth();
+    }
 }
 

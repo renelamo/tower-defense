@@ -52,11 +52,18 @@ abstract class Printable {
     public boolean setPos(Vector2 v){
         float x=v.getX();
         float y=v.getY();
+        //TODO: il semblerait que le gameEngine ait une dimension de 0x0 en début de jeu, corriger cela
+/*
         if(x<0 || x>parent.getWidth())
             return false;
-        if(y<0|| y>parent.getHeight())
+        if(y<0 || y>parent.getHeight())
             return false;
-        position.setC(x,y);
+            //*/
+        if(x<0 || x>parent.screenX)
+            return false;
+        if(y<0 || y>parent.screenY)
+            return false;
+        position=v;
         return true;
     }
 
