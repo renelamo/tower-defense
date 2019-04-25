@@ -9,7 +9,7 @@ public abstract class Attacker extends Movable {
     private float maxSpeed;//En module (en px/frame)
     private Node node; //Noeud vers lequel il se déplace
     private int health;
-    private Projectile projectile; // TODO finir classe Projectile
+    private Projectile projectile;
     private GameEngine parent;
 
 

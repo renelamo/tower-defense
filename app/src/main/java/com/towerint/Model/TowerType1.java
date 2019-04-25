@@ -10,7 +10,5 @@ public class TowerType1 extends Tower {
         range=10;
         speedAttack=10;
         //projectile=new ProjectileType1();
-        manaMax=10;
-        probabilityLooseMana=0.5;
     }
 }

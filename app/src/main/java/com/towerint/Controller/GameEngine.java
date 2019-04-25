@@ -133,7 +133,7 @@ public class GameEngine extends SurfaceView implements Runnable {
         way.add(0,screenY/2);
         way.add(0,0);
 
-        //TODO: je rajoute ici du code de test
+        //Je rajoute ici du code de test
         towers.add(new TowerType1(100,100,this));
         attackers.add(new AttackerType1(way, this));
         attackers.add(new AttackerType1(way, this));
@@ -148,6 +148,7 @@ public class GameEngine extends SurfaceView implements Runnable {
             attacker.move();
         }
         towers.get(0).faceToPoint(attackers.get(0).getPosition());
+        //towers.get(0).shoot(attackers.get(0).getPosition());
     }
 
 

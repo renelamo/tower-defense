@@ -5,11 +5,10 @@ import com.towerint.Controller.GameEngine;
 public abstract class Tower extends Printable{
     protected double radius;
     protected double range;
-    protected double speedAttack;
+    protected float speedAttack;
     protected double cost;
     protected Projectile projectile;
-    protected double manaMax;
-    protected double probabilityLooseMana;
+    protected GameEngine parent;
     // TODO Eventuellement variable qui définit quelles sont les cibles de la tour
 
     Tower(int posX, int posY, GameEngine parentEngine, int resource){
@@ -35,6 +34,13 @@ public abstract class Tower extends Printable{
 
     public void faceToPoint(Vector2 v){
         this.setRotation(this.getPosition().diff(v).getTheta()-90);
+    }
+
+    public void shoot(Vector2 v){
+        Way way=new Way(new Node((int)v.getX(),(int)v.getY()));
+        this.projectile= new Projectile(way,this.parent, this.speedAttack);
+        projectile.move();
+
     }
 
 }
