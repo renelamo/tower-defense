@@ -8,20 +8,22 @@ abstract class Projectile extends Movable {
     private Vector2 position;
     private double speed; // la vitesse à laquelle se déplace le projectile
     private double power;
-    private static final int resource= R.drawable.kisspng_missile_weapon_computer_icons_projectile_missile_turret_5b22188ee4cce9;
+    private static final int resource= R.drawable.projectile;
 
     public Projectile(int posX, int posY,GameEngine parent, int resource){
         super(posX, posY, parent, resource);
     }
+    Projectile(Way toFollow, GameEngine parent, int resource, float speed){
+        super(toFollow, parent, resource, speed);
+    }
     public double getSpeed(){
         return speed;
-    };
-    public double getPower(){
-        return power;
-    };
+    }
+    public double getPower(){ return power; }
 
     public void setSpeed(double speed){ //A utiliser pour la vitesse de tire des differentes tour
         this.speed=speed;
     }
+
 
 }
