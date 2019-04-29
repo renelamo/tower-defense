@@ -1,6 +1,9 @@
 package com.towerint.Model;
 
 import com.towerint.Controller.GameEngine;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public abstract class Tower extends Printable{
     protected double radius;
@@ -12,10 +15,20 @@ public abstract class Tower extends Printable{
     protected GameEngine parent;
     // TODO Eventuellement variable qui définit quelles sont les cibles de la tour
 
+    protected List<Attacker> cibles;
+    public void addcible(Attacker attacker){
+            cibles.add(attacker);
+    };
+
+
+
+
+
     Tower(int posX, int posY, GameEngine parentEngine, int resource){
         super(posX,posY, parentEngine, resource);
         this.parent=parentEngine;
         nextTimeFire=0;
+        this.cibles = new ArrayList<Attacker>();
     }
 
     //TODO: je ne pense pas que tous ces getters soient utiles...
