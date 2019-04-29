@@ -8,7 +8,7 @@ public class TowerType1 extends Tower {
         super(posX, posY, engine, R.drawable.tower1);
         radius=2;
         range=10;
-        speedAttack=10;
+        attackCooldown=1000;
         //projectile=new ProjectileType1();
     }
 }

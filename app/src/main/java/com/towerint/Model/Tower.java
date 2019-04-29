@@ -5,7 +5,8 @@ import com.towerint.Controller.GameEngine;
 public abstract class Tower extends Printable{
     protected double radius;
     protected double range;
-    protected float speedAttack;
+    protected int attackCooldown;
+    private long nextTimeFire;
     protected double cost;
     protected Projectile projectile;
     protected GameEngine parent;
@@ -13,6 +14,8 @@ public abstract class Tower extends Printable{
 
     Tower(int posX, int posY, GameEngine parentEngine, int resource){
         super(posX,posY, parentEngine, resource);
+        this.parent=parentEngine;
+        nextTimeFire=0;
     }
 
     //TODO: je ne pense pas que tous ces getters soient utiles...
@@ -21,9 +24,6 @@ public abstract class Tower extends Printable{
     };
     public double getRange(){
         return range;
-    };
-    public double getSpeedAttack(){
-        return speedAttack;
     };
     public double getCost(){
         return cost;
@@ -36,11 +36,14 @@ public abstract class Tower extends Printable{
         this.setRotation(this.getPosition().diff(v).getTheta()-90);
     }
 
-    public void shoot(Vector2 v){
-        Way way=new Way(new Node((int)v.getX(),(int)v.getY()));
-        this.projectile= new Projectile(way,this.parent, this.speedAttack);
-        projectile.move();
+    public void shoot(Attacker target){
+        Way way=new Way(new Node(this.getPosition()), new Node(target.getPosition()));
+        parent.projectiles.add(new ProjectileType1(way,this.parent));
+        nextTimeFire=attackCooldown+System.currentTimeMillis();
+    }
 
+    public long getNextTimeFire(){
+        return nextTimeFire;
     }
 
 }

@@ -10,15 +10,23 @@ public class Movable extends Printable {
     private float maxSpeed;//En module (en px/frame)
     private Node node; //Noeud vers lequel il se déplace
     private GameEngine parent;
+    protected int thetaOffset; //Les images n'ont pas toutes la meme orientation (en degres)
 
     Movable(int posX, int posY, GameEngine engine, int resource) {
         super(posX, posY, engine, resource);
+        parent=engine;
     }
 
     Movable(Way toFollow, GameEngine parent, int resource, float maxSpeed){
+        this(toFollow, parent, resource, maxSpeed, 0);
+    }
+
+    Movable(Way toFollow, GameEngine parent, int resource, float maxSpeed, int angleOffset){
         super(parent, resource);
+        this.parent=parent;
         this.maxSpeed=maxSpeed/FPS;
         speed=new Vector2();
+        thetaOffset=angleOffset;
         this.follow(toFollow);
     }
 
@@ -59,6 +67,6 @@ public class Movable extends Printable {
     }
 
     public void speedToFace(){
-        this.setRotation(speed.getTheta());
+        this.setRotation(speed.getTheta()+thetaOffset);
     }
 }

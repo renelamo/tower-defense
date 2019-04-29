@@ -10,13 +10,15 @@ public class Way {
         path=new LinkedList<>();
     }
 
-    public Way(Node n){
+    public Way(Node... nodes){
         path=new LinkedList<>();
-        path.add(n);
+        for(Node n:nodes){
+            this.add(n);
+        }
     }
 
     public void add(Node n){
-        path.getLast().setNext(n);
+        if(path.size()>0){ path.getLast().setNext(n); }
         path.addLast(n);
     }
 

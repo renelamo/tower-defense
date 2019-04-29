@@ -16,6 +16,7 @@ import android.graphics.Bitmap;
 import com.towerint.Model.Attacker;
 import com.towerint.Model.AttackerType1;
 import com.towerint.Model.Node;
+import com.towerint.Model.Projectile;
 import com.towerint.Model.Tower;
 import com.towerint.Model.TowerType1;
 import com.towerint.Model.Way;
@@ -24,7 +25,8 @@ import com.towerint.Model.Way;
 public class GameEngine extends SurfaceView implements Runnable {
     private Thread thread = null;
     public List<Tower> towers;
-    List<Attacker> attackers;
+    public List<Attacker> attackers;
+    public List<Projectile> projectiles;
     Way way;
 
     // To hold a reference to the Activity TODO: Apaparemment il ne faut pas mettre de Context en static
@@ -88,6 +90,7 @@ public class GameEngine extends SurfaceView implements Runnable {
         //Initialisation des listes de tours et attaquants
         towers=new LinkedList<>();
         attackers=new LinkedList<>();
+        projectiles=new LinkedList<>();
 
         // Start the game
         newGame();
@@ -148,6 +151,12 @@ public class GameEngine extends SurfaceView implements Runnable {
             attacker.move();
         }
         towers.get(0).faceToPoint(attackers.get(0).getPosition());
+        if(System.currentTimeMillis()>towers.get(0).getNextTimeFire()){
+            towers.get(0).shoot(attackers.get(0));
+        }
+        for(Projectile projectile:projectiles){
+            projectile.move();
+        }
         //towers.get(0).shoot(attackers.get(0).getPosition());
     }
 
@@ -195,6 +204,10 @@ public class GameEngine extends SurfaceView implements Runnable {
     }
     for(Attacker attacker:attackers){
         attacker.draw(canvas, paint);
+    }
+
+    for(Projectile projectile:projectiles){
+        projectile.draw(canvas, paint);
     }
 
     // Unlock the canvas and reveal the graphics for this frame
