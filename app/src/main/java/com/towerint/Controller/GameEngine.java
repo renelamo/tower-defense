@@ -76,6 +76,7 @@ public class GameEngine extends SurfaceView implements Runnable {
     private Bitmap pauseBitmap;
     private Bitmap playBitmap;
     private Bitmap playPauseDisplay;
+    private Bitmap routeBitmap;
 
 
 
@@ -151,6 +152,8 @@ public class GameEngine extends SurfaceView implements Runnable {
         pauseBitmap =Bitmap.createScaledBitmap(pauseBitmap, 100, 100, false);
         playBitmap= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.play_icon);
         playBitmap = Bitmap.createScaledBitmap(playBitmap, 100, 100, false);
+        routeBitmap= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.sand_tile);
+        routeBitmap = Bitmap.createScaledBitmap(routeBitmap,100,100,false);
         playPauseDisplay=pauseBitmap;
 
         // Setup nextFrameTime so an update is triggered
@@ -187,8 +190,12 @@ public class GameEngine extends SurfaceView implements Runnable {
         paint.setColor(Color.DKGRAY);
         paint.setStrokeWidth(10);
         way.draw(canvas, paint);
-
-        //affichage de tous les printables
+        int i ;
+       // canvas.drawBitmap(routeBitmap, screenX - 600, 0, paint);
+        for(i =0;i<10;i++){
+            canvas.drawBitmap(routeBitmap, screenX - 600, i*100-50, paint);
+            canvas.drawBitmap(routeBitmap, screenX - 600 - i*100, 850, paint);
+        }//affichage de tous les printables
         for(Tower tower:towers){
             tower.draw(canvas, paint);
         }
@@ -214,7 +221,6 @@ public class GameEngine extends SurfaceView implements Runnable {
         */
 
         canvas.drawBitmap(playPauseDisplay, screenX-100, 0, paint);
-
 
         // Scale the HUD text
         paint.setTextSize(60);
