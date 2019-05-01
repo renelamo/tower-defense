@@ -1,15 +1,20 @@
 package com.towerint.Model;
 
+import android.graphics.Canvas;
+import android.graphics.Paint;
+
 import com.towerint.Controller.GameEngine;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.towerint.Controller.GameEngine.FPS;
 
 
 public abstract class Tower extends Printable{
     protected double radius;
     protected double range;
-    protected int attackCooldown;
-    private long nextTimeFire;
+    protected int attackCooldown; //Durée en  millisecondes entre deux tirs
+    private long delayFramesLeft; //Nombre de frames restant a attendre avant le prochain tir possible
     protected double cost;
     protected Projectile projectile;
     protected GameEngine parent;
@@ -27,7 +32,7 @@ public abstract class Tower extends Printable{
     Tower(int posX, int posY, GameEngine parentEngine, int resource){
         super(posX,posY, parentEngine, resource);
         this.parent=parentEngine;
-        nextTimeFire=0;
+        delayFramesLeft =0;
         this.cibles = new ArrayList<Attacker>();
     }
 
@@ -49,14 +54,22 @@ public abstract class Tower extends Printable{
         this.setRotation(this.getPosition().diff(v).getTheta()-90);
     }
 
+    @Override
+    public void draw(Canvas canvas, Paint paint) {
+        super.draw(canvas, paint);
+        if(delayFramesLeft>0){
+            --delayFramesLeft;
+        }
+    }
+
     public void shoot(Attacker target){
         Way way=new Way(new Node(this.getPosition()), new Node(target.getPosition()));
         parent.projectiles.add(new ProjectileType1(way,this.parent));
-        nextTimeFire=attackCooldown+System.currentTimeMillis();
+        delayFramesLeft =1000*FPS/attackCooldown;
     }
 
-    public long getNextTimeFire(){
-        return nextTimeFire;
+    public boolean ableToShoot(){
+        return delayFramesLeft==0;
     }
 
 }

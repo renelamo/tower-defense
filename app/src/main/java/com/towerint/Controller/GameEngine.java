@@ -163,7 +163,7 @@ public class GameEngine extends SurfaceView implements Runnable {
             attacker.move();
         }
         towers.get(0).faceToPoint(attackers.get(0).getPosition());
-        if(System.currentTimeMillis()>towers.get(0).getNextTimeFire()){
+        if(towers.get(0).ableToShoot()){
             towers.get(0).shoot(attackers.get(0));
         }
         for(Projectile projectile:projectiles){
