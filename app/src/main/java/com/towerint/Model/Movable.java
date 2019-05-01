@@ -4,7 +4,7 @@ import com.towerint.Controller.GameEngine;
 
 import static com.towerint.Controller.GameEngine.FPS;
 
-public class Movable extends Printable {
+abstract public class Movable extends Printable {
 
     private Vector2 speed;//Vitesse réelle en px par frame
     private float maxSpeed;//En module (en px/frame)

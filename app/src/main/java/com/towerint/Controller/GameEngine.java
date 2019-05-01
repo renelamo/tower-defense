@@ -166,52 +166,57 @@ public class GameEngine extends SurfaceView implements Runnable {
  public void draw() {
     // Get a lock on the canvas
     if (surfaceHolder.getSurface().isValid()) {
-    canvas = surfaceHolder.lockCanvas();
+        canvas = surfaceHolder.lockCanvas();
 
-    // Fill the screen with color
-    canvas.drawColor(Color.argb(255, 255, 255, 255));
+        // Fill the screen with color
+        canvas.drawColor(Color.GREEN);
 
-    //affichage de tous les printables
-    for(Tower tower:towers){
-        tower.draw(canvas, paint);
-    }
-    for(Attacker attacker:attackers){
-        attacker.draw(canvas, paint);
-    }
+        //dessine le chemin
+        paint.setColor(Color.DKGRAY);
+        paint.setStrokeWidth(10);
+        way.draw(canvas, paint);
 
-    /*
-    paint.setColor(Color.RED);
-    //paint.setStyle(Paint.Style.FILL_AND_STROKE);
-    paint.setStrokeWidth(20);
+        //affichage de tous les printables
+        for(Tower tower:towers){
+            tower.draw(canvas, paint);
+        }
+        for(Attacker attacker:attackers){
+            attacker.draw(canvas, paint);
+        }
 
-    float left = 100;
-    float top = 100;
-    float right = 800;
-    float bottom = 1200;
+        /*
+        paint.setColor(Color.RED);
+        //paint.setStyle(Paint.Style.FILL_AND_STROKE);
+        paint.setStrokeWidth(20);
 
-    canvas.drawLine(left, top, right, bottom, paint);
-    */
+        float left = 100;
+        float top = 100;
+        float right = 800;
+        float bottom = 1200;
+
+        canvas.drawLine(left, top, right, bottom, paint);
+        */
 
 
-    // Scale the HUD text
-    paint.setTextSize(60);
-    canvas.drawText("Score :" + score, 10, 70, paint);
-    //canvas.drawLine(left, top, right, bottom, paint);
+        // Scale the HUD text
+        paint.setTextSize(60);
+        canvas.drawText("Score :" + score, 10, 70, paint);
+        //canvas.drawLine(left, top, right, bottom, paint);
 
-    //affichage de tous les printables
-    for(Tower tower:towers){
-        tower.draw(canvas, paint);
-    }
-    for(Attacker attacker:attackers){
-        attacker.draw(canvas, paint);
-    }
+        //affichage de tous les printables
+        for(Tower tower:towers){
+            tower.draw(canvas, paint);
+        }
+        for(Attacker attacker:attackers){
+            attacker.draw(canvas, paint);
+        }
 
-    for(Projectile projectile:projectiles){
-        projectile.draw(canvas, paint);
-    }
+        for(Projectile projectile:projectiles){
+            projectile.draw(canvas, paint);
+        }
 
-    // Unlock the canvas and reveal the graphics for this frame
-    surfaceHolder.unlockCanvasAndPost(canvas);
+        // Unlock the canvas and reveal the graphics for this frame
+        surfaceHolder.unlockCanvasAndPost(canvas);
         canvas.drawRGB(0, 0, 0);
         Paint paint = new Paint();
         paint.setAntiAlias(true);
