@@ -1,6 +1,7 @@
 package com.towerint.Controller;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -20,6 +21,7 @@ import com.towerint.Model.Projectile;
 import com.towerint.Model.Tower;
 import com.towerint.Model.TowerType1;
 import com.towerint.Model.Way;
+import com.towerint.R;
 
 
 public class GameEngine extends SurfaceView implements Runnable {
@@ -71,7 +73,9 @@ public class GameEngine extends SurfaceView implements Runnable {
     // Some paint for our canvas
     private Paint paint;
 
-    private Bitmap bitmap;
+    private Bitmap pauseBitmap;
+    private Bitmap playBitmap;
+    private Bitmap playPauseDisplay;
 
 
 
@@ -112,6 +116,7 @@ public class GameEngine extends SurfaceView implements Runnable {
 
     public void pause() {
         isPlaying = false;
+        playPauseDisplay=playBitmap;
         try {
             thread.join();
         } catch (InterruptedException e) {
@@ -122,6 +127,7 @@ public class GameEngine extends SurfaceView implements Runnable {
 
     public void resume() {
         isPlaying = true;
+        playPauseDisplay=pauseBitmap;
         thread = new Thread(this);
         thread.start();
     }
@@ -140,6 +146,12 @@ public class GameEngine extends SurfaceView implements Runnable {
         towers.add(new TowerType1(100,100,this));
         attackers.add(new AttackerType1(way, this));
         attackers.add(new AttackerType1(way, this));
+
+        pauseBitmap = BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.pause_icon);
+        pauseBitmap =Bitmap.createScaledBitmap(pauseBitmap, 100, 100, false);
+        playBitmap= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.play_icon);
+        playBitmap = Bitmap.createScaledBitmap(playBitmap, 100, 100, false);
+        playPauseDisplay=pauseBitmap;
 
         // Setup nextFrameTime so an update is triggered
         nextFrameTime = System.currentTimeMillis();
@@ -183,6 +195,10 @@ public class GameEngine extends SurfaceView implements Runnable {
         for(Attacker attacker:attackers){
             attacker.draw(canvas, paint);
         }
+        for(Projectile projectile:projectiles){
+            projectile.draw(canvas, paint);
+        }
+
 
         /*
         paint.setColor(Color.RED);
@@ -197,23 +213,13 @@ public class GameEngine extends SurfaceView implements Runnable {
         canvas.drawLine(left, top, right, bottom, paint);
         */
 
+        canvas.drawBitmap(playPauseDisplay, screenX-100, 0, paint);
+
 
         // Scale the HUD text
         paint.setTextSize(60);
         canvas.drawText("Score :" + score, 10, 70, paint);
         //canvas.drawLine(left, top, right, bottom, paint);
-
-        //affichage de tous les printables
-        for(Tower tower:towers){
-            tower.draw(canvas, paint);
-        }
-        for(Attacker attacker:attackers){
-            attacker.draw(canvas, paint);
-        }
-
-        for(Projectile projectile:projectiles){
-            projectile.draw(canvas, paint);
-        }
 
         // Unlock the canvas and reveal the graphics for this frame
         surfaceHolder.unlockCanvasAndPost(canvas);

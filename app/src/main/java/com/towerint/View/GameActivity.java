@@ -18,6 +18,7 @@ import com.towerint.Controller.GameEngine;
 public class GameActivity extends AppCompatActivity {
     public static com.towerint.Controller.GameEngine gameEngine;
     public static boolean isTouch = false;
+    private boolean paused=false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        paused=false;
         gameEngine.resume();
     }
 
@@ -56,6 +58,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        paused=true;
         gameEngine.pause();
     }
     @Override
@@ -66,9 +69,17 @@ public class GameActivity extends AppCompatActivity {
         int eventaction = event.getAction();
         switch (eventaction) {
             case MotionEvent.ACTION_DOWN:
+                if(X>gameEngine.screenX-100 && Y<100){
+                    if(paused)
+                    {
+                        onResume();
+                    }else {
+                        onPause();
+                    }
+                }
                 Toast.makeText(this, "ACTION_DOWN AT COORDS "+"X: "+X+" Y: "+Y, Toast.LENGTH_SHORT).show();
                 isTouch = true;
-                 Music music = new Music();
+                Music music = new Music();
                 music.touchMusic(GameEngine.context);
 
                 break;
