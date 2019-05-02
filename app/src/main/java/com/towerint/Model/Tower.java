@@ -21,9 +21,13 @@ public abstract class Tower extends Printable{
     // TODO Eventuellement variable qui définit quelles sont les cibles de la tour
 
     protected List<Attacker> cibles;
-    public void addcible(Attacker attacker){
-            cibles.add(attacker);
+    public void addCible(Attacker attacker){
+        cibles.add(attacker);
     };
+    public void removeCible(Attacker attacker){
+        cibles.remove(attacker);
+    };
+
 
 
 
