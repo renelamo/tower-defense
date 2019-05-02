@@ -1,21 +1,21 @@
 package com.towerint.Model;
 
 import com.towerint.Controller.GameEngine;
+import com.towerint.R;
 
-abstract class Projectile extends Printable {
+abstract public class Projectile extends Movable {
+    //TODO Faire en sorte que la classe hérite proprement de Movable
     private Vector2 position;
-    private double speed; // la vitesse à laquelle se déplace le projectile
+    //private float speed; // la vitesse à laquelle se déplace le projectile
     private double power;
-    //private image; TODO créer une classe pour l'image
 
-    public Projectile(GameEngine parent, int resource){
-        super(parent, resource);
+    public Projectile(int posX, int posY,GameEngine parent, int resource){
+        super(posX, posY, parent, resource);
     }
-    public double getSpeed(){
-        return speed;
-    };
-    public double getPower(){
-        return power;
-    };
+    Projectile(Way toFollow, GameEngine parent,int resource, float speed, int angleOffset){
+        super(toFollow, parent, resource, speed, angleOffset);
+        thetaOffset=90;
+    }
 
+    public double getPower(){ return power; }
 }

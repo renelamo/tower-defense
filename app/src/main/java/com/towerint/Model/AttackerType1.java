@@ -15,7 +15,6 @@ public class AttackerType1 extends Attacker{
     }
 
     public AttackerType1(Way toFollow, GameEngine parent){
-        super(toFollow, parent, resource);
-        setSpeed(speed);
+        super(toFollow, parent, resource, speed);
     }
 }

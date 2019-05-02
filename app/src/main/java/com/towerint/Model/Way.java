@@ -1,5 +1,8 @@
 package com.towerint.Model;
 
+import android.graphics.Canvas;
+import android.graphics.Paint;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -10,13 +13,15 @@ public class Way {
         path=new LinkedList<>();
     }
 
-    public Way(Node n){
+    public Way(Node... nodes){
         path=new LinkedList<>();
-        path.add(n);
+        for(Node n:nodes){
+            this.add(n);
+        }
     }
 
     public void add(Node n){
-        path.getLast().setNext(n);
+        if(path.size()>0){ path.getLast().setNext(n); }
         path.addLast(n);
     }
 
@@ -35,5 +40,13 @@ public class Way {
             out+=n.toString()+'\n';
         }
         return out;
+    }
+
+    public void draw(Canvas canvas, Paint paint){
+        for(Node n:path){
+            if(n.hasNext()){
+                canvas.drawLine(n.getPosition().getX(), n.getPosition().getY(), n.getNext().getPosition().getX(), n.getNext().getPosition().getY(), paint);
+            }
+        }
     }
 }

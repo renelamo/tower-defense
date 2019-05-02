@@ -1,6 +1,7 @@
 package com.towerint.Controller;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -12,25 +13,26 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Bitmap;
-import android.view.Window;
 
 import com.towerint.Model.Attacker;
 import com.towerint.Model.AttackerType1;
 import com.towerint.Model.Node;
+import com.towerint.Model.Projectile;
 import com.towerint.Model.Tower;
 import com.towerint.Model.TowerType1;
 import com.towerint.Model.Way;
+import com.towerint.R;
 
 
 public class GameEngine extends SurfaceView implements Runnable {
     private Thread thread = null;
-
-    List<Tower> towers;
-    List<Attacker> attackers;
+    public List<Tower> towers;
+    public List<Attacker> attackers;
+    public List<Projectile> projectiles;
     Way way;
 
-    // To hold a reference to the Activity
-    private Context context;
+    // To hold a reference to the Activity TODO: Apaparemment il ne faut pas mettre de Context en static
+    public static Context context;
 
 
     // For tracking movement Heading
@@ -39,8 +41,8 @@ public class GameEngine extends SurfaceView implements Runnable {
     private Heading heading = Heading.RIGHT;
 
     // To hold the screen size in pixels
-    public static int screenX;
-    public static int screenY;
+    public int screenX;
+    public int screenY;
 
     // The size in segments of the playable area
     private final int NUM_BLOCKS_WIDE = 40;
@@ -56,7 +58,7 @@ public class GameEngine extends SurfaceView implements Runnable {
 // We will draw the frame much more often
 
     // How many points does the player have
-    public String score;
+    public int score;
 
     // Everything we need for drawing
 // Is the game currently playing?
@@ -71,7 +73,10 @@ public class GameEngine extends SurfaceView implements Runnable {
     // Some paint for our canvas
     private Paint paint;
 
-    private Bitmap bitmap;
+    private Bitmap pauseBitmap;
+    private Bitmap playBitmap;
+    private Bitmap playPauseDisplay;
+    private Bitmap routeBitmap;
 
 
 
@@ -90,6 +95,7 @@ public class GameEngine extends SurfaceView implements Runnable {
         //Initialisation des listes de tours et attaquants
         towers=new LinkedList<>();
         attackers=new LinkedList<>();
+        projectiles=new LinkedList<>();
 
         // Start the game
         newGame();
@@ -111,6 +117,7 @@ public class GameEngine extends SurfaceView implements Runnable {
 
     public void pause() {
         isPlaying = false;
+        playPauseDisplay=playBitmap;
         try {
             thread.join();
         } catch (InterruptedException e) {
@@ -121,6 +128,7 @@ public class GameEngine extends SurfaceView implements Runnable {
 
     public void resume() {
         isPlaying = true;
+        playPauseDisplay=pauseBitmap;
         thread = new Thread(this);
         thread.start();
     }
@@ -128,21 +136,25 @@ public class GameEngine extends SurfaceView implements Runnable {
 
     public void newGame() {
         // Reset the score
-        score = "0";
+        score = 0;
 
-        way=new Way(new Node(0,0));
-        way.add(500,500);
-        way.add(0,500);
+        way=new Way(new Node(screenX/2,0));
+        way.add(screenX/2,screenY/2);
+        way.add(0,screenY/2);
         way.add(0,0);
 
-        //TODO: je rajoute ici du code de test
+        //Je rajoute ici du code de test
         towers.add(new TowerType1(100,100,this));
-        attackers.add(new AttackerType1(100, 100, this));
-        //Attacker attacker2=new AttackerType1(500,500,this);
-        //attackers.add(attacker2);
-        for(Attacker attacker:attackers){
-            attacker.follow(way);
-        }
+        attackers.add(new AttackerType1(way, this));
+        attackers.add(new AttackerType1(way, this));
+
+        pauseBitmap = BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.pause_icon);
+        pauseBitmap =Bitmap.createScaledBitmap(pauseBitmap, 100, 100, false);
+        playBitmap= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.play_icon);
+        playBitmap = Bitmap.createScaledBitmap(playBitmap, 100, 100, false);
+        routeBitmap= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.sand_tile);
+        routeBitmap = Bitmap.createScaledBitmap(routeBitmap,100,100,false);
+        playPauseDisplay=pauseBitmap;
 
         // Setup nextFrameTime so an update is triggered
         nextFrameTime = System.currentTimeMillis();
@@ -154,6 +166,13 @@ public class GameEngine extends SurfaceView implements Runnable {
             attacker.move();
         }
         towers.get(0).faceToPoint(attackers.get(0).getPosition());
+        if(towers.get(0).ableToShoot()){
+            towers.get(0).shoot(attackers.get(0));
+        }
+        for(Projectile projectile:projectiles){
+            projectile.move();
+        }
+        //towers.get(0).shoot(attackers.get(0).getPosition());
     }
 
 
@@ -162,39 +181,54 @@ public class GameEngine extends SurfaceView implements Runnable {
  public void draw() {
     // Get a lock on the canvas
     if (surfaceHolder.getSurface().isValid()) {
-    canvas = surfaceHolder.lockCanvas();
+        canvas = surfaceHolder.lockCanvas();
 
-    // Fill the screen with color
-    canvas.drawColor(Color.argb(255, 255, 255, 255));
+        // Fill the screen with color
+        canvas.drawColor(Color.GREEN);
 
-    //affichage de tous les printables
-    for(Tower tower:towers){
-        tower.draw(canvas, paint);
-    }
-    for(Attacker attacker:attackers){
-        attacker.draw(canvas, paint);
-    }
+        //dessine le chemin
+        paint.setColor(Color.DKGRAY);
+        paint.setStrokeWidth(10);
+        way.draw(canvas, paint);
+        int i ;
+       // canvas.drawBitmap(routeBitmap, screenX - 600, 0, paint);
+        for(i =0;i<10;i++){
+            canvas.drawBitmap(routeBitmap, screenX - 600, i*100-50, paint);
+            canvas.drawBitmap(routeBitmap, screenX - 600 - i*100, 850, paint);
+        }//affichage de tous les printables
+        for(Tower tower:towers){
+            tower.draw(canvas, paint);
+        }
+        for(Attacker attacker:attackers){
+            attacker.draw(canvas, paint);
+        }
+        for(Projectile projectile:projectiles){
+            projectile.draw(canvas, paint);
+        }
 
-    /*
-    paint.setColor(Color.RED);
-    //paint.setStyle(Paint.Style.FILL_AND_STROKE);
-    paint.setStrokeWidth(20);
 
-    float left = 100;
-    float top = 100;
-    float right = 800;
-    float bottom = 1200;
+        /*
+        paint.setColor(Color.RED);
+        //paint.setStyle(Paint.Style.FILL_AND_STROKE);
+        paint.setStrokeWidth(20);
 
-    canvas.drawLine(left, top, right, bottom, paint);
-    */
+        float left = 100;
+        float top = 100;
+        float right = 800;
+        float bottom = 1200;
 
-    // Scale the HUD text
-    paint.setTextSize(60);
-    canvas.drawText("Score :" + score, 10, 70, paint);
-    //canvas.drawLine(left, top, right, bottom, paint);
+        canvas.drawLine(left, top, right, bottom, paint);
+        */
 
-    // Unlock the canvas and reveal the graphics for this frame
-    surfaceHolder.unlockCanvasAndPost(canvas);
+        canvas.drawBitmap(playPauseDisplay, screenX-100, 0, paint);
+
+        // Scale the HUD text
+        paint.setTextSize(60);
+        canvas.drawText("Score :" + score, 10, 70, paint);
+        //canvas.drawLine(left, top, right, bottom, paint);
+
+        // Unlock the canvas and reveal the graphics for this frame
+        surfaceHolder.unlockCanvasAndPost(canvas);
         canvas.drawRGB(0, 0, 0);
         Paint paint = new Paint();
         paint.setAntiAlias(true);
@@ -221,6 +255,9 @@ public class GameEngine extends SurfaceView implements Runnable {
         return false;
     }
 
-
+    @Override
+    public String toString() {
+        return this.getHeight()+","+this.getWidth();
+    }
 }
 

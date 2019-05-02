@@ -1,7 +1,6 @@
 package com.towerint.View;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,11 +8,12 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
+
 import com.towerint.R;
 
 public class MainActivity extends AppCompatActivity {
     private Button mPlayButton;
-
+    private static Music music = new Music();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +26,9 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        /*Ajout de la musique*/
-        MediaPlayer backgroundMusic=MediaPlayer.create(MainActivity.this, R.raw.airship_thunderchild_by_otto_halmn);
-        backgroundMusic.start();
-        backgroundMusic.setLooping(true);
+
+
+        music.startMusic(MainActivity.this);
 
         /*Déclaration des boutons*/
         final Button exitButton=findViewById(R.id.exitButton);
@@ -61,5 +60,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+    //Get class music
+    public static Music getmusic(){
+        return music;
     }
 }
