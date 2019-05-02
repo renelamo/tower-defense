@@ -30,7 +30,7 @@ public abstract class Tower extends Printable{
 
     //TODO prendre en compte la range
     //
-    public void miseAJourCibleOptimisee(){if(cibles.get(0).getDead()){while(cibles.get(0).getDead()){removeCible();}}};
+    public void miseAJourCibleOptimisee(){if(cibles.get(0).getDead()&(ecart(cibles.get(0).getPosition(),this.getPosition())>this.range ) ){while(cibles.get(0).getDead()){removeCible();}}};
 
     Tower(int posX, int posY, GameEngine parentEngine, int resource){
         super(posX,posY, parentEngine, resource);
