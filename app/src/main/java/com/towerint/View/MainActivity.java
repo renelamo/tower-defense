@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        music.startMusic(MainActivity.this);
+        music.startBackground(MainActivity.this);
 
         /*Déclaration des boutons*/
         final Button exitButton=findViewById(R.id.exitButton);
@@ -61,6 +61,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void finish() {
+        music.stopBackground();
+        super.finish();
+    }
+
     //Get class music
     public static Music getmusic(){
         return music;
