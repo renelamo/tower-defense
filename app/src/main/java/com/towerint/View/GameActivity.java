@@ -45,6 +45,10 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        onPause();
+    }
 
     // Start the thread in gameEngine
     @Override
