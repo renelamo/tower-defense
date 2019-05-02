@@ -175,8 +175,7 @@ public class GameEngine extends SurfaceView implements Runnable {
             projectile.move();
             if (projectile.getSpeed() == new Vector2(0,0) ) {
                 projectiles.remove(projectile);
-            }
-            }
+            };
         }
         //towers.get(0).shoot(attackers.get(0).getPosition());
     }
