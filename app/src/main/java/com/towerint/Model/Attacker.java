@@ -11,7 +11,14 @@ public abstract class Attacker extends Movable {
     private int health;
     private Projectile projectile;
     private GameEngine parent;
+    private boolean alive;
 
+
+    ///////////METHODE/////////////////////////////////////
+
+    void getDamage(int damage){this.health = this.health - damage;};
+    private boolean isAlive(){if(this.health >= 0){ return false;}
+    else return true;};
 
     ///////////CONSTRUCTEURS/////////////////////////////////////
     @Deprecated
