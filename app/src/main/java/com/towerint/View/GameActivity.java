@@ -12,7 +12,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.towerint.Controller.GameEngine;
-
+import com.towerint.Model.TowerType1;
 
 
 public class GameActivity extends AppCompatActivity {
@@ -70,7 +70,7 @@ public class GameActivity extends AppCompatActivity {
                 isTouch = true;
                  Music music = new Music();
                 music.touchMusic(GameEngine.context);
-
+                gameEngine.towers.add(new TowerType1(X,Y,gameEngine));
                 break;
 
             case MotionEvent.ACTION_MOVE:
