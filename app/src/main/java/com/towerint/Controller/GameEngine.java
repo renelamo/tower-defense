@@ -166,6 +166,7 @@ public class GameEngine extends SurfaceView implements Runnable {
     public void update() {
         for(Attacker attacker:attackers){
             attacker.move();
+            if (attacker.getDead()){attackers.remove(attacker);};
         }
         towers.get(0).faceToPoint(attackers.get(0).getPosition());
         if(towers.get(0).ableToShoot()){
