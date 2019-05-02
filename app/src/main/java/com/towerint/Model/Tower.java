@@ -24,8 +24,8 @@ public abstract class Tower extends Printable{
     public void addCible(Attacker attacker){
         cibles.add(attacker);
     };
-    public void removeCible(Attacker attacker){
-        cibles.remove(attacker);
+    public void removeCible(int index){
+        cibles.remove(index);
     };
 
 
