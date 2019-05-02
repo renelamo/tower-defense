@@ -67,6 +67,10 @@ abstract public class Movable extends Printable {
         }
     }
 
+    public Vector2 getSpeed() {
+        return speed;
+    }
+
     public void speedToFace(){
         this.setRotation(speed.getTheta()+thetaOffset);
     }

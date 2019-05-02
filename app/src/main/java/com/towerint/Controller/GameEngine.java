@@ -20,6 +20,7 @@ import com.towerint.Model.Node;
 import com.towerint.Model.Projectile;
 import com.towerint.Model.Tower;
 import com.towerint.Model.TowerType1;
+import com.towerint.Model.Vector2;
 import com.towerint.Model.Way;
 import com.towerint.R;
 
@@ -172,6 +173,10 @@ public class GameEngine extends SurfaceView implements Runnable {
         }
         for(Projectile projectile:projectiles){
             projectile.move();
+            if (projectile.getSpeed() == new Vector2(0,0) ) {
+                projectiles.remove(projectile);
+            }
+            }
         }
         //towers.get(0).shoot(attackers.get(0).getPosition());
     }
