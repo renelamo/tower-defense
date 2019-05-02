@@ -11,16 +11,20 @@ public abstract class Attacker extends Movable {
     private int health;
     private Projectile projectile;
     private GameEngine parent;
-    private boolean alive;
+    private boolean dead;
 
 
     ///////////METHODE/////////////////////////////////////
 
     void getDamage(int damage){this.health = this.health - damage;};
-    private boolean isAlive(){if(this.health >= 0){ return false;}
-    else return true;};
+    void isDead(){if(this.health <= 0){ dead = true;}
+    else dead = false;};
+    //TODO reste a voir comment on détruit l'attaquant ( animations ? ) et quand on sait que le projectile a touché
 
     ///////////CONSTRUCTEURS/////////////////////////////////////
+
+
+    // TODO mettre dead a false au début
     @Deprecated
     Attacker(int posX, int posY, GameEngine parent, int resource){
         super(posX, posY,parent, resource);
@@ -30,6 +34,9 @@ public abstract class Attacker extends Movable {
     }
 
     ///////////GETTERS////////////////////////////////////////////////
+    public boolean getDead(){
+        return dead;
+    }
 
     public Projectile getProjectile(){
         return projectile;

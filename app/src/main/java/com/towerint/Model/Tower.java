@@ -24,14 +24,12 @@ public abstract class Tower extends Printable{
     public void addCible(Attacker attacker){
         cibles.add(attacker);
     };
-    public void removeCible(int index){
-        cibles.remove(index);
+    public void removeCible(){
+        cibles.remove(0);
     };
 
-
-
-
-
+    //TODO prendre en compte la range
+    public void miseAJourCibleOptimisee(){if(cibles.get(0).getDead()){while(cibles.get(0).getDead()){removeCible();}}};
 
     Tower(int posX, int posY, GameEngine parentEngine, int resource){
         super(posX,posY, parentEngine, resource);
