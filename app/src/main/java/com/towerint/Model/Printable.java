@@ -87,4 +87,14 @@ abstract class Printable {
         canvas.drawBitmap(image, position.getX()-width/2, position.getY()-height/2, paint);
         canvas.restore();
     }
+
+    static public double sqr(double a) {return a*a;};
+
+    public double ecart(Vector2 v1, Vector2 v2 ){
+        float x1=v1.getX();
+        float y1=v1.getY();
+        float x2=v2.getX();
+        float y2=v2.getY();
+        return Math.sqrt(sqr(x2 - x1) + sqr(y2 - y1));
+    }
 }

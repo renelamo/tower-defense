@@ -18,7 +18,7 @@ public abstract class Tower extends Printable{
     protected double cost;
     protected Projectile projectile;
     protected GameEngine parent;
-    // TODO Eventuellement variable qui définit quelles sont les cibles de la tour
+
 
     protected List<Attacker> cibles;
     public void addCible(Attacker attacker){
@@ -29,6 +29,7 @@ public abstract class Tower extends Printable{
     };
 
     //TODO prendre en compte la range
+    //
     public void miseAJourCibleOptimisee(){if(cibles.get(0).getDead()){while(cibles.get(0).getDead()){removeCible();}}};
 
     Tower(int posX, int posY, GameEngine parentEngine, int resource){
