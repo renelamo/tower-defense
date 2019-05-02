@@ -175,9 +175,6 @@ public class GameEngine extends SurfaceView implements Runnable {
         //towers.get(0).shoot(attackers.get(0).getPosition());
     }
 
-
-
-
  public void draw() {
     // Get a lock on the canvas
     if (surfaceHolder.getSurface().isValid()) {
@@ -190,12 +187,7 @@ public class GameEngine extends SurfaceView implements Runnable {
         paint.setColor(Color.DKGRAY);
         paint.setStrokeWidth(10);
         way.draw(canvas, paint);
-        int i ;
-       // canvas.drawBitmap(routeBitmap, screenX - 600, 0, paint);
-        for(i =0;i<10;i++){
-            canvas.drawBitmap(routeBitmap, screenX - 600, i*100-50, paint);
-            canvas.drawBitmap(routeBitmap, screenX - 600 - i*100, 850, paint);
-        }//affichage de tous les printables
+        //affichage de tous les printables
         for(Tower tower:towers){
             tower.draw(canvas, paint);
         }

@@ -59,6 +59,7 @@ abstract public class Movable extends Printable {
         if(node.getPosition().diff(this.getPosition()).getNorm()<speed.getNorm()/2){
             if(!node.hasNext()){
                 setSpeed(0,0);
+
             }else {
                 setSpeed(node.getDirection());
                 node = node.getNext();

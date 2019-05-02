@@ -1,13 +1,19 @@
 package com.towerint.Model;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+
+import com.towerint.Controller.GameEngine;
+import com.towerint.R;
 
 import java.util.Iterator;
 import java.util.LinkedList;
 
 public class Way {
     private LinkedList<Node> path;
+    private Bitmap routeBitmap;
 
     public Way(){
         path=new LinkedList<>();
@@ -46,6 +52,43 @@ public class Way {
         for(Node n:path){
             if(n.hasNext()){
                 canvas.drawLine(n.getPosition().getX(), n.getPosition().getY(), n.getNext().getPosition().getX(), n.getNext().getPosition().getY(), paint);
+                routeBitmap= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.sand_tile);
+                routeBitmap = Bitmap.createScaledBitmap(routeBitmap,150,150,false);
+                int i =Math.round((n.getNext().getPosition().getX()- n.getPosition().getX())/150);
+                int j =Math.round((n.getNext().getPosition().getY()- n.getPosition().getY())/150);
+               // canvas.drawBitmap(routeBitmap, i, j, paint);
+                if (i > 0)
+                {
+                    for(int f=0;f<i+1;f++)
+                    {
+                        canvas.drawBitmap(routeBitmap, n.getPosition().getX()+150*f-50, n.getNext().getPosition().getY()-50, paint);
+                    }
+                }
+                else
+                {
+                    for(int f=0;f>i-1;f--)
+                    {
+                        canvas.drawBitmap(routeBitmap, n.getPosition().getX()+150*f-50, n.getNext().getPosition().getY()-50, paint);
+                    }
+                }
+                if (j>0)
+                {
+                    for(int f=0;f<j+1;f++)
+                    {
+                        canvas.drawBitmap(routeBitmap, n.getPosition().getX()-50, n.getPosition().getY()+150*f-50, paint);
+                    }
+
+                }
+                else
+                {
+                    for(int f=0;f>j-1;f--)
+                    {
+                        canvas.drawBitmap(routeBitmap, n.getPosition().getX()-50, n.getPosition().getY()+150*f-50, paint);
+                    }
+                }
+
+
+
             }
         }
     }
