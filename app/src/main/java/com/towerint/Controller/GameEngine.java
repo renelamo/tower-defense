@@ -27,7 +27,8 @@ import com.towerint.R;
 public class GameEngine extends SurfaceView implements Runnable {
     private Thread thread = null;
     public List<Tower> towers;
-    public List<Attacker> attackers;
+    //static pour etre utilisé par Tower
+    public static List<Attacker> attackers;
     public List<Projectile> projectiles;
     Way way;
 
@@ -251,5 +252,6 @@ public class GameEngine extends SurfaceView implements Runnable {
     public String toString() {
         return this.getHeight()+","+this.getWidth();
     }
+
 }
 

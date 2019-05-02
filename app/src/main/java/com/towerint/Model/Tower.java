@@ -28,9 +28,23 @@ public abstract class Tower extends Printable{
         cibles.remove(0);
     };
 
-    //TODO prendre en compte la range
-    //
-    public void miseAJourCibleOptimisee(){if(cibles.get(0).getDead()&(ecart(cibles.get(0).getPosition(),this.getPosition())>this.range ) ){while(cibles.get(0).getDead()){removeCible();}}};
+
+    //La cible est le premier élement de la liste on ne met a jour cette liste que lorsque que le premier élement n'est plus disponible (mort ou hors portée)
+    public void miseAJourCibleOptimisee() {
+        if(cibles.isEmpty()){
+            for(Attacker cur: GameEngine.attackers) { if (ecart(cibles.get(0).getPosition(), this.getPosition()) <= this.range)) {
+                addCible(cur);
+            }
+                ; }
+        }
+        else{
+            if (cibles.get(0).getDead() & (ecart(cibles.get(0).getPosition(), this.getPosition()) > this.range)) {
+                while (cibles.get(0).getDead()) {
+                    removeCible();
+                }
+            };
+        };
+    };
 
     Tower(int posX, int posY, GameEngine parentEngine, int resource){
         super(posX,posY, parentEngine, resource);
