@@ -20,6 +20,7 @@ public abstract class Tower extends Printable{
     protected GameEngine parent;
 
 
+    //TODO Systeme de cibles a tester
     protected List<Attacker> cibles;
     public void addCible(Attacker attacker){
         cibles.add(attacker);
@@ -32,7 +33,7 @@ public abstract class Tower extends Printable{
     //La cible est le premier élement de la liste on ne met a jour cette liste que lorsque que le premier élement n'est plus disponible (mort ou hors portée)
     public void miseAJourCibleOptimisee() {
         if(cibles.isEmpty()){
-            for(Attacker cur: GameEngine.attackers) { if (ecart(cibles.get(0).getPosition(), this.getPosition()) <= this.range)) {
+            for(Attacker cur: GameEngine.attackers) { if (ecart(cibles.get(0).getPosition(), this.getPosition()) <= this.range) {
                 addCible(cur);
             }
                 ; }
