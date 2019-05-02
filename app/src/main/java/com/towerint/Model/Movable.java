@@ -4,7 +4,7 @@ import com.towerint.Controller.GameEngine;
 
 import static com.towerint.Controller.GameEngine.FPS;
 
-public class Movable extends Printable {
+abstract public class Movable extends Printable {
 
     private Vector2 speed;//Vitesse réelle en px par frame
     private float maxSpeed;//En module (en px/frame)
@@ -59,11 +59,16 @@ public class Movable extends Printable {
         if(node.getPosition().diff(this.getPosition()).getNorm()<speed.getNorm()/2){
             if(!node.hasNext()){
                 setSpeed(0,0);
+
             }else {
                 setSpeed(node.getDirection());
                 node = node.getNext();
             }
         }
+    }
+
+    public Vector2 getSpeed() {
+        return speed;
     }
 
     public void speedToFace(){
