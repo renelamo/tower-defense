@@ -49,13 +49,13 @@ public class Way {
     }
 
     public void draw(Canvas canvas, Paint paint){
+        routeBitmap= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.sand_tile);
+        routeBitmap = Bitmap.createScaledBitmap(routeBitmap,150,150,false);
         for(Node n:path){
             if(n.hasNext()){
                 canvas.drawLine(n.getPosition().getX(), n.getPosition().getY(), n.getNext().getPosition().getX(), n.getNext().getPosition().getY(), paint);
-                routeBitmap= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.sand_tile);
-                routeBitmap = Bitmap.createScaledBitmap(routeBitmap,150,150,false);
-                int i =Math.round((n.getNext().getPosition().getX()- n.getPosition().getX())/150);
-                int j =Math.round((n.getNext().getPosition().getY()- n.getPosition().getY())/150);
+                int i =(int)(n.getNext().getPosition().getX()- n.getPosition().getX())/150;
+                int j =(int)(n.getNext().getPosition().getY()- n.getPosition().getY())/150;
                // canvas.drawBitmap(routeBitmap, i, j, paint);
                 if (i > 0)
                 {

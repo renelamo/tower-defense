@@ -78,7 +78,6 @@ public class GameEngine extends SurfaceView implements Runnable {
     private Bitmap pauseBitmap;
     private Bitmap playBitmap;
     private Bitmap playPauseDisplay;
-    private Bitmap routeBitmap;
 
 
 
@@ -154,8 +153,6 @@ public class GameEngine extends SurfaceView implements Runnable {
         pauseBitmap =Bitmap.createScaledBitmap(pauseBitmap, 100, 100, false);
         playBitmap= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.play_icon);
         playBitmap = Bitmap.createScaledBitmap(playBitmap, 100, 100, false);
-        routeBitmap= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.sand_tile);
-        routeBitmap = Bitmap.createScaledBitmap(routeBitmap,100,100,false);
         playPauseDisplay=pauseBitmap;
 
         // Setup nextFrameTime so an update is triggered
