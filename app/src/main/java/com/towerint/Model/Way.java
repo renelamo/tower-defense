@@ -17,6 +17,8 @@ public class Way {
 
     public Way(){
         path=new LinkedList<>();
+        routeBitmap= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.sand_tile);
+        routeBitmap = Bitmap.createScaledBitmap(routeBitmap,150,150,false);
     }
 
     public Way(Node... nodes){
@@ -24,6 +26,8 @@ public class Way {
         for(Node n:nodes){
             this.add(n);
         }
+        routeBitmap= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.sand_tile);
+        routeBitmap = Bitmap.createScaledBitmap(routeBitmap,150,150,false);
     }
 
     public void add(Node n){
@@ -49,8 +53,6 @@ public class Way {
     }
 
     public void draw(Canvas canvas, Paint paint){
-        routeBitmap= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.sand_tile);
-        routeBitmap = Bitmap.createScaledBitmap(routeBitmap,150,150,false);
         for(Node n:path){
             if(n.hasNext()){
                 canvas.drawLine(n.getPosition().getX(), n.getPosition().getY(), n.getNext().getPosition().getX(), n.getNext().getPosition().getY(), paint);
