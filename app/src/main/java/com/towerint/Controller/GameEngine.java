@@ -64,6 +64,10 @@ public class GameEngine extends SurfaceView implements Runnable {
     // How many points does the player have
     public int score;
 
+    //how many attackers pass
+
+    public int fails;
+
     // Everything we need for drawing
 // Is the game currently playing?
     private volatile boolean isPlaying;
@@ -138,8 +142,9 @@ public class GameEngine extends SurfaceView implements Runnable {
 
 
     public void newGame() {
-        // Reset the score
+        // Reset the score and fails
         score = 0;
+        fails =0;
 
         way=new Way(new Node(screenX/2,0));
         way.add(screenX/2,screenY/2);
@@ -246,6 +251,10 @@ public class GameEngine extends SurfaceView implements Runnable {
         paint.setTextSize(60);
         canvas.drawText("Score :" + score, 10, 70, paint);
         //canvas.drawLine(left, top, right, bottom, paint);
+
+        canvas.drawText("Fails :" + fails, 500, 70, paint);
+        //canvas.drawLine(left, top, right, bottom, paint);
+
 
         // Unlock the canvas and reveal the graphics for this frame
         surfaceHolder.unlockCanvasAndPost(canvas);
