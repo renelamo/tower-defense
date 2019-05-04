@@ -12,7 +12,7 @@ import static com.towerint.Controller.GameEngine.FPS;
 
 public abstract class Tower extends Printable{
     protected double radius;
-    protected double range;
+    protected int range = 500;
     protected int attackCooldown; //Durée en  millisecondes entre deux tirs
     private long delayFramesLeft; //Nombre de frames restant a attendre avant le prochain tir possible
     protected double cost;
@@ -21,27 +21,27 @@ public abstract class Tower extends Printable{
 
 
     //TODO Systeme de cibles a tester
-    protected List<Attacker> cibles;
-    public void addCible(Attacker attacker){
-        cibles.add(attacker);
+    protected List<Attacker> targets;
+    public void addTarget(Attacker attacker){
+        targets.add(attacker);
     };
-    public void removeCible(){
-        cibles.remove(0);
+    public void removeTarget(){
+        targets.remove(0);
     };
 
 
     //La cible est le premier élement de la liste on ne met a jour cette liste que lorsque que le premier élement n'est plus disponible (mort ou hors portée)
-    public void miseAJourCibleOptimisee() {
-        if(cibles.isEmpty()){
-            for(Attacker cur: GameEngine.attackers) { if (ecart(cibles.get(0).getPosition(), this.getPosition()) <= this.range) {
-                addCible(cur);
+    public void towerTargetsUpdate() {
+        if(targets.isEmpty()){
+            for(Attacker cur: GameEngine.attackers) { if (ecart(targets.get(0).getPosition(), this.getPosition()) <= this.range) {
+                addTarget(cur);
             }
                 ; }
         }
         else{
-            if (cibles.get(0).getDead() & (ecart(cibles.get(0).getPosition(), this.getPosition()) > this.range)) {
-                while (cibles.get(0).getDead()) {
-                    removeCible();
+            if (targets.get(0).getDead() & (ecart(targets.get(0).getPosition(), this.getPosition()) > this.range)) {
+                while (targets.get(0).getDead()) {
+                    removeTarget();
                 }
             };
         };
@@ -51,7 +51,7 @@ public abstract class Tower extends Printable{
         super(posX,posY, parentEngine, resource);
         this.parent=parentEngine;
         delayFramesLeft =0;
-        this.cibles = new ArrayList<Attacker>();
+        this.targets = new ArrayList<Attacker>();
     }
 
     //TODO: je ne pense pas que tous ces getters soient utiles...
@@ -90,4 +90,7 @@ public abstract class Tower extends Printable{
         return delayFramesLeft==0;
     }
 
+    public List<Attacker> getTargets() {
+        return targets;
+    }
 }

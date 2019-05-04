@@ -187,6 +187,24 @@ public class GameEngine extends SurfaceView implements Runnable {
                 towers.get(0).shoot(attackers.get(0));
             }
         }
+
+
+        /*for(Tower tower:towers){
+            tower.towerTargetsUpdate();
+            if (!tower.getTargets().isEmpty()) {
+                tower.faceToPoint(tower.getTargets().get(0).getPosition());
+                if (tower.ableToShoot()) {
+                    tower.shoot(tower.getTargets().get(0));
+                }
+            }
+
+
+            };
+
+         */
+
+
+
         for(Projectile projectile:projectiles){
             projectile.move();
             if (projectile.getSpeed().getNorm() == 0 ) {
