@@ -164,10 +164,11 @@ public class GameEngine extends SurfaceView implements Runnable {
 
     public void update() {
         for(Attacker attacker:attackers){
-            attacker.move();
-            if (attacker.getHealth() <= 0 ){attackers.remove(attacker);
+            attacker.isDead();
+            if (attacker.getDead()){attackers.remove(attacker);
             /*attackersDead.add(attacker);*/
             };
+            attacker.move();
 
         }
         if (!attackers.isEmpty()) {
