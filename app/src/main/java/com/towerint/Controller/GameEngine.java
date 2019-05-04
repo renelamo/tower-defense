@@ -156,6 +156,8 @@ public class GameEngine extends SurfaceView implements Runnable {
         attackers.add(new AttackerType1(way, this));
         attackers.add(new AttackerType1(way, this));
 
+
+
         pauseBitmap = BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.pause_icon);
         pauseBitmap =Bitmap.createScaledBitmap(pauseBitmap, 100, 100, false);
         playBitmap= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.play_icon);
@@ -172,6 +174,8 @@ public class GameEngine extends SurfaceView implements Runnable {
             attacker.isDead();
             if (attacker.getDead()){attackers.remove(attacker);
             score +=1;
+                if (attacker.getSpeed().getNorm() == 0 ) {fails +=1; attackers.remove(attacker);};
+
             /*attackersDead.add(attacker);*/
             };
             attacker.move();
