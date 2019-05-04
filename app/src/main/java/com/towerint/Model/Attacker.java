@@ -8,19 +8,21 @@ public abstract class Attacker extends Movable {
     private Vector2 speed;//Vitesse réelle en px par frame
     private float maxSpeed;//En module (en px/frame)
     private Node node; //Noeud vers lequel il se déplace
-    private int health;
+    public int health = 100;
     private Projectile projectile;
     private GameEngine parent;
-    private boolean dead;
+    public boolean dead;
 
 
     ///////////METHODE/////////////////////////////////////
 
-    public void takeDamage(int damage){this.health = this.health - damage;};
+    public void takeDamage(int damage){
+        health -= damage;
+    };
 
-    void isDead(){if(this.health <= 0){ dead = true;}
+    public void isDead(){if(health <= 0){ dead = true;}
     else dead = false;};
-    //TODO reste a voir comment on détruit l'attaquant ( animations ? ) et quand on sait que le projectile a touché
+    //TODO reste a voir comment on détruit l'attaquant ( animations ? )
 
     ///////////CONSTRUCTEURS/////////////////////////////////////
 
@@ -43,4 +45,5 @@ public abstract class Attacker extends Movable {
         return projectile;
     }
 
-    }
+
+}

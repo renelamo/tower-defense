@@ -165,19 +165,25 @@ public class GameEngine extends SurfaceView implements Runnable {
     public void update() {
         for(Attacker attacker:attackers){
             attacker.move();
-            if (attacker.getDead()){attackers.remove(attacker);attackersDead.add(attacker);};
+            if (attacker.health == 0 ){attackers.remove(attacker);
+            /*attackersDead.add(attacker);*/
+            };
+
         }
-        towers.get(0).faceToPoint(attackers.get(0).getPosition());
-        if(towers.get(0).ableToShoot()){
-            towers.get(0).shoot(attackers.get(0));
+        if (!attackers.isEmpty()) {
+            towers.get(0).faceToPoint(attackers.get(0).getPosition());
+            if (towers.get(0).ableToShoot()) {
+                towers.get(0).shoot(attackers.get(0));
+            }
         }
         for(Projectile projectile:projectiles){
             projectile.move();
             if (projectile.getSpeed().getNorm() == 0 ) {
                //TODO infliger un dommage a l'attaquant = à la puissance du projectile avec getDamage et afficher un cercle rouge a lendroit ou il disparait temporairement
-                //attackers.get(0).takeDamage(projectile.getPower());
+                attackers.get(0).health -= 50;
+
                 projectiles.remove(projectile);
-              //  projectilesDead.add(projectile);
+                /*projectilesDead.add(projectile);*/
             };
 
         }

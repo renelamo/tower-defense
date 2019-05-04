@@ -6,7 +6,9 @@ import com.towerint.R;
 public class AttackerType1 extends Attacker{
     private static final int resource=R.drawable.attacker1;
     private static final int speed=10000;
-    private static final int health=100;
+
+
+
     //TODO: définir les autres constantes pour ce type d'attaquant et les implémenter dans le constructeur
 
     @Deprecated
