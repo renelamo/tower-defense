@@ -31,6 +31,8 @@ public class GameEngine extends SurfaceView implements Runnable {
     //static pour etre utilisé par Tower
     public static List<Attacker> attackers;
     public List<Projectile> projectiles;
+    public List<Attacker> attackersDead;
+    public List<Projectile> projectilesDead;
     Way way;
 
     // To hold a reference to the Activity TODO: Apaparemment il ne faut pas mettre de Context en static
@@ -163,7 +165,7 @@ public class GameEngine extends SurfaceView implements Runnable {
     public void update() {
         for(Attacker attacker:attackers){
             attacker.move();
-            if (attacker.getDead()){attackers.remove(attacker);};
+            if (attacker.getDead()){attackers.remove(attacker);attackersDead.add(attacker);};
         }
         towers.get(0).faceToPoint(attackers.get(0).getPosition());
         if(towers.get(0).ableToShoot()){
@@ -171,11 +173,12 @@ public class GameEngine extends SurfaceView implements Runnable {
         }
         for(Projectile projectile:projectiles){
             projectile.move();
-            if (projectile.getSpeed() == new Vector2(0,0) ) {
+            if (projectile.getSpeed().getNorm() == 0 ) {
                //TODO infliger un dommage a l'attaquant = à la puissance du projectile avec getDamage et afficher un cercle rouge a lendroit ou il disparait temporairement
                 projectile.getPower();
                 projectiles.remove(projectile);
             };
+
         }
         //towers.get(0).shoot(attackers.get(0).getPosition());
     }
@@ -203,6 +206,16 @@ public class GameEngine extends SurfaceView implements Runnable {
             projectile.draw(canvas, paint);
         }
 
+        /*for(Attacker attacker:attackersDead){
+            //TODO ANIMATION MORT
+            projectilesDead.remove(attacker);
+
+        }
+        for(Projectile projectile:projectilesDead){
+            //TODO ANIMATION DESTRUCTION
+            projectilesDead.remove(projectile);
+        }
+        */
 
         /*
         paint.setColor(Color.RED);
