@@ -8,10 +8,10 @@ public abstract class Attacker extends Movable {
     private Vector2 speed;//Vitesse réelle en px par frame
     private float maxSpeed;//En module (en px/frame)
     private Node node; //Noeud vers lequel il se déplace
-    public int health = 100;
+    private int health = 100;
     private Projectile projectile;
     private GameEngine parent;
-    public boolean dead;
+    private boolean dead;
 
 
     ///////////METHODE/////////////////////////////////////
@@ -45,5 +45,14 @@ public abstract class Attacker extends Movable {
         return projectile;
     }
 
+    public int getHealth() {
+        return health;
+    }
 
+    ///////////SETTERS////////////////////////////////////////////////
+
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
 }
