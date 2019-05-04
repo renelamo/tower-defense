@@ -165,7 +165,7 @@ public class GameEngine extends SurfaceView implements Runnable {
     public void update() {
         for(Attacker attacker:attackers){
             attacker.move();
-            if (attacker.getHealth() == 0 ){attackers.remove(attacker);
+            if (attacker.getHealth() <= 0 ){attackers.remove(attacker);
             /*attackersDead.add(attacker);*/
             };
 
@@ -179,9 +179,9 @@ public class GameEngine extends SurfaceView implements Runnable {
         for(Projectile projectile:projectiles){
             projectile.move();
             if (projectile.getSpeed().getNorm() == 0 ) {
-               //TODO infliger un dommage a l'attaquant = à la puissance du projectile avec getDamage et afficher un cercle rouge a lendroit ou il disparait temporairement
+               //TODO  afficher un cercle rouge a lendroit ou il disparait temporairement
                 if (!attackers.isEmpty()) {
-                    attackers.get(0).takeDamage(50);
+                    attackers.get(0).takeDamage(projectile.getPower());
                 }
                 projectiles.remove(projectile);
                 /*projectilesDead.add(projectile);*/
