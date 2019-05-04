@@ -17,5 +17,5 @@ abstract public class Projectile extends Movable {
         thetaOffset=90;
     }
 
-    public double getPower(){ return power; }
+    public int getPower(){ return power; }
 }

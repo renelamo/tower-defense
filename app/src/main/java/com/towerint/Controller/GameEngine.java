@@ -175,9 +175,9 @@ public class GameEngine extends SurfaceView implements Runnable {
             projectile.move();
             if (projectile.getSpeed().getNorm() == 0 ) {
                //TODO infliger un dommage a l'attaquant = à la puissance du projectile avec getDamage et afficher un cercle rouge a lendroit ou il disparait temporairement
-                projectile.getPower();
+                //attackers.get(0).takeDamage(projectile.getPower());
                 projectiles.remove(projectile);
-                projectilesDead.add(projectile);
+              //  projectilesDead.add(projectile);
             };
 
         }

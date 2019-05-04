@@ -16,7 +16,8 @@ public abstract class Attacker extends Movable {
 
     ///////////METHODE/////////////////////////////////////
 
-    void getDamage(int damage){this.health = this.health - damage;};
+    public void takeDamage(int damage){this.health = this.health - damage;};
+
     void isDead(){if(this.health <= 0){ dead = true;}
     else dead = false;};
     //TODO reste a voir comment on détruit l'attaquant ( animations ? ) et quand on sait que le projectile a touché
