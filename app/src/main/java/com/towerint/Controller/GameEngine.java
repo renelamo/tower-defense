@@ -210,8 +210,10 @@ public class GameEngine extends SurfaceView implements Runnable {
             projectile.move();
             if (projectile.getSpeed().getNorm() == 0 ) {
                //TODO  afficher un cercle rouge a lendroit ou il disparait temporairement
-                if (!attackers.isEmpty()) {
-                    attackers.get(0).takeDamage(projectile.getPower());
+                for (Attacker attacker:attackers){
+                    if ((attacker.getPosition().diff(projectile.getPosition()).getNorm() < projectile.getRange())){
+                        attacker.takeDamage(projectile.getPower());
+                    }
                 }
                 projectiles.remove(projectile);
                 /*projectilesDead.add(projectile);*/
