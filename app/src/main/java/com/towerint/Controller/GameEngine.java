@@ -148,8 +148,8 @@ public class GameEngine extends SurfaceView implements Runnable {
 
         way=new Way(new Node(screenX/2,0));
         way.add(screenX/2,screenY/2);
-        way.add(0,screenY/2);
-        way.add(0,0);
+        way.add(screenX/4,screenY/2);
+        way.add(screenX/4,screenY);
 
         //Je rajoute ici du code de test
         towers.add(new TowerType1(100,100,this));
@@ -175,8 +175,9 @@ public class GameEngine extends SurfaceView implements Runnable {
             if (attacker.getSpeed().getNorm() == 0 ) {fails +=1; attackers.remove(attacker);};
             /*attackersDead.add(attacker);*/
             if (attacker.getDead()){attackers.remove(attacker);
-            score +=1;
-
+                if(attacker.getSpeed().getNorm()!=0){
+                    score +=1;
+                }
             };
             attacker.move();
 
