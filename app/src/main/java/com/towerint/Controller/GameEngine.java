@@ -24,6 +24,7 @@ import com.towerint.Model.TowerType1;
 import com.towerint.Model.Vector2;
 import com.towerint.Model.Way;
 import com.towerint.R;
+import com.towerint.View.Music;
 
 
 public class GameEngine extends SurfaceView implements Runnable {
@@ -95,7 +96,7 @@ public class GameEngine extends SurfaceView implements Runnable {
     private Bitmap tower2;
     private Bitmap victory;
     private Bitmap next_level;
-
+    Music music = new Music();
 
 
     public GameEngine(Context context, Point size) {
@@ -155,19 +156,35 @@ public class GameEngine extends SurfaceView implements Runnable {
 
     public void newGame() {
         // Reset the score and fails and money
-        score = 0;
-        fails =0;
-        money =500;
 
-        way=new Way(new Node(screenX/2,0));
-        way.add(screenX/2,screenY/2);
-        way.add(screenX/4,screenY/2);
-        way.add(screenX/4,screenY);
+        switch(level){
+            case 1:
+                score = 0;
+                fails =0;
+                money =500;
+                way=new Way(new Node(screenX/2,0));
+                way.add(screenX/2,screenY/2);
+                way.add(screenX/4,screenY/2);
+                way.add(screenX/4,screenY);
+                towers.add(new TowerType1(100,100,this));
+                attackers.add(new AttackerType1(way, this));
+                attackers.add(new AttackerType1(way, this));
+                    break;
+            case 2:
+                way=new Way(new Node(screenX/2,0));
+                way.add(screenX/2,screenY/4);
+                way.add(screenX/4,screenY/4);
+                way.add(screenX/4,screenY);
+                towers.add(new TowerType1(100,100,this));
+                attackers.add(new AttackerType1(way, this));
+                attackers.add(new AttackerType1(way, this));
+                break;
+        }
+
+
 
         //Je rajoute ici du code de test
-        towers.add(new TowerType1(100,100,this));
-        attackers.add(new AttackerType1(way, this));
-        attackers.add(new AttackerType1(way, this));
+
 
 
 
@@ -271,6 +288,8 @@ public class GameEngine extends SurfaceView implements Runnable {
                     }
                 }
                 temporaryPrintables.add(new TemporaryPrintable(projectile.getPosition(), this, R.drawable.explosion, 100));
+
+                music.bombMusic(GameEngine.context);
                 projectiles.remove(projectile);
                 /*projectilesDead.add(projectile);*/
             }

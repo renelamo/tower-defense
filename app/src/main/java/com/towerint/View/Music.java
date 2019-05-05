@@ -10,6 +10,7 @@ public class Music extends OptionsActivity{
     private MediaPlayer backgroundMusic;
     private boolean listen = true;
     private MediaPlayer touchMusic;
+    private MediaPlayer bombMusic;
 
     //Begin music
     protected void startBackground(Context context){
@@ -17,10 +18,15 @@ public class Music extends OptionsActivity{
         backgroundMusic.start();
         backgroundMusic.setLooping(true);
     }
-    protected void touchMusic(Context context){
+    public void touchMusic(Context context){
         touchMusic = MediaPlayer.create(context, R.raw.bipp);
         touchMusic.start();
     }
+    public void bombMusic(Context context){
+        bombMusic= MediaPlayer.create(context, R.raw.explosion);
+        bombMusic.start();
+    }
+
     protected void stopTouch(){
         touchMusic.stop();
     }
