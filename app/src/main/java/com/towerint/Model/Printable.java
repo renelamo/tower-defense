@@ -10,7 +10,7 @@ import com.towerint.Controller.GameEngine;
 
 abstract class Printable {
     private Vector2 position;
-    private float facing; //Angle (en degrés) de rotation de l'image.
+    private double facing; //Angle (en degrés) de rotation de l'image.
     private int height;
     private int width;
     private GameEngine parent;
@@ -65,25 +65,21 @@ abstract class Printable {
     }
 
     @Deprecated
-    public boolean setPos(int x, int y, float theta){
+    public boolean setPos(int x, int y, double theta){
         setPos(new Vector2(x,y));
         setRotation(theta);
         return true;
     }
 
-    @Deprecated //TODO: passer tous les float en double
-    public void setRotation(float theta){ //En degrés
+    public void setRotation(double theta){ //En degrés
         facing=theta;
-    }
-    public void setRotation(double theta){
-        setRotation((float)theta);
     }
 
     /////////////AUTRES METHODES/////////////////////
 
     public void draw(Canvas canvas, Paint paint){
         canvas.save();
-        canvas.rotate(facing, position.getX(), position.getY());
+        canvas.rotate((float)facing, position.getX(), position.getY());
         canvas.drawBitmap(image, position.getX()-width/2, position.getY()-height/2, paint);
         canvas.restore();
     }

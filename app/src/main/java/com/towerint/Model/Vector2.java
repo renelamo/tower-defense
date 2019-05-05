@@ -36,8 +36,8 @@ public class Vector2 { //TODO: si ca ne fait pas lagger, rmplacer les float par 
 
     //////GETTERS/////////////////////////////
 
-    public float getTheta(){//En degrés
-        return (float)Math.atan2(y,x)*180/(float)Math.PI;
+    public double getTheta(){//En degrés
+        return Math.atan2(y,x)*180/Math.PI;
     }
 
     public float getNorm(){

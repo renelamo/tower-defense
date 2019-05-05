@@ -13,10 +13,10 @@ import static com.towerint.Controller.GameEngine.attackers;
 
 public abstract class Tower extends Printable{
     protected double radius;
-    protected int range = 500;
+    protected int range ;
     protected int attackCooldown; //Durée en  millisecondes entre deux tirs
     private long delayFramesLeft; //Nombre de frames restant a attendre avant le prochain tir possible
-    protected int cost =100;
+    protected int cost;
     protected Projectile projectile;
     protected GameEngine parent;
 
