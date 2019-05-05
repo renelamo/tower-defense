@@ -15,7 +15,7 @@ public abstract class Tower extends Printable{
     protected int range = 500;
     protected int attackCooldown; //Durée en  millisecondes entre deux tirs
     private long delayFramesLeft; //Nombre de frames restant a attendre avant le prochain tir possible
-    protected int cost;
+    protected int cost =100;
     protected Projectile projectile;
     protected GameEngine parent;
 
