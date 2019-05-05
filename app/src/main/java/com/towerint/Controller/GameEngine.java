@@ -189,27 +189,29 @@ public class GameEngine extends SurfaceView implements Runnable {
             attacker.move();
 
         }
-        if (!attackers.isEmpty()) {
+       if (!attackers.isEmpty()) {
             towers.get(0).faceToPoint(attackers.get(0).getPosition());
             if (towers.get(0).ableToShoot()) {
                 towers.get(0).shoot(attackers.get(0));
             }
         }
 
+/*
+            for (Tower tower : towers) {
+                if (!tower.getTargets().isEmpty()) {
+                    tower.faceToPoint(tower.getTargets().get(0).getPosition());
+                    if (tower.ableToShoot()) {
+                        tower.shoot(tower.getTargets().get(0));
+                    }
 
-        /*for(Tower tower:towers){
-            tower.towerTargetsUpdate();
-            if (!tower.getTargets().isEmpty()) {
-                tower.faceToPoint(tower.getTargets().get(0).getPosition());
-                if (tower.ableToShoot()) {
-                    tower.shoot(tower.getTargets().get(0));
                 }
+                if (tower.ableToShoot()){
+                    tower.towerTargetsUpdate(attackers);
+                }
+
             }
+            ;*/
 
-
-            };
-
-         */
 
 
         for(TemporaryPrintable temporaryPrintable:temporaryPrintables){
@@ -221,10 +223,10 @@ public class GameEngine extends SurfaceView implements Runnable {
         for(Projectile projectile:projectiles){
             projectile.move();
             if (projectile.getSpeed().getNorm() == 0 ) {
-               //TODO  afficher un cercle rouge a lendroit ou il disparait temporairement
                 for (Attacker attacker:attackers){
                     if ((attacker.getPosition().diff(projectile.getPosition()).getNorm() < projectile.getRange())){
                         attacker.takeDamage(projectile.getPower());
+                        attacker.isDead();
                     }
                 }
                 temporaryPrintables.add(new TemporaryPrintable(projectile.getPosition(), this, R.drawable.explosion, 100));

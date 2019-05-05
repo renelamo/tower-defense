@@ -33,17 +33,21 @@ public abstract class Tower extends Printable{
 
     //La cible est le premier élement de la liste on ne met a jour cette liste que lorsque que le premier élement n'est plus disponible (mort ou hors portée)
     public void towerTargetsUpdate(List<Attacker> attackers) {
-        if(targets.isEmpty()){
+        if(targets.isEmpty() &(! attackers.isEmpty())){
             for(Attacker cur: attackers) { if (ecart(attackers.get(0).getPosition(), this.getPosition()) <= this.range) {
                 addTarget(cur);
             }
                 ; }
         }
         else{
-            if (targets.get(0).getDead() & (ecart(targets.get(0).getPosition(), this.getPosition()) > this.range)) {
-                while (targets.get(0).getDead()) {
-                    removeTarget();
+                while (!targets.isEmpty()){
+                    targets.get(0).isDead();
+                    if(targets.get(0).getDead() ) {
+                        removeTarget();
                 }
+                    else if((ecart(targets.get(0).getPosition(), this.getPosition()) > this.range)){
+                        removeTarget();
+                    }
             };
         };
     };
