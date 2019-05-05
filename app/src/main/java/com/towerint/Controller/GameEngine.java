@@ -68,6 +68,8 @@ public class GameEngine extends SurfaceView implements Runnable {
 
     public int fails;
 
+    public int money;
+
     // Everything we need for drawing
 // Is the game currently playing?
     private volatile boolean isPlaying;
@@ -142,9 +144,10 @@ public class GameEngine extends SurfaceView implements Runnable {
 
 
     public void newGame() {
-        // Reset the score and fails
+        // Reset the score and fails and money
         score = 0;
         fails =0;
+        money =0;
 
         way=new Way(new Node(screenX/2,0));
         way.add(screenX/2,screenY/2);
@@ -172,7 +175,7 @@ public class GameEngine extends SurfaceView implements Runnable {
     public void update() {
         for(Attacker attacker:attackers){
             attacker.isDead();
-            if (attacker.getSpeed().getNorm() == 0 ) {fails +=1; attackers.remove(attacker);};
+            if (attacker.getSpeed().getNorm() == 0 ) {fails +=1; attackers.remove(attacker); money+=attacker.getMoney();};
             /*attackersDead.add(attacker);*/
             if (attacker.getDead()){attackers.remove(attacker);
                 if(attacker.getSpeed().getNorm()!=0){
@@ -277,8 +280,12 @@ public class GameEngine extends SurfaceView implements Runnable {
         canvas.drawText("Score :" + score, 10, 70, paint);
         //canvas.drawLine(left, top, right, bottom, paint);
 
-        canvas.drawText("Fails :" + fails, 500, 70, paint);
+        canvas.drawText("Fails :" + fails, 350, 70, paint);
         //canvas.drawLine(left, top, right, bottom, paint);
+
+        canvas.drawText("Money :" + money, 600, 70, paint);
+        //canvas.drawLine(left, top, right, bottom, paint);
+
 
 
         // Unlock the canvas and reveal the graphics for this frame
