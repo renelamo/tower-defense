@@ -72,6 +72,8 @@ public class GameEngine extends SurfaceView implements Runnable {
 
     public int money;
     public int tower = 1;
+    public int level = 1;
+    public boolean endlevel = false;
 
     // Everything we need for drawing
 // Is the game currently playing?
@@ -91,6 +93,8 @@ public class GameEngine extends SurfaceView implements Runnable {
     private Bitmap playPauseDisplay;
     private Bitmap tower1;
     private Bitmap tower2;
+    private Bitmap victory;
+    private Bitmap next_level;
 
 
 
@@ -175,6 +179,10 @@ public class GameEngine extends SurfaceView implements Runnable {
         tower1 = Bitmap.createScaledBitmap(tower1, 100, 100, false);
         tower2= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.tower2);
         tower2 = Bitmap.createScaledBitmap(tower2, 100, 100, false);
+        victory= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.victory);
+        victory = Bitmap.createScaledBitmap(victory, 1000, 1000, false);
+        next_level= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.next_level);
+        next_level= Bitmap.createScaledBitmap(next_level, 100, 100, false);
         playPauseDisplay=pauseBitmap;
 
         // Setup nextFrameTime so an update is triggered
@@ -268,6 +276,10 @@ public class GameEngine extends SurfaceView implements Runnable {
             }
         }
 
+        if (!attackers.isEmpty() && endlevel ==false) {
+            level++;
+            endlevel =true;
+        }
     }
 
  public void draw() {
@@ -336,7 +348,11 @@ public class GameEngine extends SurfaceView implements Runnable {
         canvas.drawText("Money :" + money, 600, 70, paint);
         //canvas.drawLine(left, top, right, bottom, paint);
 
+        if (attackers.isEmpty() && endlevel ==true) {
+            canvas.drawBitmap(victory, 0, screenY/4, paint);
+            canvas.drawBitmap(next_level, screenX-100, screenY-100, paint);
 
+        }
 
         // Unlock the canvas and reveal the graphics for this frame
         surfaceHolder.unlockCanvasAndPost(canvas);
