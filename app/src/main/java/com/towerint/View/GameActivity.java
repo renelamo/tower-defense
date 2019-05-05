@@ -13,6 +13,8 @@ import android.view.WindowManager;
 
 import com.towerint.Controller.GameEngine;
 import com.towerint.Model.TowerType1;
+import com.towerint.Model.TowerType2;
+import com.towerint.R;
 
 
 public class GameActivity extends AppCompatActivity {
@@ -41,7 +43,9 @@ public class GameActivity extends AppCompatActivity {
 
 
         // Make gameEngine the view of the Activity
+        setContentView(R.layout.activity_game);
         setContentView(gameEngine);
+
 
     }
 
@@ -81,11 +85,29 @@ public class GameActivity extends AppCompatActivity {
                         onPause();
                     }
                 }
+                else if (gameEngine.tower == 1 && gameEngine.money >=100 && Y<gameEngine.screenY-100){
+
+                    Music music = new Music();
+                    music.touchMusic(GameEngine.context);
+                    gameEngine.towers.add(new TowerType1(X,Y,gameEngine));
+                    gameEngine.money = gameEngine.money - 100;
+                }
+                else if (gameEngine.tower == 2 && gameEngine.money >=200&& Y<gameEngine.screenY-100){
+                    Music music = new Music();
+                    music.touchMusic(GameEngine.context);
+                    gameEngine.towers.add(new TowerType2(X,Y,gameEngine));
+                    gameEngine.money = gameEngine.money - 200;
+                }
+                else if(X<=100 && Y>gameEngine.screenY-100)
+                {
+                    gameEngine.tower =1 ;
+                }
+                else if(X>= 100&& X<200 && Y>gameEngine.screenY-100)
+                {
+                    gameEngine.tower =2 ;
+                }
                 Toast.makeText(this, "ACTION_DOWN AT COORDS "+"X: "+X+" Y: "+Y, Toast.LENGTH_SHORT).show();
                 isTouch = true;
-                Music music = new Music();
-                music.touchMusic(GameEngine.context);
-                gameEngine.towers.add(new TowerType1(X,Y,gameEngine));
                 break;
 
             case MotionEvent.ACTION_MOVE:
