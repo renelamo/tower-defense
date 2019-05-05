@@ -18,6 +18,7 @@ import com.towerint.Model.Attacker;
 import com.towerint.Model.AttackerType1;
 import com.towerint.Model.Node;
 import com.towerint.Model.Projectile;
+import com.towerint.Model.TemporaryPrintable;
 import com.towerint.Model.Tower;
 import com.towerint.Model.TowerType1;
 import com.towerint.Model.Vector2;
@@ -31,6 +32,7 @@ public class GameEngine extends SurfaceView implements Runnable {
     //static pour etre utilisé par Tower
     public static List<Attacker> attackers;
     public List<Projectile> projectiles;
+    public List<TemporaryPrintable> temporaryPrintables;
     public List<Attacker> attackersDead;
     public List<Projectile> projectilesDead;
     Way way;
@@ -103,6 +105,7 @@ public class GameEngine extends SurfaceView implements Runnable {
         towers=new LinkedList<>();
         attackers=new LinkedList<>();
         projectiles=new LinkedList<>();
+        temporaryPrintables=new LinkedList<>();
 
         // Start the game
         newGame();
@@ -205,6 +208,11 @@ public class GameEngine extends SurfaceView implements Runnable {
          */
 
 
+        for(TemporaryPrintable temporaryPrintable:temporaryPrintables){
+            if (!temporaryPrintable.isAlive()){
+                temporaryPrintables.remove(temporaryPrintable);
+            }
+        }
 
         for(Projectile projectile:projectiles){
             projectile.move();
@@ -215,12 +223,12 @@ public class GameEngine extends SurfaceView implements Runnable {
                         attacker.takeDamage(projectile.getPower());
                     }
                 }
+                temporaryPrintables.add(new TemporaryPrintable(projectile.getPosition(), this, R.drawable.explosion, 100));
                 projectiles.remove(projectile);
                 /*projectilesDead.add(projectile);*/
-            };
-
+            }
         }
-        //towers.get(0).shoot(attackers.get(0).getPosition());
+
     }
 
  public void draw() {
@@ -244,6 +252,10 @@ public class GameEngine extends SurfaceView implements Runnable {
         }
         for(Projectile projectile:projectiles){
             projectile.draw(canvas, paint);
+        }
+
+        for(TemporaryPrintable temporaryPrintable:temporaryPrintables){
+            temporaryPrintable.draw(canvas,null);
         }
 
         /*for(Attacker attacker:attackersDead){
