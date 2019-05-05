@@ -42,7 +42,7 @@ public abstract class Tower extends Printable{
         else{
                 while (!targets.isEmpty()){
                     targets.get(0).isDead();
-                    if(targets.get(0).getDead() ) {
+                    if(targets.get(0).isDead() ) {
                         removeTarget();
                 }
                     else if((ecart(targets.get(0).getPosition(), this.getPosition()) > this.range)){

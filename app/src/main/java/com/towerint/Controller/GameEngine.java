@@ -176,11 +176,14 @@ public class GameEngine extends SurfaceView implements Runnable {
 
 
     public void update() {
-        for(Attacker attacker:attackers){
-            attacker.isDead();
+        int size=attackers.size();
+        for(int i=0; i<size; ++i){
+            Attacker attacker=attackers.get(i);
             if (attacker.getSpeed().getNorm() == 0 ) {fails +=1; attackers.remove(attacker); };
             /*attackersDead.add(attacker);*/
-            if (attacker.getDead()){attackers.remove(attacker);
+            if (attacker.isDead()){attackers.remove(attacker);
+                --size;
+                --i;
                 if(attacker.getSpeed().getNorm()!=0){
                     score +=1;
                     money += attacker.getMoney();
@@ -306,6 +309,7 @@ public class GameEngine extends SurfaceView implements Runnable {
         // Unlock the canvas and reveal the graphics for this frame
         surfaceHolder.unlockCanvasAndPost(canvas);
         canvas.drawRGB(0, 0, 0);
+
         Paint paint = new Paint();
         paint.setAntiAlias(true);
     }
