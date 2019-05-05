@@ -106,16 +106,21 @@ public class GameActivity extends AppCompatActivity {
                 {
                     gameEngine.tower =2 ;
                 }
-                Toast.makeText(this, "ACTION_DOWN AT COORDS "+"X: "+X+" Y: "+Y, Toast.LENGTH_SHORT).show();
+                else if(X>= gameEngine.screenX-100&& X<gameEngine.screenX && Y>gameEngine.screenY-100&&gameEngine.endlevel==true){
+                    gameEngine.towers.clear();
+                    gameEngine.endlevel = false;
+                    gameEngine.newGame();
+                }
+                //Toast.makeText(this, "ACTION_DOWN AT COORDS "+"X: "+X+" Y: "+Y, Toast.LENGTH_SHORT).show();
                 isTouch = true;
                 break;
 
             case MotionEvent.ACTION_MOVE:
-                Toast.makeText(this, "MOVE "+"X: "+X+" Y: "+Y, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "MOVE "+"X: "+X+" Y: "+Y, Toast.LENGTH_SHORT).show();
                 break;
 
             case MotionEvent.ACTION_UP:
-                Toast.makeText(this, "ACTION_UP "+"X: "+X+" Y: "+Y, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "ACTION_UP "+"X: "+X+" Y: "+Y, Toast.LENGTH_SHORT).show();
                 break;
         }
         return true;
