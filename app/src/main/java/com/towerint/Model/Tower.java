@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.towerint.Controller.GameEngine.FPS;
+import static com.towerint.Controller.GameEngine.attackers;
 
 
 public abstract class Tower extends Printable{
@@ -31,9 +32,9 @@ public abstract class Tower extends Printable{
 
 
     //La cible est le premier élement de la liste on ne met a jour cette liste que lorsque que le premier élement n'est plus disponible (mort ou hors portée)
-    public void towerTargetsUpdate() {
+    public void towerTargetsUpdate(List<Attacker> attackers) {
         if(targets.isEmpty()){
-            for(Attacker cur: GameEngine.attackers) { if (ecart(targets.get(0).getPosition(), this.getPosition()) <= this.range) {
+            for(Attacker cur: attackers) { if (ecart(attackers.get(0).getPosition(), this.getPosition()) <= this.range) {
                 addTarget(cur);
             }
                 ; }
