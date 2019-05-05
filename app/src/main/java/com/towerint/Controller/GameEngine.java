@@ -179,7 +179,12 @@ public class GameEngine extends SurfaceView implements Runnable {
         int size=attackers.size();
         for(int i=0; i<size; ++i){
             Attacker attacker=attackers.get(i);
-            if (attacker.getSpeed().getNorm() == 0 ) {fails +=1; attackers.remove(attacker); };
+            if (attacker.getSpeed().getNorm() == 0 ) {
+                fails +=1;
+                attackers.remove(attacker);
+                --size;
+                --i;
+            };
             /*attackersDead.add(attacker);*/
             if (attacker.isDead()){attackers.remove(attacker);
                 --size;
@@ -195,7 +200,7 @@ public class GameEngine extends SurfaceView implements Runnable {
        if (!attackers.isEmpty()) {
             towers.get(0).faceToPoint(attackers.get(0).getPosition());
             if (towers.get(0).ableToShoot()) {
-                towers.get(0).shoot(attackers.get(0));
+                //towers.get(0).shoot(attackers.get(0));
             }
         }
 
@@ -229,7 +234,6 @@ public class GameEngine extends SurfaceView implements Runnable {
                 for (Attacker attacker:attackers){
                     if ((attacker.getPosition().diff(projectile.getPosition()).getNorm() < projectile.getRange())){
                         attacker.takeDamage(projectile.getPower());
-                        attacker.isDead();
                     }
                 }
                 temporaryPrintables.add(new TemporaryPrintable(projectile.getPosition(), this, R.drawable.explosion, 100));
