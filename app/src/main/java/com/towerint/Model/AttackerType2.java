@@ -5,7 +5,7 @@ import com.towerint.R;
 
 public class AttackerType2 extends Attacker{
     private static final int resource=R.drawable.attacker2;
-    private static final int speed=10000;
+    private static final int speed=9000;
 
 
 

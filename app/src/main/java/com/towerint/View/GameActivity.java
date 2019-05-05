@@ -109,6 +109,7 @@ public class GameActivity extends AppCompatActivity {
                 else if(X>= gameEngine.screenX-100&& X<gameEngine.screenX && Y>gameEngine.screenY-100&&gameEngine.endlevel==true){
                     gameEngine.towers.clear();
                     gameEngine.endlevel = false;
+                    gameEngine.gg=false;
                     gameEngine.newGame();
                 }
                 //Toast.makeText(this, "ACTION_DOWN AT COORDS "+"X: "+X+" Y: "+Y, Toast.LENGTH_SHORT).show();

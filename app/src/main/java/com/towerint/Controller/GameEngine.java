@@ -16,11 +16,13 @@ import android.graphics.Bitmap;
 
 import com.towerint.Model.Attacker;
 import com.towerint.Model.AttackerType1;
+import com.towerint.Model.AttackerType2;
 import com.towerint.Model.Node;
 import com.towerint.Model.Projectile;
 import com.towerint.Model.TemporaryPrintable;
 import com.towerint.Model.Tower;
 import com.towerint.Model.TowerType1;
+import com.towerint.Model.TowerType2;
 import com.towerint.Model.Vector2;
 import com.towerint.Model.Way;
 import com.towerint.R;
@@ -75,7 +77,7 @@ public class GameEngine extends SurfaceView implements Runnable {
     public int tower = 1;
     public int level = 1;
     public boolean endlevel = false;
-
+    public boolean gg =false;
     // Everything we need for drawing
 // Is the game currently playing?
     private volatile boolean isPlaying;
@@ -96,6 +98,7 @@ public class GameEngine extends SurfaceView implements Runnable {
     private Bitmap tower2;
     private Bitmap victory;
     private Bitmap next_level;
+    private Bitmap defeat;
     Music music = new Music();
 
 
@@ -169,8 +172,12 @@ public class GameEngine extends SurfaceView implements Runnable {
                 towers.add(new TowerType1(100,100,this));
                 attackers.add(new AttackerType1(way, this));
                 attackers.add(new AttackerType1(way, this));
+                attackers.add(new AttackerType1(way, this));
+                attackers.add(new AttackerType1(way, this));
+                attackers.add(new AttackerType1(way, this));
                     break;
             case 2:
+                fails =0;
                 way=new Way(new Node(screenX/2,0));
                 way.add(screenX/2,screenY/4);
                 way.add(screenX/4,screenY/4);
@@ -200,6 +207,8 @@ public class GameEngine extends SurfaceView implements Runnable {
         victory = Bitmap.createScaledBitmap(victory, 1000, 1000, false);
         next_level= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.next_level);
         next_level= Bitmap.createScaledBitmap(next_level, 100, 100, false);
+        defeat= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.defeat);
+        defeat= Bitmap.createScaledBitmap(defeat, 1000, 1000, false);
         playPauseDisplay=pauseBitmap;
 
         // Setup nextFrameTime so an update is triggered
@@ -294,11 +303,16 @@ public class GameEngine extends SurfaceView implements Runnable {
                 /*projectilesDead.add(projectile);*/
             }
         }
-
-        if (!attackers.isEmpty() && endlevel ==false) {
+        if(fails == 5){
+            endlevel =true;
+            gg =false;
+        }
+        else if (attackers.isEmpty() && endlevel ==false&& fails !=5) {
             level++;
             endlevel =true;
+            gg= true;
         }
+
     }
 
  public void draw() {
@@ -366,12 +380,15 @@ public class GameEngine extends SurfaceView implements Runnable {
 
         canvas.drawText("Money :" + money, 600, 70, paint);
         //canvas.drawLine(left, top, right, bottom, paint);
-
-        if (attackers.isEmpty() && endlevel ==true) {
+        if(endlevel==true&& gg==false){
+            canvas.drawBitmap(defeat, 0, screenY/4, paint);
+        }
+        else if (attackers.isEmpty() && endlevel ==true) {
             canvas.drawBitmap(victory, 0, screenY/4, paint);
             canvas.drawBitmap(next_level, screenX-100, screenY-100, paint);
 
         }
+
 
         // Unlock the canvas and reveal the graphics for this frame
         surfaceHolder.unlockCanvasAndPost(canvas);
