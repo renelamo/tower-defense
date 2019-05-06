@@ -113,6 +113,7 @@ public class GameActivity extends AppCompatActivity {
                     gameEngine.towers.clear();
                     gameEngine.endlevel = false;
                     gameEngine.gg=false;
+                    gameEngine.begin=false;
                     gameEngine.newGame();
                 }
                 //Toast.makeText(this, "ACTION_DOWN AT COORDS "+"X: "+X+" Y: "+Y, Toast.LENGTH_SHORT).show();

@@ -104,6 +104,7 @@ public class GameEngine extends SurfaceView implements Runnable {
     private Bitmap next_level;
     private Bitmap defeat;
     private Bitmap start;
+    private Bitmap restart;
     Music music = new Music();
 
 
@@ -223,6 +224,8 @@ public class GameEngine extends SurfaceView implements Runnable {
         defeat= Bitmap.createScaledBitmap(defeat, 1000, 1000, false);
         start= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.start);
         start= Bitmap.createScaledBitmap(start, 100, 100, false);
+        restart= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.restart);
+        restart= Bitmap.createScaledBitmap(restart, 100, 100, false);
         playPauseDisplay=pauseBitmap;
 
         // Setup nextFrameTime so an update is triggered
@@ -405,6 +408,7 @@ if(begin) {
         // victory or defeat ?
         if(endlevel==true&& gg==false){
             canvas.drawBitmap(defeat, 0, screenY/4, paint);
+            canvas.drawBitmap(restart, screenX-100, screenY-100, paint);
         }
         else if (attackers.isEmpty() && endlevel ==true) {
             canvas.drawBitmap(victory, 0, screenY/4, paint);
