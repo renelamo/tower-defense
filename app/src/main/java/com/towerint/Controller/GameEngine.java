@@ -198,6 +198,12 @@ public class GameEngine extends SurfaceView implements Runnable {
                 towers.add(new TowerType1(100,100,this));
                 nbattacker1 =5;
                 break;
+            default:
+                try{
+                    Thread.sleep(1000);
+                }catch (InterruptedException e){
+                    //Do nothing
+                }
 
         }
 
@@ -235,108 +241,105 @@ public class GameEngine extends SurfaceView implements Runnable {
 
     public void update() {
 
-if(begin) {
-    int size = attackers.size();
-    for (int i = 0; i < size; ++i) {
-        Attacker attacker = attackers.get(i);
-        if (attacker.getSpeed().getNorm() == 0) {
-            fails += 1;
-            attackers.remove(attacker);
-            --size;
-            --i;
-        }
-        ;
-        /*attackersDead.add(attacker);*/
-        if (attacker.isDead()) {
-            attackers.remove(attacker);
-            --size;
-            --i;
-            if (attacker.getSpeed().getNorm() != 0) {
-                score += 1;
-                money += attacker.getMoney();
-            }
-        }
-        ;
-        attacker.move();
-
-    }
-    if (!attackers.isEmpty()) {
-        for (Tower tower : towers) {
-            if (!tower.getTargets().isEmpty()) {
-                if ((tower.getPosition().diff(tower.getTargets().get(0).getPosition()).getNorm() < tower.getRange())) {
-
-                    tower.faceToPoint(tower.getTargets().get(0).getPosition());
-                    if (tower.ableToShoot()) {
-                        tower.shoot(tower.getTargets().get(0));
+        if(begin) {
+            int size = attackers.size();
+            for (int i = 0; i < size; ++i) {
+                Attacker attacker = attackers.get(i);
+                if (attacker.getSpeed().getNorm() == 0) {
+                    fails += 1;
+                    attackers.remove(attacker);
+                    --size;
+                    --i;
+                }
+                ;
+                /*attackersDead.add(attacker);*/
+                if (attacker.isDead()) {
+                    attackers.remove(attacker);
+                    --size;
+                    --i;
+                    if (attacker.getSpeed().getNorm() != 0) {
+                        score += 1;
+                        money += attacker.getMoney();
                     }
                 }
+                ;
+                attacker.move();
 
             }
+            if (!attackers.isEmpty()) {
+                for (Tower tower : towers) {
+                    if (!tower.getTargets().isEmpty()) {
+                        if ((tower.getPosition().diff(tower.getTargets().get(0).getPosition()).getNorm() < tower.getRange())) {
 
-            if (tower.ableToShoot()) {
-                tower.towerTargetsUpdate(attackers);
-            }
+                            tower.faceToPoint(tower.getTargets().get(0).getPosition());
+                            if (tower.ableToShoot()) {
+                                tower.shoot(tower.getTargets().get(0));
+                            }
+                        }
 
-
-        }
-        ;
-        // towers.get(0).faceToPoint(attackers.get(0).getPosition());
-        // if (towers.get(0).ableToShoot()) {
-        //towers.get(0).shoot(attackers.get(0));
-        //  }
-    }
-
-
-        /*    for (Tower tower : towers) {
-                if (!tower.getTargets().isEmpty()) {
-                    tower.faceToPoint(tower.getTargets().get(0).getPosition());
-                    if (tower.ableToShoot()) {
-                        tower.shoot(tower.getTargets().get(0));
                     }
 
-                }
-                if (tower.ableToShoot()){
-                    tower.towerTargetsUpdate(attackers);
-                }
+                    if (tower.ableToShoot()) {
+                        tower.towerTargetsUpdate(attackers);
+                    }
 
+
+                }
+                ;
+                // towers.get(0).faceToPoint(attackers.get(0).getPosition());
+                // if (towers.get(0).ableToShoot()) {
+                //towers.get(0).shoot(attackers.get(0));
+                //  }
             }
-            ;
-*/
 
-    size=temporaryPrintables.size();
-    for (int i=0; i<size; ++i) {
-        TemporaryPrintable temporaryPrintable = temporaryPrintables.get(i);
-        if (!temporaryPrintable.isAlive()) {
-            temporaryPrintables.remove(temporaryPrintable);
-            --i;
-            --size;
-        }
-    }
 
-    size=projectiles.size();
-    for (int i=0; i<size; ++i) {
-        Projectile projectile = projectiles.get(i);
-        projectile.move();
-        if (projectile.getSpeed().getNorm() == 0) {
-            for (Attacker attacker : attackers) {
-                if ((attacker.getPosition().diff(projectile.getPosition()).getNorm() < projectile.getRange())) {
-                    attacker.takeDamage(projectile.getPower());
+                /*    for (Tower tower : towers) {
+                        if (!tower.getTargets().isEmpty()) {
+                            tower.faceToPoint(tower.getTargets().get(0).getPosition());
+                            if (tower.ableToShoot()) {
+                                tower.shoot(tower.getTargets().get(0));
+                            }
+
+                        }
+                        if (tower.ableToShoot()){
+                            tower.towerTargetsUpdate(attackers);
+                        }
+
+                    }
+                    ;
+        */
+
+            size=temporaryPrintables.size();
+            for (int i=0; i<size; ++i) {
+                TemporaryPrintable temporaryPrintable = temporaryPrintables.get(i);
+                if (!temporaryPrintable.isAlive()) {
+                    temporaryPrintables.remove(temporaryPrintable);
+                    --i;
+                    --size;
                 }
             }
-            temporaryPrintables.add(new TemporaryPrintable(projectile.getPosition(), this, R.drawable.explosion, 100));
 
-            music.bombMusic(GameEngine.context);
-            projectiles.remove(projectile);
-            --size;
-            --i;
-            /*projectilesDead.add(projectile);*/
+            size=projectiles.size();
+            for (int i=0; i<size; ++i) {
+                Projectile projectile = projectiles.get(i);
+                projectile.move();
+                if (projectile.getSpeed().getNorm() == 0) {
+                    for (Attacker attacker : attackers) {
+                        if ((attacker.getPosition().diff(projectile.getPosition()).getNorm() < projectile.getRange())) {
+                            attacker.takeDamage(projectile.getPower());
+                        }
+                    }
+                    temporaryPrintables.add(new TemporaryPrintable(projectile.getPosition(), this, R.drawable.explosion, 100));
+
+                    music.bombMusic(GameEngine.context);
+                    projectiles.remove(projectile);
+                    --size;
+                    --i;
+                    /*projectilesDead.add(projectile);*/
+                }
+            }
+
         }
-    }
-
-}
-
-
-
     }
 
  public void draw() {
@@ -389,20 +392,23 @@ if(begin) {
 
         canvas.drawLine(left, top, right, bottom, paint);
         */
-
-        canvas.drawBitmap(playPauseDisplay, screenX-100, 0, paint);
-        canvas.drawBitmap(tower1, 0, screenY-100, paint);
-        canvas.drawBitmap(tower2, 100, screenY-100, paint);
-        canvas.drawBitmap(start, 200, screenY-100, paint);
+        int partX=(int)(screenX*.15);
+        canvas.drawBitmap(playPauseDisplay, (int)(screenX-partX), 0, paint);
+        canvas.drawBitmap(tower1, 0, (int)(screenY-partX), paint);
+        canvas.drawBitmap(tower2, (int)(partX), (int)(screenY-partX), paint);
+        canvas.drawBitmap(start, 2*(int)(partX), (int)(screenY-partX), paint);
         // Scale the HUD text
-        paint.setTextSize(60);
-        canvas.drawText("Score :" + score, 10, 70, paint);
+        paint.setTextSize(partX/2);
+        paint.setTextAlign(Paint.Align.LEFT);
+        canvas.drawText("Score :" + score, partX/5, partX/2, paint);
         //canvas.drawLine(left, top, right, bottom, paint);
 
-        canvas.drawText("Fails :" + fails, 350, 70, paint);
+        paint.setTextAlign(Paint.Align.CENTER);
+        canvas.drawText("Fails :" + fails, screenX/2, partX/2, paint);
         //canvas.drawLine(left, top, right, bottom, paint);
 
-        canvas.drawText("Money :" + money, 600, 70, paint);
+        paint.setTextAlign(Paint.Align.RIGHT);
+        canvas.drawText("Money :" + money, screenX, partX/2, paint);
         //canvas.drawLine(left, top, right, bottom, paint);
 
         // victory or defeat ?
