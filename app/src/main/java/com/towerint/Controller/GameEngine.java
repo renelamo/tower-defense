@@ -34,12 +34,9 @@ import java.util.concurrent.ThreadLocalRandom;
 public class GameEngine extends SurfaceView implements Runnable {
     private Thread thread = null;
     public List<Tower> towers;
-    //static pour etre utilisé par Tower
-    public static List<Attacker> attackers;
+    public List<Attacker> attackers;
     public List<Projectile> projectiles;
     public List<TemporaryPrintable> temporaryPrintables;
-    public List<Attacker> attackersDead;
-    public List<Projectile> projectilesDead;
     Way way;
 
     // To hold a reference to the Activity TODO: Apaparemment il ne faut pas mettre de Context en static
@@ -54,10 +51,6 @@ public class GameEngine extends SurfaceView implements Runnable {
     // To hold the screen size in pixels
     public int screenX;
     public int screenY;
-
-    // The size in segments of the playable area
-    private final int NUM_BLOCKS_WIDE = 40;
-    private int numBlocksHigh;
 
     // Control pausing between updates
     private long nextFrameTime;
@@ -175,20 +168,15 @@ public class GameEngine extends SurfaceView implements Runnable {
                 score = 0;
                 fails =0;
                 money =500;
-                //creation of the way
-                //int randomNum = ThreadLocalRandom.current().nextInt(1, 5 + 1)*100;
-                //int randomNum2 = ThreadLocalRandom.current().nextInt(1, 5 + 1)*100;
 
                 way=new Way(new Node(screenX/2,0));
                 way.add(screenX/2,screenY/2);
-                //way.add(screenX/2,randomNum);
                 way.add(screenX/4,screenY/2);
-                //way.add(randomNum2+screenX/2,randomNum);
                 way.add(screenX/4,screenY);
                 towers.add(new TowerType1(100,100,this));
                 //required number of unit
                 nbattacker1 =5;
-                    break;
+                break;
             case 2:
                 fails =0;
                 way=new Way(new Node(screenX/2,0));
@@ -380,55 +368,11 @@ public class GameEngine extends SurfaceView implements Runnable {
         }
         */
 
-        /*
-        paint.setColor(Color.RED);
-        //paint.setStyle(Paint.Style.FILL_AND_STROKE);
-        paint.setStrokeWidth(20);
-
-        float left = 100;
-        float top = 100;
-        float right = 800;
-        float bottom = 1200;
-
-        canvas.drawLine(left, top, right, bottom, paint);
-        */
-        int partX=(int)(screenX*.15);
-        canvas.drawBitmap(playPauseDisplay, (int)(screenX-partX), 0, paint);
-        canvas.drawBitmap(tower1, 0, (int)(screenY-partX), paint);
-        canvas.drawBitmap(tower2, (int)(partX), (int)(screenY-partX), paint);
-        canvas.drawBitmap(start, 2*(int)(partX), (int)(screenY-partX), paint);
-        // Scale the HUD text
-        paint.setTextSize(partX/2);
-        paint.setTextAlign(Paint.Align.LEFT);
-        canvas.drawText("Score :" + score, partX/5, partX/2, paint);
-        //canvas.drawLine(left, top, right, bottom, paint);
-
-        paint.setTextAlign(Paint.Align.CENTER);
-        canvas.drawText("Fails :" + fails, screenX/2, partX/2, paint);
-        //canvas.drawLine(left, top, right, bottom, paint);
-
-        paint.setTextAlign(Paint.Align.RIGHT);
-        canvas.drawText("Money :" + money, screenX, partX/2, paint);
-        //canvas.drawLine(left, top, right, bottom, paint);
-
-        // victory or defeat ?
-        if(endlevel&& !gg){
-            canvas.drawBitmap(defeat, screenX/2-defeat.getWidth()/2, screenY/2-defeat.getHeight()/2, paint);
-            canvas.drawBitmap(restart, screenX-100, screenY-100, paint);
-        }
-        else if (attackers.isEmpty() && endlevel) {
-            canvas.drawBitmap(victory,screenX/2-victory.getWidth()/2, screenY/2-victory.getHeight()/2, paint);
-            canvas.drawBitmap(next_level, screenX-100, screenY-100, paint);
-
-        }
-
+        drawButtons();
 
         // Unlock the canvas and reveal the graphics for this frame
         surfaceHolder.unlockCanvasAndPost(canvas);
         canvas.drawRGB(0, 0, 0);
-
-        Paint paint = new Paint();
-        paint.setAntiAlias(true);
     }
 }
 //create the required army
@@ -444,7 +388,7 @@ public class GameEngine extends SurfaceView implements Runnable {
                 if (fails == 5) {
                     endlevel = true;
                     gg = false;
-                } else if (attackers.isEmpty() && endlevel == false && fails != 5) {
+                } else if (attackers.isEmpty() && !endlevel) {
                     level++;
                     endlevel = true;
                     music.bombMusic(GameEngine.context);
@@ -488,11 +432,42 @@ public class GameEngine extends SurfaceView implements Runnable {
         return false;
     }
 
+    private void drawButtons(){
+        int partX=(int)(screenX*.15);
+        canvas.drawBitmap(playPauseDisplay, (int)(screenX-partX), 0, paint);
+        canvas.drawBitmap(tower1, 0, (int)(screenY-partX), paint);
+        canvas.drawBitmap(tower2, (int)(partX), (int)(screenY-partX), paint);
+        canvas.drawBitmap(start, 2*(int)(partX), (int)(screenY-partX), paint);
+        // Scale the HUD text
+        paint.setTextSize(partX/2);
+        paint.setTextAlign(Paint.Align.LEFT);
+        canvas.drawText("Score :" + score, partX/5, partX/2, paint);
+        //canvas.drawLine(left, top, right, bottom, paint);
+
+        paint.setTextAlign(Paint.Align.CENTER);
+        canvas.drawText("Fails :" + fails, screenX/2, partX/2, paint);
+        //canvas.drawLine(left, top, right, bottom, paint);
+
+        paint.setTextAlign(Paint.Align.RIGHT);
+        canvas.drawText("Money :" + money, screenX, partX/2, paint);
+        //canvas.drawLine(left, top, right, bottom, paint);
+
+        // victory or defeat ?
+        if(endlevel&& !gg){
+            canvas.drawBitmap(defeat, screenX/2-defeat.getWidth()/2, screenY/2-defeat.getHeight()/2, paint);
+            canvas.drawBitmap(restart, screenX-100, screenY-100, paint);
+        }
+        else if (attackers.isEmpty() && endlevel) {
+            canvas.drawBitmap(victory,screenX/2-victory.getWidth()/2, screenY/2-victory.getHeight()/2, paint);
+            canvas.drawBitmap(next_level, screenX-100, screenY-100, paint);
+
+        }
+
+    }
+
     @Override
     public String toString() {
         return this.getHeight()+","+this.getWidth();
     }
-
-
 }
 

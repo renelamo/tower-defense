@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.towerint.Controller.GameEngine.FPS;
-import static com.towerint.Controller.GameEngine.attackers;
 
 
 public abstract class Tower extends Printable{
