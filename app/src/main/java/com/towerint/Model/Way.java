@@ -1,5 +1,6 @@
 package com.towerint.Model;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -16,10 +17,20 @@ public class Way {
     private Bitmap routeBitmap;
     private int bitmapWidth;
 
-    public Way(){
+    public Way(Context context){
         path=new LinkedList<>();
-        routeBitmap= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.sand_tile);
+        routeBitmap= BitmapFactory.decodeResource(context.getResources(), R.drawable.sand_tile);
         routeBitmap = Bitmap.createScaledBitmap(routeBitmap,100,100,false);
+    }
+
+    public Way(Context context, Node... nodes){
+        path=new LinkedList<>();
+        for(Node n:nodes){
+            this.add(n);
+        }
+        routeBitmap= BitmapFactory.decodeResource(context.getResources(), R.drawable.sand_tile);
+        routeBitmap = Bitmap.createScaledBitmap(routeBitmap,100,100,false);
+        bitmapWidth=routeBitmap.getWidth();
     }
 
     public Way(Node... nodes){
@@ -27,9 +38,6 @@ public class Way {
         for(Node n:nodes){
             this.add(n);
         }
-        routeBitmap= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.sand_tile);
-        routeBitmap = Bitmap.createScaledBitmap(routeBitmap,100,100,false);
-        bitmapWidth=routeBitmap.getWidth();
     }
 
     public void add(Node n){
@@ -90,8 +98,6 @@ public class Way {
                         canvas.drawBitmap(routeBitmap, n.getPosition().getX()-bitmapWidth/2, n.getPosition().getY()+bitmapWidth*f-bitmapWidth/2, paint);
                     }
                 }
-
-
 
             }
         }

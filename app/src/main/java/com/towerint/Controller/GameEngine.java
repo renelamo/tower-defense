@@ -34,14 +34,8 @@ public class GameEngine extends SurfaceView implements Runnable {
     public List<TemporaryPrintable> temporaryPrintables;
     Way way;
 
-    // To hold a reference to the Activity TODO: Apaparemment il ne faut pas mettre de Context en static
-    public  static Context context;
-
-
-    // For tracking movement Heading
-    public enum Heading {UP, RIGHT, DOWN, LEFT}
-    // Start by heading to the right
-    private Heading heading = Heading.RIGHT;
+    // To hold a reference to the Activity FIXME: Apparemment il ne faut pas mettre de Context en static
+    public  Context context;
 
     // To hold the screen size in pixels
     public int screenX;
@@ -163,7 +157,7 @@ public class GameEngine extends SurfaceView implements Runnable {
                 fails =0;
                 money =500;
 
-                way=new Way(new Node(screenX/2,0));
+                way=new Way(this.context,new Node(screenX/2,0));
                 way.add(screenX/2,screenY/2);
                 way.add(screenX/4,screenY/2);
                 way.add(screenX/4,screenY);
@@ -173,7 +167,7 @@ public class GameEngine extends SurfaceView implements Runnable {
                 break;
             case 2:
                 fails =0;
-                way=new Way(new Node(screenX/2,0));
+                way=new Way(this.context, new Node(screenX/2,0));
                 way.add(screenX/2,screenY/4);
                 way.add(screenX/4,screenY/4);
                 way.add(screenX/4,screenY);
@@ -196,23 +190,23 @@ public class GameEngine extends SurfaceView implements Runnable {
 
 
         //define the scale of the pictures
-        pauseBitmap = BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.pause_icon);
+        pauseBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.pause_icon);
         pauseBitmap =Bitmap.createScaledBitmap(pauseBitmap, 100, 100, false);
-        playBitmap= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.play_icon);
+        playBitmap= BitmapFactory.decodeResource(context.getResources(), R.drawable.play_icon);
         playBitmap = Bitmap.createScaledBitmap(playBitmap, 100, 100, false);
-        tower1= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.tower1);
+        tower1= BitmapFactory.decodeResource(context.getResources(), R.drawable.tower1);
         tower1 = Bitmap.createScaledBitmap(tower1, 100, 100, false);
-        tower2= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.tower2);
+        tower2= BitmapFactory.decodeResource(context.getResources(), R.drawable.tower2);
         tower2 = Bitmap.createScaledBitmap(tower2, 100, 100, false);
-        victory= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.victory);
+        victory= BitmapFactory.decodeResource(context.getResources(), R.drawable.victory);
         victory = Bitmap.createScaledBitmap(victory, screenY, screenY, false);
-        next_level= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.next_level);
+        next_level= BitmapFactory.decodeResource(context.getResources(), R.drawable.next_level);
         next_level= Bitmap.createScaledBitmap(next_level, 100, 100, false);
-        defeat= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.defeat);
+        defeat= BitmapFactory.decodeResource(context.getResources(), R.drawable.defeat);
         defeat= Bitmap.createScaledBitmap(defeat, screenY, screenY, false);
-        start= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.start);
+        start= BitmapFactory.decodeResource(context.getResources(), R.drawable.start);
         start= Bitmap.createScaledBitmap(start, 100, 100, false);
-        restart= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.restart);
+        restart= BitmapFactory.decodeResource(context.getResources(), R.drawable.restart);
         restart= Bitmap.createScaledBitmap(restart, 100, 100, false);
         playPauseDisplay=pauseBitmap;
 
@@ -277,7 +271,7 @@ public class GameEngine extends SurfaceView implements Runnable {
                     }
                     temporaryPrintables.add(new TemporaryPrintable(projectile.getPosition(), this, R.drawable.explosion, 100));
 
-                    music.bombMusic(GameEngine.context);
+                    music.bombMusic(context);
                     projectiles.remove(projectile);
                     --size;
                     --i;
@@ -290,7 +284,7 @@ public class GameEngine extends SurfaceView implements Runnable {
             } else if (attackers.isEmpty() && !endlevel) {
                 level++;
                 endlevel = true;
-                music.bombMusic(GameEngine.context);
+                music.bombMusic(context);
                 gg = true;
             }
 
