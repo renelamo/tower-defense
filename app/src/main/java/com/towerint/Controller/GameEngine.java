@@ -173,7 +173,7 @@ public class GameEngine extends SurfaceView implements Runnable {
                 way.add(screenX/2,screenY/2);
                 way.add(screenX/4,screenY/2);
                 way.add(screenX/4,screenY);
-                towers.add(new TowerType1(100,100,this));
+                //towers.add(new TowerType1(100,100,this));
                 //required number of unit
                 nbattacker1 =5;
                 break;
@@ -183,7 +183,7 @@ public class GameEngine extends SurfaceView implements Runnable {
                 way.add(screenX/2,screenY/4);
                 way.add(screenX/4,screenY/4);
                 way.add(screenX/4,screenY);
-                towers.add(new TowerType1(100,100,this));
+                //towers.add(new TowerType1(100,100,this));
                 nbattacker1 =5;
                 break;
             default:
@@ -256,22 +256,7 @@ public class GameEngine extends SurfaceView implements Runnable {
             }
             if (!attackers.isEmpty()) {
                 for (Tower tower : towers) {
-                    if (!tower.getTargets().isEmpty()) {
-                        if ((tower.getPosition().diff(tower.getTargets().get(0).getPosition()).getNorm() < tower.getRange())) {
-
-                            tower.faceToPoint(tower.getTargets().get(0).getPosition());
-                            if (tower.ableToShoot()) {
-                                tower.shoot(tower.getTargets().get(0));
-                            }
-                        }
-
-                    }
-
-                    if (tower.ableToShoot()) {
-                        tower.towerTargetsUpdate(attackers);
-                    }
-
-
+                    tower.towerTargetsUpdate(attackers);
                 }
                 ;
                 // towers.get(0).faceToPoint(attackers.get(0).getPosition());

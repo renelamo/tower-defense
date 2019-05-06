@@ -19,7 +19,7 @@ import com.towerint.R;
 
 
 public class GameActivity extends AppCompatActivity {
-    public static com.towerint.Controller.GameEngine gameEngine;
+    public com.towerint.Controller.GameEngine gameEngine;
     public static boolean isTouch = false;
     private boolean paused=false;
 

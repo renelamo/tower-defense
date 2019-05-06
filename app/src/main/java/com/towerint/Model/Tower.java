@@ -32,24 +32,12 @@ public abstract class Tower extends Printable{
 
     //La cible est le premier élement de la liste on ne met a jour cette liste que lorsque que le premier élement n'est plus disponible (mort ou hors portée)
     public void towerTargetsUpdate(List<Attacker> attackers) {
-        if(targets.isEmpty() &(! attackers.isEmpty())){
-            for(Attacker cur: attackers) {
-                if (ecart(cur.getPosition(), this.getPosition()) <= this.range) {
-                    addTarget(cur);
-                }
+        for(Attacker cible:attackers){
+            if(cible.getPosition().diff(getPosition()).getNorm()<=range){
+                shoot(cible);
+                return;
             }
         }
-        else{
-            //FIXME: il y a une boucle infinie là
-            while (!targets.isEmpty()){
-                if(targets.get(0).isDead() ) {
-                    removeTarget();
-                }
-                else if((ecart(targets.get(0).getPosition(), this.getPosition()) > this.range)){
-                    removeTarget();
-                }
-            };
-        };
     };
 
     Tower(int posX, int posY, GameEngine parentEngine, int resource){
@@ -86,9 +74,12 @@ public abstract class Tower extends Printable{
     }
 
     public void shoot(Attacker target){
-        Way way=new Way(new Node(this.getPosition()), new Node(target.getPosition()));
-        parent.projectiles.add(new ProjectileType1(way,this.parent));
-        delayFramesLeft =1000*FPS/attackCooldown;
+        faceToPoint(target.getPosition());
+        if(ableToShoot()) {
+            Way way = new Way(new Node(this.getPosition()), new Node(target.getPosition()));
+            parent.projectiles.add(new ProjectileType1(way, this.parent));
+            delayFramesLeft = 1000 * FPS / attackCooldown;
+        }
     }
 
     public boolean ableToShoot(){
