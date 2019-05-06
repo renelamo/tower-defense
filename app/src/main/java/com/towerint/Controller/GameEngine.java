@@ -300,14 +300,19 @@ if(begin) {
             ;
 */
 
-
-    for (TemporaryPrintable temporaryPrintable : temporaryPrintables) {
+    size=temporaryPrintables.size();
+    for (int i=0; i<size; ++i) {
+        TemporaryPrintable temporaryPrintable = temporaryPrintables.get(i);
         if (!temporaryPrintable.isAlive()) {
             temporaryPrintables.remove(temporaryPrintable);
+            --i;
+            --size;
         }
     }
 
-    for (Projectile projectile : projectiles) {
+    size=projectiles.size();
+    for (int i=0; i<size; ++i) {
+        Projectile projectile = projectiles.get(i);
         projectile.move();
         if (projectile.getSpeed().getNorm() == 0) {
             for (Attacker attacker : attackers) {
@@ -319,6 +324,8 @@ if(begin) {
 
             music.bombMusic(GameEngine.context);
             projectiles.remove(projectile);
+            --size;
+            --i;
             /*projectilesDead.add(projectile);*/
         }
     }
