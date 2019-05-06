@@ -14,11 +14,12 @@ import java.util.LinkedList;
 public class Way {
     private LinkedList<Node> path;
     private Bitmap routeBitmap;
+    private int bitmapWidth;
 
     public Way(){
         path=new LinkedList<>();
         routeBitmap= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.sand_tile);
-        routeBitmap = Bitmap.createScaledBitmap(routeBitmap,150,150,false);
+        routeBitmap = Bitmap.createScaledBitmap(routeBitmap,100,100,false);
     }
 
     public Way(Node... nodes){
@@ -27,7 +28,8 @@ public class Way {
             this.add(n);
         }
         routeBitmap= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.sand_tile);
-        routeBitmap = Bitmap.createScaledBitmap(routeBitmap,150,150,false);
+        routeBitmap = Bitmap.createScaledBitmap(routeBitmap,100,100,false);
+        bitmapWidth=routeBitmap.getWidth();
     }
 
     public void add(Node n){
@@ -56,28 +58,28 @@ public class Way {
         for(Node n:path){
             if(n.hasNext()){
                 canvas.drawLine(n.getPosition().getX(), n.getPosition().getY(), n.getNext().getPosition().getX(), n.getNext().getPosition().getY(), paint);
-                int i =(int)(n.getNext().getPosition().getX()- n.getPosition().getX())/150;
-                int j =(int)(n.getNext().getPosition().getY()- n.getPosition().getY())/150;
+                int i =(int)(n.getNext().getPosition().getX()- n.getPosition().getX())/bitmapWidth;
+                int j =(int)(n.getNext().getPosition().getY()- n.getPosition().getY())/bitmapWidth;
                // canvas.drawBitmap(routeBitmap, i, j, paint);
                 if (i > 0)
                 {
                     for(int f=0;f<i+1;f++)
                     {
-                        canvas.drawBitmap(routeBitmap, n.getPosition().getX()+150*f-50, n.getNext().getPosition().getY()-50, paint);
+                        canvas.drawBitmap(routeBitmap, n.getPosition().getX()+bitmapWidth*f-bitmapWidth/2, n.getNext().getPosition().getY()-bitmapWidth/2, paint);
                     }
                 }
                 else
                 {
                     for(int f=0;f>i-1;f--)
                     {
-                        canvas.drawBitmap(routeBitmap, n.getPosition().getX()+150*f-50, n.getNext().getPosition().getY()-50, paint);
+                        canvas.drawBitmap(routeBitmap, n.getPosition().getX()+bitmapWidth*f-bitmapWidth/2, n.getNext().getPosition().getY()-bitmapWidth/2, paint);
                     }
                 }
                 if (j>0)
                 {
                     for(int f=0;f<j+1;f++)
                     {
-                        canvas.drawBitmap(routeBitmap, n.getPosition().getX()-50, n.getPosition().getY()+150*f-50, paint);
+                        canvas.drawBitmap(routeBitmap, n.getPosition().getX()-bitmapWidth/2, n.getPosition().getY()+bitmapWidth*f-bitmapWidth/2, paint);
                     }
 
                 }
@@ -85,7 +87,7 @@ public class Way {
                 {
                     for(int f=0;f>j-1;f--)
                     {
-                        canvas.drawBitmap(routeBitmap, n.getPosition().getX()-50, n.getPosition().getY()+150*f-50, paint);
+                        canvas.drawBitmap(routeBitmap, n.getPosition().getX()-bitmapWidth/2, n.getPosition().getY()+bitmapWidth*f-bitmapWidth/2, paint);
                     }
                 }
 
