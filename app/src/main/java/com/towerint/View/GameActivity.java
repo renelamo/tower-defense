@@ -1,5 +1,6 @@
 package com.towerint.View;
 
+import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -34,7 +35,6 @@ public class GameActivity extends AppCompatActivity {
 
         // Create a new instance of the gameEngine class
         gameEngine = new GameEngine(this, size);
-
 
         // remove title
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -85,14 +85,14 @@ public class GameActivity extends AppCompatActivity {
                         onPause();
                     }
                 }
-                else if (gameEngine.tower == 1 && gameEngine.money >=100 && Y<gameEngine.screenY-100){
+                else if (gameEngine.tower == 1 && gameEngine.money >=100 && Y<gameEngine.screenY-100 && gameEngine.endlevel==false){
 
                     Music music = new Music();
                     music.touchMusic(GameEngine.context);
                     gameEngine.towers.add(new TowerType1(X,Y,gameEngine));
                     gameEngine.money = gameEngine.money - 100;
                 }
-                else if (gameEngine.tower == 2 && gameEngine.money >=200&& Y<gameEngine.screenY-100){
+                else if (gameEngine.tower == 2 && gameEngine.money >=200&& Y<gameEngine.screenY-100&&gameEngine.endlevel==false){
                     Music music = new Music();
                     music.touchMusic(GameEngine.context);
                     gameEngine.towers.add(new TowerType2(X,Y,gameEngine));

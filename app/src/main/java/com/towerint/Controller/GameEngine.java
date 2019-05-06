@@ -16,17 +16,16 @@ import android.graphics.Bitmap;
 
 import com.towerint.Model.Attacker;
 import com.towerint.Model.AttackerType1;
-import com.towerint.Model.AttackerType2;
 import com.towerint.Model.Node;
 import com.towerint.Model.Projectile;
 import com.towerint.Model.TemporaryPrintable;
 import com.towerint.Model.Tower;
 import com.towerint.Model.TowerType1;
-import com.towerint.Model.TowerType2;
-import com.towerint.Model.Vector2;
 import com.towerint.Model.Way;
 import com.towerint.R;
+import com.towerint.View.GameActivity;
 import com.towerint.View.Music;
+
 
 
 public class GameEngine extends SurfaceView implements Runnable {
@@ -41,7 +40,7 @@ public class GameEngine extends SurfaceView implements Runnable {
     Way way;
 
     // To hold a reference to the Activity TODO: Apaparemment il ne faut pas mettre de Context en static
-    public static Context context;
+    public  static Context context;
 
 
     // For tracking movement Heading
@@ -69,7 +68,6 @@ public class GameEngine extends SurfaceView implements Runnable {
 
     // How many points does the player have
     public int score;
-
     //how many attackers pass
 
     public int fails;
@@ -79,7 +77,7 @@ public class GameEngine extends SurfaceView implements Runnable {
     public int level = 1;
     public boolean endlevel = false;
     public boolean gg =false;
-    public int nbattacker;
+    public int nbattacker1;
     // Everything we need for drawing
 // Is the game currently playing?
     private volatile boolean isPlaying;
@@ -163,19 +161,22 @@ public class GameEngine extends SurfaceView implements Runnable {
 
 
     public void newGame() {
-        // Reset the score and fails and money
 
+        //check the level
         switch(level){
             case 1:
+                // Reset the score and fails and money
                 score = 0;
                 fails =0;
                 money =500;
+                //creation of the way
                 way=new Way(new Node(screenX/2,0));
                 way.add(screenX/2,screenY/2);
                 way.add(screenX/4,screenY/2);
                 way.add(screenX/4,screenY);
                 towers.add(new TowerType1(100,100,this));
-                nbattacker=5;
+                //required number of unit
+                nbattacker1 =5;
                     break;
             case 2:
                 fails =0;
@@ -184,8 +185,9 @@ public class GameEngine extends SurfaceView implements Runnable {
                 way.add(screenX/4,screenY/4);
                 way.add(screenX/4,screenY);
                 towers.add(new TowerType1(100,100,this));
-                nbattacker=5;
+                nbattacker1 =5;
                 break;
+
         }
 
 
@@ -194,7 +196,7 @@ public class GameEngine extends SurfaceView implements Runnable {
 
 
 
-
+        //define the scale of the pictures
         pauseBitmap = BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.pause_icon);
         pauseBitmap =Bitmap.createScaledBitmap(pauseBitmap, 100, 100, false);
         playBitmap= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.play_icon);
@@ -308,17 +310,6 @@ public class GameEngine extends SurfaceView implements Runnable {
 
 
 
-        if(fails == 5){
-            endlevel =true;
-            gg =false;
-        }
-        else if (attackers.isEmpty() && endlevel ==false&& fails !=5) {
-            level++;
-            endlevel =true;
-            gg= true;
-        }
-
-
 
     }
 
@@ -387,6 +378,8 @@ public class GameEngine extends SurfaceView implements Runnable {
 
         canvas.drawText("Money :" + money, 600, 70, paint);
         //canvas.drawLine(left, top, right, bottom, paint);
+
+        // victory or defeat ?
         if(endlevel==true&& gg==false){
             canvas.drawBitmap(defeat, 0, screenY/4, paint);
         }
@@ -405,10 +398,24 @@ public class GameEngine extends SurfaceView implements Runnable {
         paint.setAntiAlias(true);
     }
 }
+//create the required army
     public void updatearmy() {
-        if(nbattacker>0){
+        if(nbattacker1 >0){
             attackers.add(new AttackerType1(way, this));
-            nbattacker--;
+            nbattacker1--;
+        }
+        else {
+
+            //check if the level is finished and if you win or loose
+            if (fails == 5) {
+                endlevel = true;
+                gg = false;
+            } else if (attackers.isEmpty() && endlevel == false && fails != 5) {
+                level++;
+                endlevel = true;
+                music.bombMusic(GameEngine.context);
+                gg = true;
+            }
         }
     }
 
@@ -428,6 +435,7 @@ public class GameEngine extends SurfaceView implements Runnable {
 
         return false;
     }
+    //frequency of invocation of the army
     public boolean updateRequiredarmy() {
 
         // Are we due to update the frame
@@ -449,6 +457,7 @@ public class GameEngine extends SurfaceView implements Runnable {
     public String toString() {
         return this.getHeight()+","+this.getWidth();
     }
+
 
 }
 
