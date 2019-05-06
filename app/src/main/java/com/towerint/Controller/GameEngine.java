@@ -59,6 +59,7 @@ public class GameEngine extends SurfaceView implements Runnable {
 
     // Control pausing between updates
     private long nextFrameTime;
+    private long nextFrameTime2;
     // Update the game 10 times per second
     public static final long FPS = 60;
     // There are 1000 milliseconds in a second
@@ -78,6 +79,7 @@ public class GameEngine extends SurfaceView implements Runnable {
     public int level = 1;
     public boolean endlevel = false;
     public boolean gg =false;
+    public int nbattacker;
     // Everything we need for drawing
 // Is the game currently playing?
     private volatile boolean isPlaying;
@@ -134,6 +136,9 @@ public class GameEngine extends SurfaceView implements Runnable {
                 update();
                 draw();
             }
+            if(updateRequiredarmy()) {
+                updatearmy();
+            }
 
         }
     }
@@ -170,11 +175,7 @@ public class GameEngine extends SurfaceView implements Runnable {
                 way.add(screenX/4,screenY/2);
                 way.add(screenX/4,screenY);
                 towers.add(new TowerType1(100,100,this));
-                attackers.add(new AttackerType1(way, this));
-                attackers.add(new AttackerType1(way, this));
-                attackers.add(new AttackerType1(way, this));
-                attackers.add(new AttackerType1(way, this));
-                attackers.add(new AttackerType1(way, this));
+                nbattacker=5;
                     break;
             case 2:
                 fails =0;
@@ -183,8 +184,7 @@ public class GameEngine extends SurfaceView implements Runnable {
                 way.add(screenX/4,screenY/4);
                 way.add(screenX/4,screenY);
                 towers.add(new TowerType1(100,100,this));
-                attackers.add(new AttackerType1(way, this));
-                attackers.add(new AttackerType1(way, this));
+                nbattacker=5;
                 break;
         }
 
@@ -217,6 +217,8 @@ public class GameEngine extends SurfaceView implements Runnable {
 
 
     public void update() {
+
+
         int size=attackers.size();
         for(int i=0; i<size; ++i){
             Attacker attacker=attackers.get(i);
@@ -303,6 +305,9 @@ public class GameEngine extends SurfaceView implements Runnable {
                 /*projectilesDead.add(projectile);*/
             }
         }
+
+
+
         if(fails == 5){
             endlevel =true;
             gg =false;
@@ -312,6 +317,8 @@ public class GameEngine extends SurfaceView implements Runnable {
             endlevel =true;
             gg= true;
         }
+
+
 
     }
 
@@ -397,10 +404,13 @@ public class GameEngine extends SurfaceView implements Runnable {
         Paint paint = new Paint();
         paint.setAntiAlias(true);
     }
-
-
 }
-
+    public void updatearmy() {
+        if(nbattacker>0){
+            attackers.add(new AttackerType1(way, this));
+            nbattacker--;
+        }
+    }
 
     public boolean updateRequired() {
 
@@ -410,6 +420,22 @@ public class GameEngine extends SurfaceView implements Runnable {
 
             // Setup when the next update will be triggered
             nextFrameTime =System.currentTimeMillis() + MILLIS_PER_SECOND / FPS;
+
+            // Return true so that the update and draw
+            // functions are executed
+            return true;
+        }
+
+        return false;
+    }
+    public boolean updateRequiredarmy() {
+
+        // Are we due to update the frame
+        if(nextFrameTime2 <= System.currentTimeMillis()){
+            // Tenth of a second has passed
+
+            // Setup when the next update will be triggered
+            nextFrameTime2 =System.currentTimeMillis() + 30*MILLIS_PER_SECOND / FPS;
 
             // Return true so that the update and draw
             // functions are executed
