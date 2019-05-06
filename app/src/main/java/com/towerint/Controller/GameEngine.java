@@ -223,11 +223,11 @@ public class GameEngine extends SurfaceView implements Runnable {
         tower2= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.tower2);
         tower2 = Bitmap.createScaledBitmap(tower2, 100, 100, false);
         victory= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.victory);
-        victory = Bitmap.createScaledBitmap(victory, 1000, 1000, false);
+        victory = Bitmap.createScaledBitmap(victory, screenY, screenY, false);
         next_level= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.next_level);
         next_level= Bitmap.createScaledBitmap(next_level, 100, 100, false);
         defeat= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.defeat);
-        defeat= Bitmap.createScaledBitmap(defeat, 1000, 1000, false);
+        defeat= Bitmap.createScaledBitmap(defeat, screenY, screenY, false);
         start= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.start);
         start= Bitmap.createScaledBitmap(start, 100, 100, false);
         restart= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.restart);
@@ -412,12 +412,12 @@ public class GameEngine extends SurfaceView implements Runnable {
         //canvas.drawLine(left, top, right, bottom, paint);
 
         // victory or defeat ?
-        if(endlevel==true&& gg==false){
-            canvas.drawBitmap(defeat, 0, screenY/4, paint);
+        if(endlevel&& !gg){
+            canvas.drawBitmap(defeat, screenX/2-defeat.getWidth()/2, screenY/2-defeat.getHeight()/2, paint);
             canvas.drawBitmap(restart, screenX-100, screenY-100, paint);
         }
-        else if (attackers.isEmpty() && endlevel ==true) {
-            canvas.drawBitmap(victory, 0, screenY/4, paint);
+        else if (attackers.isEmpty() && endlevel) {
+            canvas.drawBitmap(victory,screenX/2-victory.getWidth()/2, screenY/2-victory.getHeight()/2, paint);
             canvas.drawBitmap(next_level, screenX-100, screenY-100, paint);
 
         }
