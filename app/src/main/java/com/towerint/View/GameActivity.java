@@ -106,6 +106,9 @@ public class GameActivity extends AppCompatActivity {
                 {
                     gameEngine.tower =2 ;
                 }
+                else if(X>= 200&& X<300 && Y>gameEngine.screenY-100){
+                    gameEngine.begin=true;
+                }
                 else if(X>= gameEngine.screenX-100&& X<gameEngine.screenX && Y>gameEngine.screenY-100&&gameEngine.endlevel==true){
                     gameEngine.towers.clear();
                     gameEngine.endlevel = false;

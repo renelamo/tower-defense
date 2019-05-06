@@ -16,6 +16,7 @@ import android.graphics.Bitmap;
 
 import com.towerint.Model.Attacker;
 import com.towerint.Model.AttackerType1;
+import com.towerint.Model.AttackerType2;
 import com.towerint.Model.Node;
 import com.towerint.Model.Projectile;
 import com.towerint.Model.TemporaryPrintable;
@@ -25,6 +26,8 @@ import com.towerint.Model.Way;
 import com.towerint.R;
 import com.towerint.View.GameActivity;
 import com.towerint.View.Music;
+import java.util.concurrent.ThreadLocalRandom;
+
 
 
 
@@ -77,6 +80,7 @@ public class GameEngine extends SurfaceView implements Runnable {
     public int level = 1;
     public boolean endlevel = false;
     public boolean gg =false;
+    public boolean begin =false;
     public int nbattacker1;
     // Everything we need for drawing
 // Is the game currently playing?
@@ -99,6 +103,7 @@ public class GameEngine extends SurfaceView implements Runnable {
     private Bitmap victory;
     private Bitmap next_level;
     private Bitmap defeat;
+    private Bitmap start;
     Music music = new Music();
 
 
@@ -170,9 +175,14 @@ public class GameEngine extends SurfaceView implements Runnable {
                 fails =0;
                 money =500;
                 //creation of the way
+                //int randomNum = ThreadLocalRandom.current().nextInt(1, 5 + 1)*100;
+                //int randomNum2 = ThreadLocalRandom.current().nextInt(1, 5 + 1)*100;
+
                 way=new Way(new Node(screenX/2,0));
                 way.add(screenX/2,screenY/2);
+                //way.add(screenX/2,randomNum);
                 way.add(screenX/4,screenY/2);
+                //way.add(randomNum2+screenX/2,randomNum);
                 way.add(screenX/4,screenY);
                 towers.add(new TowerType1(100,100,this));
                 //required number of unit
@@ -211,62 +221,67 @@ public class GameEngine extends SurfaceView implements Runnable {
         next_level= Bitmap.createScaledBitmap(next_level, 100, 100, false);
         defeat= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.defeat);
         defeat= Bitmap.createScaledBitmap(defeat, 1000, 1000, false);
+        start= BitmapFactory.decodeResource(GameEngine.context.getResources(), R.drawable.start);
+        start= Bitmap.createScaledBitmap(start, 100, 100, false);
         playPauseDisplay=pauseBitmap;
 
         // Setup nextFrameTime so an update is triggered
-        nextFrameTime = System.currentTimeMillis();
+      //  nextFrameTime = System.currentTimeMillis();
     }
 
 
     public void update() {
 
+if(begin) {
+    int size = attackers.size();
+    for (int i = 0; i < size; ++i) {
+        Attacker attacker = attackers.get(i);
+        if (attacker.getSpeed().getNorm() == 0) {
+            fails += 1;
+            attackers.remove(attacker);
+            --size;
+            --i;
+        }
+        ;
+        /*attackersDead.add(attacker);*/
+        if (attacker.isDead()) {
+            attackers.remove(attacker);
+            --size;
+            --i;
+            if (attacker.getSpeed().getNorm() != 0) {
+                score += 1;
+                money += attacker.getMoney();
+            }
+        }
+        ;
+        attacker.move();
 
-        int size=attackers.size();
-        for(int i=0; i<size; ++i){
-            Attacker attacker=attackers.get(i);
-            if (attacker.getSpeed().getNorm() == 0 ) {
-                fails +=1;
-                attackers.remove(attacker);
-                --size;
-                --i;
-            };
-            /*attackersDead.add(attacker);*/
-            if (attacker.isDead()){attackers.remove(attacker);
-                --size;
-                --i;
-                if(attacker.getSpeed().getNorm()!=0){
-                    score +=1;
-                    money += attacker.getMoney();
+    }
+    if (!attackers.isEmpty()) {
+        for (Tower tower : towers) {
+            if (!tower.getTargets().isEmpty()) {
+                if ((tower.getPosition().diff(tower.getTargets().get(0).getPosition()).getNorm() < tower.getRange())) {
+
+                    tower.faceToPoint(tower.getTargets().get(0).getPosition());
+                    if (tower.ableToShoot()) {
+                        tower.shoot(tower.getTargets().get(0));
+                    }
                 }
-            };
-            attacker.move();
+
+            }
+
+            if (tower.ableToShoot()) {
+                tower.towerTargetsUpdate(attackers);
+            }
+
 
         }
-       if (!attackers.isEmpty()) {
-           for (Tower tower : towers) {
-                   if (!tower.getTargets().isEmpty()) {
-                       if ((tower.getPosition().diff(tower.getTargets().get(0).getPosition()).getNorm() < tower.getRange())) {
-
-                           tower.faceToPoint(tower.getTargets().get(0).getPosition());
-                           if (tower.ableToShoot()) {
-                               tower.shoot(tower.getTargets().get(0));
-                           }
-                       }
-
-                   }
-
-                   if (tower.ableToShoot()) {
-                       tower.towerTargetsUpdate(attackers);
-                   }
-
-
-           }
-           ;
-           // towers.get(0).faceToPoint(attackers.get(0).getPosition());
-           // if (towers.get(0).ableToShoot()) {
-                //towers.get(0).shoot(attackers.get(0));
-          //  }
-        }
+        ;
+        // towers.get(0).faceToPoint(attackers.get(0).getPosition());
+        // if (towers.get(0).ableToShoot()) {
+        //towers.get(0).shoot(attackers.get(0));
+        //  }
+    }
 
 
         /*    for (Tower tower : towers) {
@@ -286,28 +301,29 @@ public class GameEngine extends SurfaceView implements Runnable {
 */
 
 
-        for(TemporaryPrintable temporaryPrintable:temporaryPrintables){
-            if (!temporaryPrintable.isAlive()){
-                temporaryPrintables.remove(temporaryPrintable);
-            }
+    for (TemporaryPrintable temporaryPrintable : temporaryPrintables) {
+        if (!temporaryPrintable.isAlive()) {
+            temporaryPrintables.remove(temporaryPrintable);
         }
+    }
 
-        for(Projectile projectile:projectiles){
-            projectile.move();
-            if (projectile.getSpeed().getNorm() == 0 ) {
-                for (Attacker attacker:attackers){
-                    if ((attacker.getPosition().diff(projectile.getPosition()).getNorm() < projectile.getRange())){
-                        attacker.takeDamage(projectile.getPower());
-                    }
+    for (Projectile projectile : projectiles) {
+        projectile.move();
+        if (projectile.getSpeed().getNorm() == 0) {
+            for (Attacker attacker : attackers) {
+                if ((attacker.getPosition().diff(projectile.getPosition()).getNorm() < projectile.getRange())) {
+                    attacker.takeDamage(projectile.getPower());
                 }
-                temporaryPrintables.add(new TemporaryPrintable(projectile.getPosition(), this, R.drawable.explosion, 100));
-
-                music.bombMusic(GameEngine.context);
-                projectiles.remove(projectile);
-                /*projectilesDead.add(projectile);*/
             }
-        }
+            temporaryPrintables.add(new TemporaryPrintable(projectile.getPosition(), this, R.drawable.explosion, 100));
 
+            music.bombMusic(GameEngine.context);
+            projectiles.remove(projectile);
+            /*projectilesDead.add(projectile);*/
+        }
+    }
+
+}
 
 
 
@@ -367,7 +383,7 @@ public class GameEngine extends SurfaceView implements Runnable {
         canvas.drawBitmap(playPauseDisplay, screenX-100, 0, paint);
         canvas.drawBitmap(tower1, 0, screenY-100, paint);
         canvas.drawBitmap(tower2, 100, screenY-100, paint);
-
+        canvas.drawBitmap(start, 200, screenY-100, paint);
         // Scale the HUD text
         paint.setTextSize(60);
         canvas.drawText("Score :" + score, 10, 70, paint);
@@ -400,21 +416,23 @@ public class GameEngine extends SurfaceView implements Runnable {
 }
 //create the required army
     public void updatearmy() {
-        if(nbattacker1 >0){
-            attackers.add(new AttackerType1(way, this));
-            nbattacker1--;
-        }
-        else {
+        if (begin) {
+            if (nbattacker1 > 0) {
+                attackers.add(new AttackerType1(way, this));
+                //  attackers.add(new AttackerType2(way, this));
+                nbattacker1--;
+            } else {
 
-            //check if the level is finished and if you win or loose
-            if (fails == 5) {
-                endlevel = true;
-                gg = false;
-            } else if (attackers.isEmpty() && endlevel == false && fails != 5) {
-                level++;
-                endlevel = true;
-                music.bombMusic(GameEngine.context);
-                gg = true;
+                //check if the level is finished and if you win or loose
+                if (fails == 5) {
+                    endlevel = true;
+                    gg = false;
+                } else if (attackers.isEmpty() && endlevel == false && fails != 5) {
+                    level++;
+                    endlevel = true;
+                    music.bombMusic(GameEngine.context);
+                    gg = true;
+                }
             }
         }
     }
