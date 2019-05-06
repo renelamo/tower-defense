@@ -87,6 +87,10 @@ public class Vector2 { //TODO: si ca ne fait pas lagger, rmplacer les float par 
         setC(Math.max(Math.min(getX(), vMax.getX()), vMin.getX()), Math.max(Math.min(getY(), vMax.getY()), vMin.getY()));
     }
 
+    public static float distance(Vector2 pos1, Vector2 pos2){
+        return pos1.diff(pos2).getNorm();
+    }
+
     @Override
     public String toString() {
         return "("+x+","+y+")";

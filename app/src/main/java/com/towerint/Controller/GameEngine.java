@@ -16,19 +16,14 @@ import android.graphics.Bitmap;
 
 import com.towerint.Model.Attacker;
 import com.towerint.Model.AttackerType1;
-import com.towerint.Model.AttackerType2;
 import com.towerint.Model.Node;
+import static com.towerint.Model.Printable.distance;
 import com.towerint.Model.Projectile;
 import com.towerint.Model.TemporaryPrintable;
 import com.towerint.Model.Tower;
-import com.towerint.Model.TowerType1;
 import com.towerint.Model.Way;
 import com.towerint.R;
-import com.towerint.View.GameActivity;
 import com.towerint.View.Music;
-import java.util.concurrent.ThreadLocalRandom;
-
-
 
 
 public class GameEngine extends SurfaceView implements Runnable {
@@ -128,12 +123,11 @@ public class GameEngine extends SurfaceView implements Runnable {
 
         while (isPlaying) {
 
-            // Update 10 times a second
             if(updateRequired()) {
                 update();
                 draw();
             }
-            if(updateRequiredarmy()) {
+            if(begin && updateRequiredArmy()) {
                 updatearmy();
             }
 
@@ -223,24 +217,24 @@ public class GameEngine extends SurfaceView implements Runnable {
         playPauseDisplay=pauseBitmap;
 
         // Setup nextFrameTime so an update is triggered
-      //  nextFrameTime = System.currentTimeMillis();
+        //  nextFrameTime = System.currentTimeMillis();
     }
 
 
     public void update() {
 
         if(begin) {
+
+            //Actualisation des attaquants
             int size = attackers.size();
             for (int i = 0; i < size; ++i) {
                 Attacker attacker = attackers.get(i);
-                if (attacker.getSpeed().getNorm() == 0) {
+                if (attacker.isArrived()) {
                     fails += 1;
                     attackers.remove(attacker);
                     --size;
                     --i;
                 }
-                ;
-                /*attackersDead.add(attacker);*/
                 if (attacker.isDead()) {
                     attackers.remove(attacker);
                     --size;
@@ -250,38 +244,16 @@ public class GameEngine extends SurfaceView implements Runnable {
                         money += attacker.getMoney();
                     }
                 }
-                ;
                 attacker.move();
-
-            }
-            if (!attackers.isEmpty()) {
-                for (Tower tower : towers) {
-                    tower.towerTargetsUpdate(attackers);
-                }
-                ;
-                // towers.get(0).faceToPoint(attackers.get(0).getPosition());
-                // if (towers.get(0).ableToShoot()) {
-                //towers.get(0).shoot(attackers.get(0));
-                //  }
             }
 
 
-                /*    for (Tower tower : towers) {
-                        if (!tower.getTargets().isEmpty()) {
-                            tower.faceToPoint(tower.getTargets().get(0).getPosition());
-                            if (tower.ableToShoot()) {
-                                tower.shoot(tower.getTargets().get(0));
-                            }
+            //actualisation des cibles des tours
+            for (Tower tower : towers) {
+                tower.shoot(attackers);
+            }
 
-                        }
-                        if (tower.ableToShoot()){
-                            tower.towerTargetsUpdate(attackers);
-                        }
-
-                    }
-                    ;
-        */
-
+            //retrait des images temporaires expirées
             size=temporaryPrintables.size();
             for (int i=0; i<size; ++i) {
                 TemporaryPrintable temporaryPrintable = temporaryPrintables.get(i);
@@ -292,13 +264,14 @@ public class GameEngine extends SurfaceView implements Runnable {
                 }
             }
 
+            //Actualisation des positions de projectiles
             size=projectiles.size();
             for (int i=0; i<size; ++i) {
                 Projectile projectile = projectiles.get(i);
                 projectile.move();
-                if (projectile.getSpeed().getNorm() == 0) {
+                if (projectile.isArrived()) {
                     for (Attacker attacker : attackers) {
-                        if ((attacker.getPosition().diff(projectile.getPosition()).getNorm() < projectile.getRange())) {
+                        if (distance(attacker, projectile) < projectile.getRange()) {
                             attacker.takeDamage(projectile.getPower());
                         }
                     }
@@ -308,77 +281,74 @@ public class GameEngine extends SurfaceView implements Runnable {
                     projectiles.remove(projectile);
                     --size;
                     --i;
-                    /*projectilesDead.add(projectile);*/
                 }
+            }
+            //check if the level is finished and if you win or loose
+            if (fails == 5) {
+                endlevel = true;
+                gg = false;
+            } else if (attackers.isEmpty() && !endlevel) {
+                level++;
+                endlevel = true;
+                music.bombMusic(GameEngine.context);
+                gg = true;
             }
 
         }
     }
 
- public void draw() {
-    // Get a lock on the canvas
-    if (surfaceHolder.getSurface().isValid()) {
-        canvas = surfaceHolder.lockCanvas();
+    public void draw() {
+        // Get a lock on the canvas
+        if (surfaceHolder.getSurface().isValid()) {
+            canvas = surfaceHolder.lockCanvas();
 
-        // Fill the screen with color
-        canvas.drawColor(Color.GREEN);
+            // Fill the screen with color
+            canvas.drawColor(Color.GREEN);
 
-        //dessine le chemin
-        paint.setColor(Color.DKGRAY);
-        paint.setStrokeWidth(10);
-        way.draw(canvas, paint);
-        //affichage de tous les printables
-        for(Tower tower:towers){
-            tower.draw(canvas, paint);
+            //dessine le chemin
+            paint.setColor(Color.DKGRAY);
+            paint.setStrokeWidth(10);
+            way.draw(canvas, paint);
+            //affichage de tous les printables
+            for(Tower tower:towers){
+                tower.draw(canvas, paint);
+            }
+            for(Attacker attacker:attackers){
+                attacker.draw(canvas, paint);
+            }
+            for(Projectile projectile:projectiles){
+                projectile.draw(canvas, paint);
+            }
+
+            for(TemporaryPrintable temporaryPrintable:temporaryPrintables){
+                temporaryPrintable.draw(canvas,null);
+            }
+
+            /*for(Attacker attacker:attackersDead){
+                //TODO ANIMATION MORT
+                projectilesDead.remove(attacker);
+
+            }
+            for(Projectile projectile:projectilesDead){
+                //TODO ANIMATION DESTRUCTION
+                projectilesDead.remove(projectile);
+            }
+            */
+
+            drawButtons();
+
+            // Unlock the canvas and reveal the graphics for this frame
+            surfaceHolder.unlockCanvasAndPost(canvas);
+            canvas.drawRGB(0, 0, 0);
         }
-        for(Attacker attacker:attackers){
-            attacker.draw(canvas, paint);
-        }
-        for(Projectile projectile:projectiles){
-            projectile.draw(canvas, paint);
-        }
-
-        for(TemporaryPrintable temporaryPrintable:temporaryPrintables){
-            temporaryPrintable.draw(canvas,null);
-        }
-
-        /*for(Attacker attacker:attackersDead){
-            //TODO ANIMATION MORT
-            projectilesDead.remove(attacker);
-
-        }
-        for(Projectile projectile:projectilesDead){
-            //TODO ANIMATION DESTRUCTION
-            projectilesDead.remove(projectile);
-        }
-        */
-
-        drawButtons();
-
-        // Unlock the canvas and reveal the graphics for this frame
-        surfaceHolder.unlockCanvasAndPost(canvas);
-        canvas.drawRGB(0, 0, 0);
     }
-}
-//create the required army
+    //create the required army
     public void updatearmy() {
         if (begin) {
             if (nbattacker1 > 0) {
                 attackers.add(new AttackerType1(way, this));
                 //  attackers.add(new AttackerType2(way, this));
                 nbattacker1--;
-            } else {
-
-                //check if the level is finished and if you win or loose
-                if (fails == 5) {
-                    endlevel = true;
-                    gg = false;
-                } else if (attackers.isEmpty() && !endlevel) {
-                    level++;
-                    endlevel = true;
-                    music.bombMusic(GameEngine.context);
-                    gg = true;
-                }
             }
         }
     }
@@ -400,8 +370,8 @@ public class GameEngine extends SurfaceView implements Runnable {
         return false;
     }
     //frequency of invocation of the army
-    public boolean updateRequiredarmy() {
-
+    public boolean updateRequiredArmy() {
+//*
         // Are we due to update the frame
         if(nextFrameTime2 <= System.currentTimeMillis()){
             // Tenth of a second has passed
@@ -414,7 +384,7 @@ public class GameEngine extends SurfaceView implements Runnable {
             return true;
         }
 
-        return false;
+        return false;//*/
     }
 
     private void drawButtons(){

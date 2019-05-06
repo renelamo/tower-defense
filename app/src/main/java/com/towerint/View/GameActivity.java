@@ -92,6 +92,9 @@ public class GameActivity extends AppCompatActivity {
                     gameEngine.towers.add(new TowerType1(X,Y,gameEngine));
                     gameEngine.money = gameEngine.money - 100;
                 }
+                else if( (gameEngine.tower == 1 && gameEngine.money<100) || (gameEngine.tower==2 && gameEngine.money<200)){
+                    Toast.makeText(this, "Vous n'avez plus assez d'argent!", Toast.LENGTH_SHORT).show();
+                }
                 else if (gameEngine.tower == 2 && gameEngine.money >=200&& Y<gameEngine.screenY-100&&gameEngine.endlevel==false){
                     Music music = new Music();
                     music.touchMusic(GameEngine.context);

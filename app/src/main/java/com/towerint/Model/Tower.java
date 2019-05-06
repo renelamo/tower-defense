@@ -31,14 +31,14 @@ public abstract class Tower extends Printable{
 
 
     //La cible est le premier élement de la liste on ne met a jour cette liste que lorsque que le premier élement n'est plus disponible (mort ou hors portée)
-    public void towerTargetsUpdate(List<Attacker> attackers) {
+    public void shoot(List<Attacker> attackers) {
         for(Attacker cible:attackers){
             if(cible.getPosition().diff(getPosition()).getNorm()<=range){
                 shoot(cible);
                 return;
             }
         }
-    };
+    }
 
     Tower(int posX, int posY, GameEngine parentEngine, int resource){
         super(posX,posY, parentEngine, resource);

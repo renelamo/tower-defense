@@ -8,7 +8,7 @@ import android.graphics.Paint;
 
 import com.towerint.Controller.GameEngine;
 
-abstract class Printable {
+public abstract class Printable {
     private Vector2 position;
     private double facing; //Angle (en degrés) de rotation de l'image.
     private int height;
@@ -84,13 +84,7 @@ abstract class Printable {
         canvas.restore();
     }
 
-    static public double sqr(double a) {return a*a;};
-
-    public double ecart(Vector2 v1, Vector2 v2 ){
-        float x1=v1.getX();
-        float y1=v1.getY();
-        float x2=v2.getX();
-        float y2=v2.getY();
-        return Math.sqrt(sqr(x2 - x1) + sqr(y2 - y1));
+    public static float distance(Printable p1, Printable p2){
+        return Vector2.distance(p1.position, p2.position);
     }
 }
