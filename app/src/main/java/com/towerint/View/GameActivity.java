@@ -1,5 +1,6 @@
 package com.towerint.View;
 
+import com.towerint.Model.Vector2;
 import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -11,7 +12,7 @@ import android.widget.Toast;
 import android.view.Display;
 import android.view.Window;
 import android.view.WindowManager;
-
+import com.towerint.Model.Tower;
 import com.towerint.Controller.GameEngine;
 import com.towerint.Model.TowerType1;
 import com.towerint.Model.TowerType2;
@@ -90,14 +91,74 @@ public class GameActivity extends AppCompatActivity {
 
                     Music music = new Music();
                     //music.touchMusic(GameEngine.context);
-                    gameEngine.towers.add(new TowerType1(X,Y,gameEngine));
-                    gameEngine.money = gameEngine.money - 100;
+                    if (gameEngine.towers.isEmpty()){
+                        gameEngine.towers.add(new TowerType1(X,Y,gameEngine));
+                        gameEngine.money = gameEngine.money - 100;
+                        break;
+                    }
+                    Vector2 vector = new Vector2();
+                    Vector2 vector2 = new Vector2();
+                    Vector2 vector3 = new Vector2();
+                    Vector2 vector4 = new Vector2();
+                    vector2.setC(0,0);
+                    vector.setC(X,Y);
+                    vector4.setC(partX,partX);
+                    int i=0;
+                    for(Tower tower : gameEngine.towers)
+                    {
+                        vector3.setC(tower.getPosX(),tower.getPosY());
+                        if(Vector2.distance(vector,vector3)<=Vector2.distance(vector2,vector4)){
+                        break;
+                        }
+                        else if (Vector2.distance(vector,vector3)>Vector2.distance(vector2,vector4))
+                        {
+                            i++;
+                            if(i==gameEngine.towers.size()) {
+                                gameEngine.towers.add(new TowerType1(X, Y, gameEngine));
+                                gameEngine.money = gameEngine.money - 100;
+                                break;
+                            }
+
+                        }
+                    }
+
+
                 }
                 else if (gameEngine.tower == 2 && gameEngine.money >=200&& Y<gameEngine.screenY-partX&&gameEngine.endlevel==false){
                     Music music = new Music();
                   //  music.touchMusic(GameEngine.context);
-                    gameEngine.towers.add(new TowerType2(X,Y,gameEngine));
-                    gameEngine.money = gameEngine.money - 200;
+
+                    //music.touchMusic(GameEngine.context);
+                    if (gameEngine.towers.isEmpty()){
+                        gameEngine.towers.add(new TowerType2(X,Y,gameEngine));
+                        gameEngine.money = gameEngine.money - 100;
+                        break;
+                    }
+                    Vector2 vector = new Vector2();
+                    Vector2 vector2 = new Vector2();
+                    Vector2 vector3 = new Vector2();
+                    Vector2 vector4 = new Vector2();
+                    vector2.setC(0,0);
+                    vector.setC(X,Y);
+                    vector4.setC(partX,partX);
+                    int i =0;
+                    for(Tower tower : gameEngine.towers)
+                    {
+                        vector3.setC(tower.getPosX(),tower.getPosY());
+                        if(Vector2.distance(vector,vector3)<=Vector2.distance(vector2,vector4)){
+                            break;
+                        }
+                        else if(Vector2.distance(vector,vector3)>Vector2.distance(vector2,vector4))
+                        {
+                            i++;
+                            if(i==gameEngine.towers.size()) {
+                                gameEngine.towers.add(new TowerType2(X,Y,gameEngine));
+                                gameEngine.money = gameEngine.money - 200;
+                                break;
+                            }
+
+                        }
+                    }
                 }
                 else if(X<=partX && Y>gameEngine.screenY-partX)
                 {
