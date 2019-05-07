@@ -9,5 +9,7 @@ public class ProjectileType1 extends Projectile {
 
     ProjectileType1(Way toFollow, GameEngine parent){
         super(toFollow, parent, resource, speed, 90);
+        power=30;
+        range=100;
     }
 }

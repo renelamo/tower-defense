@@ -81,7 +81,11 @@ public abstract class Tower extends Printable{
         faceToPoint(target.getPosition());
         if(ableToShoot()) {
             Way way = new Way(new Node(this.getPosition()), new Node(target.getPosition()));
-            parent.projectiles.add(new ProjectileType1(way, this.parent));
+            if(this instanceof TowerType1) {
+                parent.projectiles.add(new ProjectileType1(way, this.parent));
+            }else if(this instanceof TowerType2){
+                parent.projectiles.add(new ProjectileType2(way, parent));
+            }
             delayFramesLeft = 1000 * FPS / attackCooldown;
         }
     }

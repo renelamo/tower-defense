@@ -6,8 +6,8 @@ import com.towerint.R;
 abstract public class Projectile extends Movable {
     private Vector2 position;
     //private float speed; // la vitesse à laquelle se déplace le projectile
-    private int power = 30;
-    private int range=100;
+    protected int power;
+    protected int range;
 
     public Projectile(int posX, int posY,GameEngine parent, int resource){
         super(posX, posY, parent, resource);
