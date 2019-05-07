@@ -79,7 +79,7 @@ public class GameActivity extends AppCompatActivity {
         int partX=(int)(gameEngine.screenX*.15);
         switch (eventaction) {
             case MotionEvent.ACTION_DOWN:
-                if(X>gameEngine.screenX-100 && Y<100){
+                if(X>gameEngine.screenX-partX && Y<partX){
                     if(paused)
                     {
                         onResume();
