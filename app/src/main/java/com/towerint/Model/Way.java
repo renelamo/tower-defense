@@ -63,7 +63,7 @@ public class Way {
     }
 
     public float distance(Vector2 point){
-        float out=point.distanceDroite(path.get(0).getPosition(), path.get(1).getPosition());
+        float out=point.distanceSegment(path.get(0).getPosition(), path.get(1).getPosition());
         for(int i=1; i<path.size()-1; ++i){
             Node node=path.get(i);
             if(node.hasNext()){
