@@ -11,7 +11,6 @@ public class TowerType1 extends Tower {
 
     public TowerType1(Vector2 position, GameEngine engine){
         super(position, engine, R.drawable.tower1);
-        radius=2;
         attackCooldown=1000;
         super.cost=cost;
         range=500;

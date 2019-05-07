@@ -13,8 +13,7 @@ import java.util.List;
 import static com.towerint.Controller.GameEngine.FPS;
 
 
-public abstract class Tower extends Printable{
-    protected double radius;
+public abstract class Tower extends Printable{ ;
     protected int range ;
     protected int attackCooldown; //Durée en  millisecondes entre deux tirs
     private long delayFramesLeft; //Nombre de frames restant a attendre avant le prochain tir possible
@@ -63,15 +62,10 @@ public abstract class Tower extends Printable{
         super(position, parent, resource);
         this.parent=parent;
         delayFramesLeft =0;
-        this.targets = new ArrayList<Attacker>();
-        this.posX=posX;
-        this.posY=posY;
+        this.targets = new ArrayList<>();
     }
 
     //TODO: je ne pense pas que tous ces getters soient utiles...
-    public double getRadius(){
-        return radius;
-    };
     public double getRange(){
         return range;
     };

@@ -40,10 +40,6 @@ public abstract class Attacker extends Movable {
         return health<=0;
     }
 
-    public int getHealth() {
-        return health;
-    }
-
     public int getMoney() {
         return money;
     }

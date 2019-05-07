@@ -1,15 +1,11 @@
 package com.towerint.View;
 
-import com.towerint.Model.Printable;
 import com.towerint.Model.Vector2;
-import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
-import android.widget.Toast;
-
 import android.view.Display;
 import android.view.Window;
 import android.view.WindowManager;
@@ -76,50 +72,40 @@ public class GameActivity extends AppCompatActivity {
 
         int X = (int) event.getX();
         int Y = (int) event.getY();
-        int eventaction = event.getAction();
+        int eventAction = event.getAction();
         int partX=(int)(gameEngine.screenX*.15);
-        switch (eventaction) {
-            case MotionEvent.ACTION_DOWN:
-                if(X>gameEngine.screenX-partX && Y<partX){
-                    if(paused)
-                    {
-                        onResume();
-                    }else {
-                        onPause();
-                    }
-                    gameEngine.begin=true;
-                }
-                else if(X<=partX && Y>gameEngine.screenY-partX)
+        if(eventAction==MotionEvent.ACTION_DOWN) {
+            if(X>gameEngine.screenX-partX && Y<partX){//Bouton de pause
+                if(paused)
                 {
-                    gameEngine.tower =1 ;
+                    onResume();
+                }else {
+                    onPause();
                 }
-                else if(X>= partX&& X<2*partX && Y>gameEngine.screenY-partX)
-                {
-                    gameEngine.tower =2 ;
-                }
-                else if(X>= 2*partX&& X<3*partX && Y>gameEngine.screenY-partX){
-                    gameEngine.begin=true;
-                }
-                else if(X>= gameEngine.screenX-partX&& X<gameEngine.screenX && Y>gameEngine.screenY-partX&&gameEngine.endlevel==true) {
-                    gameEngine.towers.clear();
-                    gameEngine.endlevel = false;
-                    gameEngine.gg = false;
-                    gameEngine.begin = false;
-                    gameEngine.newGame();
-                }else{
-                    createTower(new Vector2(X, Y));
-                }
-                //Toast.makeText(this, "ACTION_DOWN AT COORDS "+"X: "+X+" Y: "+Y, Toast.LENGTH_SHORT).show();
-                isTouch = true;
-                break;
-
-            case MotionEvent.ACTION_MOVE:
-                //Toast.makeText(this, "MOVE "+"X: "+X+" Y: "+Y, Toast.LENGTH_SHORT).show();
-                break;
-
-            case MotionEvent.ACTION_UP:
-                //Toast.makeText(this, "ACTION_UP "+"X: "+X+" Y: "+Y, Toast.LENGTH_SHORT).show();
-                break;
+                gameEngine.begin=true;
+            }
+            else if(X<=partX && Y>gameEngine.screenY-partX) //CHoix tour type 1
+            {
+                gameEngine.tower =1 ;
+            }
+            else if(X>= partX&& X<2*partX && Y>gameEngine.screenY-partX) //choix tour tyoe 2
+            {
+                gameEngine.tower =2 ;
+            }
+            else if(X>= 2*partX&& X<3*partX && Y>gameEngine.screenY-partX){// Bouton start
+                gameEngine.begin=true;
+            }
+            else if(X>= gameEngine.screenX-partX&& X<gameEngine.screenX && Y>gameEngine.screenY-partX&&gameEngine.endlevel==true) { //Bouton restart
+                gameEngine.towers.clear();
+                gameEngine.endlevel = false;
+                gameEngine.gg = false;
+                gameEngine.begin = false;
+                gameEngine.newGame();
+            }else{
+                createTower(new Vector2(X, Y));
+            }
+            //Toast.makeText(this, "ACTION_DOWN AT COORDS "+"X: "+X+" Y: "+Y, Toast.LENGTH_SHORT).show();
+            isTouch = true;
         }
         return true;
     }
