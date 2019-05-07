@@ -26,7 +26,7 @@ public class OptionsActivity extends AppCompatActivity {
         musicButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Music music = MainActivity.getmusic();
+                Music music = ((MainActivity)getParent()).getmusic();
                 music.musicState();
             }
         });

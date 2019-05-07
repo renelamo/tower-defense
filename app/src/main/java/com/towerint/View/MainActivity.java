@@ -12,12 +12,14 @@ import android.widget.Button;
 import com.towerint.R;
 
 public class MainActivity extends AppCompatActivity {
-    private Button mPlayButton;
-    private static Music music = new Music();
+
+    private Music music;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        music=new Music();
 
         // remove title
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -48,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(MainActivity.this, OptionsActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 0);
             }
         });
 
@@ -69,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Get class music
-    public static Music getmusic(){
+    public Music getmusic(){
         return music;
     }
 }
