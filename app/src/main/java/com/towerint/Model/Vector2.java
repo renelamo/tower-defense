@@ -74,9 +74,10 @@ public class Vector2 { //TODO: si ca ne fait pas lagger, rmplacer les float par 
     }
 
     //Multiplication par un scalaire
-    public void mult(float f){
-        x*=f;
-        y*=f;
+    public Vector2 mult(double d){
+        this.x*=d;
+        this.y*=d;
+        return this;
     }
 
     //pour que les valeurs cartésiennes du vecteur soient comprises dans l'intervalle spécifié
@@ -85,6 +86,13 @@ public class Vector2 { //TODO: si ca ne fait pas lagger, rmplacer les float par 
             return;
         }
         setC(Math.max(Math.min(getX(), vMax.getX()), vMin.getX()), Math.max(Math.min(getY(), vMax.getY()), vMin.getY()));
+    }
+
+    public float distanceDroite(Vector2 point1, Vector2 point2){
+        Vector2 directeurDroite=point1.diff(point2);
+        directeurDroite.mult(1/directeurDroite.getNorm()); //Vecteur normé
+        Vector2 projetéSurDroite=directeurDroite.mult(directeurDroite.dot(this));
+        return distance(this, projetéSurDroite);
     }
 
     public static float distance(Vector2 pos1, Vector2 pos2){

@@ -62,6 +62,20 @@ public class Way {
         return out;
     }
 
+    public float distance(Vector2 point){
+        float out=point.distanceDroite(path.get(0).getPosition(), path.get(1).getPosition());
+        for(int i=0; i<path.size()-1; ++i){
+            Node node=path.get(i);
+            if(node.hasNext()){
+                float ditsLocale=point.distanceDroite(node.getPosition(), node.getNext().getPosition());
+                if(ditsLocale<out){
+                    out=ditsLocale;
+                }
+            }
+        }
+        return out;
+    }
+
     public void draw(Canvas canvas, Paint paint){
         for(Node n:path){
             if(n.hasNext()){

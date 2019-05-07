@@ -434,5 +434,9 @@ public class GameEngine extends SurfaceView implements Runnable {
     public String toString() {
         return this.getHeight()+","+this.getWidth();
     }
+
+    public Way getPath(){
+        return way;
+    }
 }
 

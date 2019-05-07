@@ -105,6 +105,9 @@ public class GameActivity extends AppCompatActivity {
                     vector.setC(X,Y);
                     vector4.setC(partX,partX);
                     int i=0;
+                    if(gameEngine.getPath().distance(vector)<partX){ //On ne rajoute pas de tours sur le chemin
+                        break;
+                    }
                     for(Tower tower : gameEngine.towers)
                     {
                         vector3.setC(tower.getPosX(),tower.getPosY());
@@ -143,6 +146,9 @@ public class GameActivity extends AppCompatActivity {
                     vector.setC(X,Y);
                     vector4.setC(partX,partX);
                     int i =0;
+                    if(gameEngine.getPath().distance(vector)<partX){ //On ne rajoute pas de tours sur le chemin
+                        break;
+                    }
                     for(Tower tower : gameEngine.towers)
                     {
                         vector3.setC(tower.getPosX(),tower.getPosY());
