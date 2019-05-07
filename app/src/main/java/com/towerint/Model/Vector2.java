@@ -91,10 +91,22 @@ public class Vector2 { //TODO: si ca ne fait pas lagger, rmplacer les float par 
     public float distanceDroite(Vector2 point1, Vector2 point2){
         Vector2 directeurDroite=point2.diff(point1);
         directeurDroite.mult(1/directeurDroite.getNorm()); //Vecteur normé
-        Vector2 projetéSurDroite=directeurDroite.mult(directeurDroite.dot(this.diff(point1)));
-        return distance(this, projetéSurDroite);
+        Vector2 projeteSurDroite=directeurDroite.mult(directeurDroite.dot(this.diff(point1)));
+        return distance(this, projeteSurDroite.add(point1));
     }
 
+    public float distanceSegment(Vector2 point1, Vector2 point2){
+        Vector2 AB=point2.diff(point1);
+        Vector2 AM=this.diff(point1);
+        Vector2 BM=this.diff(point2);
+        if(AM.dot(AB)<=0){
+            return distance(this, point1);
+        }
+        if(BM.dot(AB.mult(-1))<=0){
+            return distance(this, point2);
+        }
+        return distanceDroite(point1, point2);
+    }
     public static float distance(Vector2 pos1, Vector2 pos2){
         return pos1.diff(pos2).getNorm();
     }

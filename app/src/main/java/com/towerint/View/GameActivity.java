@@ -136,14 +136,14 @@ public class GameActivity extends AppCompatActivity {
         }
         switch (gameEngine.tower){
             case 1:
-                if(gameEngine.money<=TowerType1.cost){
+                if(gameEngine.money<TowerType1.cost){
                     return false;
                 }
                 gameEngine.towers.add(new TowerType1(position, gameEngine));
                 gameEngine.money-=TowerType1.cost;
                 break;
             case 2:
-                if(gameEngine.money<=TowerType2.cost){
+                if(gameEngine.money<TowerType2.cost){
                     return false;
                 }
                 gameEngine.towers.add(new TowerType2(position, gameEngine));

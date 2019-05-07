@@ -24,6 +24,7 @@ public abstract class Printable {
     }
 
     Printable(Vector2 position, GameEngine engine, int resource){
+        this.position=position;
         parent=engine;
         this.resource=resource;
         facing=0;
