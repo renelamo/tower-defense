@@ -75,6 +75,7 @@ public class GameActivity extends AppCompatActivity {
         int X = (int) event.getX();
         int Y = (int) event.getY();
         int eventaction = event.getAction();
+        int partX=(int)(gameEngine.screenX*.15);
         switch (eventaction) {
             case MotionEvent.ACTION_DOWN:
                 if(X>gameEngine.screenX-100 && Y<100){
@@ -85,34 +86,31 @@ public class GameActivity extends AppCompatActivity {
                         onPause();
                     }
                 }
-                else if (gameEngine.tower == 1 && gameEngine.money >=100 && Y<gameEngine.screenY-100 && gameEngine.endlevel==false){
+                else if (gameEngine.tower == 1 && gameEngine.money >=100 && Y<gameEngine.screenY-partX && gameEngine.endlevel==false){
 
                     Music music = new Music();
-                    music.touchMusic(this);
+                    //music.touchMusic(GameEngine.context);
                     gameEngine.towers.add(new TowerType1(X,Y,gameEngine));
                     gameEngine.money = gameEngine.money - 100;
                 }
-                else if( (gameEngine.tower == 1 && gameEngine.money<100) || (gameEngine.tower==2 && gameEngine.money<200)){
-                    Toast.makeText(this, "Vous n'avez plus assez d'argent!", Toast.LENGTH_SHORT).show();
-                }
-                else if (gameEngine.tower == 2 && gameEngine.money >=200&& Y<gameEngine.screenY-100&&gameEngine.endlevel==false){
+                else if (gameEngine.tower == 2 && gameEngine.money >=200&& Y<gameEngine.screenY-partX&&gameEngine.endlevel==false){
                     Music music = new Music();
-                    music.touchMusic(this);
+                  //  music.touchMusic(GameEngine.context);
                     gameEngine.towers.add(new TowerType2(X,Y,gameEngine));
                     gameEngine.money = gameEngine.money - 200;
                 }
-                else if(X<=100 && Y>gameEngine.screenY-100)
+                else if(X<=partX && Y>gameEngine.screenY-partX)
                 {
                     gameEngine.tower =1 ;
                 }
-                else if(X>= 100&& X<200 && Y>gameEngine.screenY-100)
+                else if(X>= partX&& X<2*partX && Y>gameEngine.screenY-partX)
                 {
                     gameEngine.tower =2 ;
                 }
-                else if(X>= 200&& X<300 && Y>gameEngine.screenY-100){
+                else if(X>= 2*partX&& X<3*partX && Y>gameEngine.screenY-partX){
                     gameEngine.begin=true;
                 }
-                else if(X>= gameEngine.screenX-100&& X<gameEngine.screenX && Y>gameEngine.screenY-100&&gameEngine.endlevel==true){
+                else if(X>= gameEngine.screenX-partX&& X<gameEngine.screenX && Y>gameEngine.screenY-partX&&gameEngine.endlevel==true){
                     gameEngine.towers.clear();
                     gameEngine.endlevel = false;
                     gameEngine.gg=false;
