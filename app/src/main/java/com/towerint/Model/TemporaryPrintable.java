@@ -21,4 +21,5 @@ public class TemporaryPrintable extends Printable {
     public boolean isAlive(){
         return System.currentTimeMillis()-timeCreated <= this.timeToLive;
     }
+
 }

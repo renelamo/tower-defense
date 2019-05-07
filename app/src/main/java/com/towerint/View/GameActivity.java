@@ -1,5 +1,6 @@
 package com.towerint.View;
 
+import com.towerint.Model.Vector2;
 import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -11,7 +12,7 @@ import android.widget.Toast;
 import android.view.Display;
 import android.view.Window;
 import android.view.WindowManager;
-
+import com.towerint.Model.Tower;
 import com.towerint.Controller.GameEngine;
 import com.towerint.Model.TowerType1;
 import com.towerint.Model.TowerType2;
@@ -75,6 +76,7 @@ public class GameActivity extends AppCompatActivity {
         int X = (int) event.getX();
         int Y = (int) event.getY();
         int eventaction = event.getAction();
+        int partX=(int)(gameEngine.screenX*.15);
         switch (eventaction) {
             case MotionEvent.ACTION_DOWN:
                 if(X>gameEngine.screenX-100 && Y<100){
@@ -85,34 +87,91 @@ public class GameActivity extends AppCompatActivity {
                         onPause();
                     }
                 }
-                else if (gameEngine.tower == 1 && gameEngine.money >=100 && Y<gameEngine.screenY-100 && gameEngine.endlevel==false){
+                else if (gameEngine.tower == 1 && gameEngine.money >=100 && Y<gameEngine.screenY-partX && gameEngine.endlevel==false){
 
                     Music music = new Music();
-                    music.touchMusic(this);
-                    gameEngine.towers.add(new TowerType1(X,Y,gameEngine));
-                    gameEngine.money = gameEngine.money - 100;
+                    //music.touchMusic(GameEngine.context);
+                    if (gameEngine.towers.isEmpty()){
+                        gameEngine.towers.add(new TowerType1(X,Y,gameEngine));
+                        gameEngine.money = gameEngine.money - 100;
+                        break;
+                    }
+                    Vector2 vector = new Vector2();
+                    Vector2 vector2 = new Vector2();
+                    Vector2 vector3 = new Vector2();
+                    Vector2 vector4 = new Vector2();
+                    vector2.setC(0,0);
+                    vector.setC(X,Y);
+                    vector4.setC(partX,partX);
+                    int i=0;
+                    for(Tower tower : gameEngine.towers)
+                    {
+                        vector3.setC(tower.getPosX(),tower.getPosY());
+                        if(Vector2.distance(vector,vector3)<=Vector2.distance(vector2,vector4)){
+                        break;
+                        }
+                        else if (Vector2.distance(vector,vector3)>Vector2.distance(vector2,vector4))
+                        {
+                            i++;
+                            if(i==gameEngine.towers.size()) {
+                                gameEngine.towers.add(new TowerType1(X, Y, gameEngine));
+                                gameEngine.money = gameEngine.money - 100;
+                                break;
+                            }
+
+                        }
+                    }
+
+
                 }
-                else if( (gameEngine.tower == 1 && gameEngine.money<100) || (gameEngine.tower==2 && gameEngine.money<200)){
-                    Toast.makeText(this, "Vous n'avez plus assez d'argent!", Toast.LENGTH_SHORT).show();
-                }
-                else if (gameEngine.tower == 2 && gameEngine.money >=200&& Y<gameEngine.screenY-100&&gameEngine.endlevel==false){
+                else if (gameEngine.tower == 2 && gameEngine.money >=200&& Y<gameEngine.screenY-partX&&gameEngine.endlevel==false){
                     Music music = new Music();
-                    music.touchMusic(this);
-                    gameEngine.towers.add(new TowerType2(X,Y,gameEngine));
-                    gameEngine.money = gameEngine.money - 200;
+                  //  music.touchMusic(GameEngine.context);
+
+                    //music.touchMusic(GameEngine.context);
+                    if (gameEngine.towers.isEmpty()){
+                        gameEngine.towers.add(new TowerType2(X,Y,gameEngine));
+                        gameEngine.money = gameEngine.money - 100;
+                        break;
+                    }
+                    Vector2 vector = new Vector2();
+                    Vector2 vector2 = new Vector2();
+                    Vector2 vector3 = new Vector2();
+                    Vector2 vector4 = new Vector2();
+                    vector2.setC(0,0);
+                    vector.setC(X,Y);
+                    vector4.setC(partX,partX);
+                    int i =0;
+                    for(Tower tower : gameEngine.towers)
+                    {
+                        vector3.setC(tower.getPosX(),tower.getPosY());
+                        if(Vector2.distance(vector,vector3)<=Vector2.distance(vector2,vector4)){
+                            break;
+                        }
+                        else if(Vector2.distance(vector,vector3)>Vector2.distance(vector2,vector4))
+                        {
+                            i++;
+                            if(i==gameEngine.towers.size()) {
+                                gameEngine.towers.add(new TowerType2(X,Y,gameEngine));
+                                gameEngine.money = gameEngine.money - 200;
+                                break;
+                            }
+
+                        }
+                    }
                 }
-                else if(X<=100 && Y>gameEngine.screenY-100)
+                else if(X<=partX && Y>gameEngine.screenY-partX)
                 {
                     gameEngine.tower =1 ;
                 }
-                else if(X>= 100&& X<200 && Y>gameEngine.screenY-100)
+                else if(X>= partX&& X<2*partX && Y>gameEngine.screenY-partX)
                 {
                     gameEngine.tower =2 ;
                 }
-                else if(X>= 200&& X<300 && Y>gameEngine.screenY-100){
+                else if(X>= 2*partX&& X<3*partX && Y>gameEngine.screenY-partX){
                     gameEngine.begin=true;
                 }
-                else if(X>= gameEngine.screenX-100&& X<gameEngine.screenX && Y>gameEngine.screenY-100&&gameEngine.endlevel==true){
+                else if(X>= gameEngine.screenX-partX&& X<gameEngine.screenX && Y>gameEngine.screenY-partX&&gameEngine.endlevel==true){
                     gameEngine.towers.clear();
                     gameEngine.endlevel = false;
                     gameEngine.gg=false;

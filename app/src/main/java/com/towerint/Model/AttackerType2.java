@@ -5,7 +5,7 @@ import com.towerint.R;
 
 public class AttackerType2 extends Attacker{
     private static final int resource=R.drawable.attacker2;
-    private static final int speed=10000;
+    private static final int speed=8000;
 
 
 
@@ -20,6 +20,6 @@ public class AttackerType2 extends Attacker{
     public AttackerType2(Way toFollow, GameEngine parent){
         super(toFollow, parent, resource, speed);
         money=100;
-        health=100;
+        health=200;
     }
 }

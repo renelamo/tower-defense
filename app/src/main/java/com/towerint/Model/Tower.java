@@ -18,6 +18,8 @@ public abstract class Tower extends Printable{
     protected int cost;
     protected Projectile projectile;
     protected GameEngine parent;
+    int posX;
+    int posY;
 
 
     //TODO Systeme de cibles a tester
@@ -45,6 +47,8 @@ public abstract class Tower extends Printable{
         this.parent=parentEngine;
         delayFramesLeft =0;
         this.targets = new ArrayList<Attacker>();
+        this.posX=posX;
+        this.posY=posY;
     }
 
     //TODO: je ne pense pas que tous ces getters soient utiles...
@@ -88,5 +92,11 @@ public abstract class Tower extends Printable{
 
     public List<Attacker> getTargets() {
         return targets;
+    }
+    public int getPosX(){
+        return this.posX;
+    }
+    public int getPosY(){
+        return this.posY;
     }
 }

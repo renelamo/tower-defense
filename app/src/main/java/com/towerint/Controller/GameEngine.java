@@ -60,6 +60,7 @@ public class GameEngine extends SurfaceView implements Runnable {
     public int money;
     public int tower = 1;
     public int level = 1;
+
     public boolean endlevel = false;
     public boolean gg =false;
     public boolean begin =false;
@@ -81,7 +82,11 @@ public class GameEngine extends SurfaceView implements Runnable {
     private Bitmap playBitmap;
     private Bitmap playPauseDisplay;
     private Bitmap tower1;
+    private Bitmap tower1bis1;
+    private Bitmap tower1bis;
     private Bitmap tower2;
+    private Bitmap tower2bis1;
+    private Bitmap tower2bis;
     private Bitmap victory;
     private Bitmap next_level;
     private Bitmap defeat;
@@ -188,26 +193,34 @@ public class GameEngine extends SurfaceView implements Runnable {
         //Je rajoute ici du code de test
 
 
-
+        int partX=(int)(screenX*.15);
         //define the scale of the pictures
         pauseBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.pause_icon);
-        pauseBitmap =Bitmap.createScaledBitmap(pauseBitmap, 100, 100, false);
+        pauseBitmap =Bitmap.createScaledBitmap(pauseBitmap, partX, partX, false);
         playBitmap= BitmapFactory.decodeResource(context.getResources(), R.drawable.play_icon);
-        playBitmap = Bitmap.createScaledBitmap(playBitmap, 100, 100, false);
+        playBitmap = Bitmap.createScaledBitmap(playBitmap, partX, partX, false);
         tower1= BitmapFactory.decodeResource(context.getResources(), R.drawable.tower1);
-        tower1 = Bitmap.createScaledBitmap(tower1, 100, 100, false);
+        tower1 = Bitmap.createScaledBitmap(tower1, partX, partX, false);
+        tower1bis1= BitmapFactory.decodeResource(context.getResources(), R.drawable.tower1bis1);
+        tower1bis1 = Bitmap.createScaledBitmap(tower1bis1, partX, partX, false);
+        tower1bis= BitmapFactory.decodeResource(context.getResources(), R.drawable.tower1bis);
+        tower1bis = Bitmap.createScaledBitmap(tower1bis, partX, partX, false);
         tower2= BitmapFactory.decodeResource(context.getResources(), R.drawable.tower2);
-        tower2 = Bitmap.createScaledBitmap(tower2, 100, 100, false);
+        tower2 = Bitmap.createScaledBitmap(tower2, partX, partX, false);
+        tower2bis= BitmapFactory.decodeResource(context.getResources(), R.drawable.tower2bis);
+        tower2bis = Bitmap.createScaledBitmap(tower2bis, partX, partX, false);
+        tower2bis1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.tower2bis1);
+        tower2bis1 = Bitmap.createScaledBitmap(tower2bis1, partX, partX, false);
         victory= BitmapFactory.decodeResource(context.getResources(), R.drawable.victory);
         victory = Bitmap.createScaledBitmap(victory, screenY, screenY, false);
         next_level= BitmapFactory.decodeResource(context.getResources(), R.drawable.next_level);
-        next_level= Bitmap.createScaledBitmap(next_level, 100, 100, false);
+        next_level= Bitmap.createScaledBitmap(next_level, partX, partX, false);
         defeat= BitmapFactory.decodeResource(context.getResources(), R.drawable.defeat);
         defeat= Bitmap.createScaledBitmap(defeat, screenY, screenY, false);
         start= BitmapFactory.decodeResource(context.getResources(), R.drawable.start);
-        start= Bitmap.createScaledBitmap(start, 100, 100, false);
+        start= Bitmap.createScaledBitmap(start, partX, partX, false);
         restart= BitmapFactory.decodeResource(context.getResources(), R.drawable.restart);
-        restart= Bitmap.createScaledBitmap(restart, 100, 100, false);
+        restart= Bitmap.createScaledBitmap(restart, partX, partX, false);
         playPauseDisplay=pauseBitmap;
 
         // Setup nextFrameTime so an update is triggered
@@ -384,31 +397,41 @@ public class GameEngine extends SurfaceView implements Runnable {
     private void drawButtons(){
         int partX=(int)(screenX*.15);
         canvas.drawBitmap(playPauseDisplay, (int)(screenX-partX), 0, paint);
-        canvas.drawBitmap(tower1, 0, (int)(screenY-partX), paint);
-        canvas.drawBitmap(tower2, (int)(partX), (int)(screenY-partX), paint);
+        if(tower!=1) {
+            canvas.drawBitmap(tower1bis1, 0, (int) (screenY - partX), paint);
+        }
+        else if(tower == 1){
+            canvas.drawBitmap(tower1bis, 0, (int) (screenY - partX), paint);
+        }
+        if(tower!=2) {
+            canvas.drawBitmap(tower2bis1, (int) (partX), (int) (screenY - partX), paint);
+        }
+        else if(tower==2){
+            canvas.drawBitmap(tower2bis, (int) (partX), (int) (screenY - partX), paint);
+        }
         canvas.drawBitmap(start, 2*(int)(partX), (int)(screenY-partX), paint);
         // Scale the HUD text
-        paint.setTextSize(partX/2);
+        paint.setTextSize(partX/3);
         paint.setTextAlign(Paint.Align.LEFT);
-        canvas.drawText("Score :" + score, partX/5, partX/2, paint);
+        canvas.drawText("Score :" + score, (int)(screenX-2.5*partX), partX/2, paint);
         //canvas.drawLine(left, top, right, bottom, paint);
 
         paint.setTextAlign(Paint.Align.CENTER);
-        canvas.drawText("Fails :" + fails, screenX/2, partX/2, paint);
+        canvas.drawText("Fails :" + fails, (int)(screenX-3.5*partX), partX/2, paint);
         //canvas.drawLine(left, top, right, bottom, paint);
 
         paint.setTextAlign(Paint.Align.RIGHT);
-        canvas.drawText("Money :" + money, screenX, partX/2, paint);
+        canvas.drawText("Money :" + money, (int)(screenX-4.5*partX), partX/2, paint);
         //canvas.drawLine(left, top, right, bottom, paint);
 
         // victory or defeat ?
         if(endlevel&& !gg){
             canvas.drawBitmap(defeat, screenX/2-defeat.getWidth()/2, screenY/2-defeat.getHeight()/2, paint);
-            canvas.drawBitmap(restart, screenX-100, screenY-100, paint);
+            canvas.drawBitmap(restart, screenX-partX, screenY-partX, paint);
         }
         else if (attackers.isEmpty() && endlevel) {
             canvas.drawBitmap(victory,screenX/2-victory.getWidth()/2, screenY/2-victory.getHeight()/2, paint);
-            canvas.drawBitmap(next_level, screenX-100, screenY-100, paint);
+            canvas.drawBitmap(next_level, screenX-partX, screenY-partX, paint);
 
         }
 
