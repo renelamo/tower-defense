@@ -1,5 +1,6 @@
 package com.towerint.View;
 
+import com.towerint.Model.Printable;
 import com.towerint.Model.Vector2;
 import android.content.Context;
 import android.graphics.Point;
@@ -88,85 +89,6 @@ public class GameActivity extends AppCompatActivity {
                     }
                     gameEngine.begin=true;
                 }
-                else if (gameEngine.tower == 1 && gameEngine.money >=100 && Y<gameEngine.screenY-partX && gameEngine.endlevel==false){
-
-                    Music music = new Music();
-                    //music.touchMusic(GameEngine.context);
-                    if (gameEngine.towers.isEmpty()){
-                        gameEngine.towers.add(new TowerType1(X,Y,gameEngine));
-                        gameEngine.money = gameEngine.money - 100;
-                        break;
-                    }
-                    Vector2 vector = new Vector2();
-                    Vector2 vector2 = new Vector2();
-                    Vector2 vector3 = new Vector2();
-                    Vector2 vector4 = new Vector2();
-                    vector2.setC(0,0);
-                    vector.setC(X,Y);
-                    vector4.setC(partX,partX);
-                    int i=0;
-                    if(gameEngine.getPath().distance(vector)<partX){ //On ne rajoute pas de tours sur le chemin
-                        break;
-                    }
-                    for(Tower tower : gameEngine.towers)
-                    {
-                        vector3.setC(tower.getPosX(),tower.getPosY());
-                        if(Vector2.distance(vector,vector3)<=Vector2.distance(vector2,vector4)){
-                        break;
-                        }
-                        else if (Vector2.distance(vector,vector3)>Vector2.distance(vector2,vector4))
-                        {
-                            i++;
-                            if(i==gameEngine.towers.size()) {
-                                gameEngine.towers.add(new TowerType1(X, Y, gameEngine));
-                                gameEngine.money = gameEngine.money - 100;
-                                break;
-                            }
-
-                        }
-                    }
-
-
-                }
-                else if (gameEngine.tower == 2 && gameEngine.money >=200&& Y<gameEngine.screenY-partX&&gameEngine.endlevel==false){
-                    Music music = new Music();
-                  //  music.touchMusic(GameEngine.context);
-
-                    //music.touchMusic(GameEngine.context);
-                    if (gameEngine.towers.isEmpty()){
-                        gameEngine.towers.add(new TowerType2(X,Y,gameEngine));
-                        gameEngine.money = gameEngine.money - 100;
-                        break;
-                    }
-                    Vector2 vector = new Vector2();
-                    Vector2 vector2 = new Vector2();
-                    Vector2 vector3 = new Vector2();
-                    Vector2 vector4 = new Vector2();
-                    vector2.setC(0,0);
-                    vector.setC(X,Y);
-                    vector4.setC(partX,partX);
-                    int i =0;
-                    if(gameEngine.getPath().distance(vector)<partX){ //On ne rajoute pas de tours sur le chemin
-                        break;
-                    }
-                    for(Tower tower : gameEngine.towers)
-                    {
-                        vector3.setC(tower.getPosX(),tower.getPosY());
-                        if(Vector2.distance(vector,vector3)<=Vector2.distance(vector2,vector4)){
-                            break;
-                        }
-                        else if(Vector2.distance(vector,vector3)>Vector2.distance(vector2,vector4))
-                        {
-                            i++;
-                            if(i==gameEngine.towers.size()) {
-                                gameEngine.towers.add(new TowerType2(X,Y,gameEngine));
-                                gameEngine.money = gameEngine.money - 200;
-                                break;
-                            }
-
-                        }
-                    }
-                }
                 else if(X<=partX && Y>gameEngine.screenY-partX)
                 {
                     gameEngine.tower =1 ;
@@ -178,12 +100,14 @@ public class GameActivity extends AppCompatActivity {
                 else if(X>= 2*partX&& X<3*partX && Y>gameEngine.screenY-partX){
                     gameEngine.begin=true;
                 }
-                else if(X>= gameEngine.screenX-partX&& X<gameEngine.screenX && Y>gameEngine.screenY-partX&&gameEngine.endlevel==true){
+                else if(X>= gameEngine.screenX-partX&& X<gameEngine.screenX && Y>gameEngine.screenY-partX&&gameEngine.endlevel==true) {
                     gameEngine.towers.clear();
                     gameEngine.endlevel = false;
-                    gameEngine.gg=false;
-                    gameEngine.begin=false;
+                    gameEngine.gg = false;
+                    gameEngine.begin = false;
                     gameEngine.newGame();
+                }else{
+                    createTower(new Vector2(X, Y));
                 }
                 //Toast.makeText(this, "ACTION_DOWN AT COORDS "+"X: "+X+" Y: "+Y, Toast.LENGTH_SHORT).show();
                 isTouch = true;
@@ -195,6 +119,35 @@ public class GameActivity extends AppCompatActivity {
 
             case MotionEvent.ACTION_UP:
                 //Toast.makeText(this, "ACTION_UP "+"X: "+X+" Y: "+Y, Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return true;
+    }
+
+    private boolean createTower(Vector2 position){
+        int partX=(int)(gameEngine.screenX*.15);
+        if(gameEngine.getPath().isOnPath(position)){
+            return false;
+        }
+        for(Tower t:gameEngine.towers){
+            if(Vector2.distance(t.getPosition(), position)<new Vector2(partX, partX).getNorm()){
+                return false;
+            }
+        }
+        switch (gameEngine.tower){
+            case 1:
+                if(gameEngine.money<=TowerType1.cost){
+                    return false;
+                }
+                gameEngine.towers.add(new TowerType1(position, gameEngine));
+                gameEngine.money-=TowerType1.cost;
+                break;
+            case 2:
+                if(gameEngine.money<=TowerType2.cost){
+                    return false;
+                }
+                gameEngine.towers.add(new TowerType2(position, gameEngine));
+                gameEngine.money-=TowerType2.cost;
                 break;
         }
         return true;

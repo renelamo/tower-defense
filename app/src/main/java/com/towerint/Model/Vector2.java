@@ -89,9 +89,9 @@ public class Vector2 { //TODO: si ca ne fait pas lagger, rmplacer les float par 
     }
 
     public float distanceDroite(Vector2 point1, Vector2 point2){
-        Vector2 directeurDroite=point1.diff(point2);
+        Vector2 directeurDroite=point2.diff(point1);
         directeurDroite.mult(1/directeurDroite.getNorm()); //Vecteur normé
-        Vector2 projetéSurDroite=directeurDroite.mult(directeurDroite.dot(this));
+        Vector2 projetéSurDroite=directeurDroite.mult(directeurDroite.dot(this.diff(point1)));
         return distance(this, projetéSurDroite);
     }
 

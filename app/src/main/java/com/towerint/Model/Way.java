@@ -76,6 +76,10 @@ public class Way {
         return out;
     }
 
+    public boolean isOnPath(Vector2 point){
+        return distance(point)<bitmapWidth;
+    }
+
     public void draw(Canvas canvas, Paint paint){
         for(Node n:path){
             if(n.hasNext()){

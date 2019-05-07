@@ -4,12 +4,16 @@ import com.towerint.Controller.GameEngine;
 import com.towerint.R;
 
 public class TowerType2 extends Tower {
+    public final static int cost=200;
     public TowerType2(int posX, int posY, GameEngine engine){
-        super(posX, posY, engine, R.drawable.tower2);
+        this(new Vector2(posX, posY), engine);
+    }
+
+    public TowerType2(Vector2 position, GameEngine engine){
+        super(position, engine, R.drawable.tower2);
         radius=2;
         attackCooldown=1000;
-        cost=100;
+        super.cost=cost;
         range=500;
-        //projectile=new ProjectileType1();
     }
 }

@@ -19,7 +19,11 @@ public abstract class Printable {
 
     /////////CONSTRUCTEURS//////////////////////////
     Printable(int posX, int posY, GameEngine engine, int resource){
-        position=new Vector2(posX, posY);
+        this(new Vector2(posX, posY), engine, resource);
+
+    }
+
+    Printable(Vector2 position, GameEngine engine, int resource){
         parent=engine;
         this.resource=resource;
         facing=0;

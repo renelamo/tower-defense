@@ -43,8 +43,12 @@ public abstract class Tower extends Printable{
     }
 
     Tower(int posX, int posY, GameEngine parentEngine, int resource){
-        super(posX,posY, parentEngine, resource);
-        this.parent=parentEngine;
+        this(new Vector2(posX, posY), parentEngine, resource);
+    }
+
+    public Tower(Vector2 position, GameEngine parent, int resource){
+        super(position, parent, resource);
+        this.parent=parent;
         delayFramesLeft =0;
         this.targets = new ArrayList<Attacker>();
         this.posX=posX;
