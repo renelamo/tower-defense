@@ -16,6 +16,7 @@ import android.graphics.Bitmap;
 
 import com.towerint.Model.Attacker;
 import com.towerint.Model.AttackerType1;
+import com.towerint.Model.AttackerType2;
 import com.towerint.Model.Node;
 import static com.towerint.Model.Printable.distance;
 import com.towerint.Model.Projectile;
@@ -63,6 +64,7 @@ public class GameEngine extends SurfaceView implements Runnable {
     public boolean gg =false; //Si le joueur a gagné le niveau
     public boolean begin =false; //SI le joueur est prêt à lancer la partie
     public int nbattacker1;
+    public int nbattacker2;
     // Everything we need for drawing
 // Is the game currently playing?
     private volatile boolean isPlaying;
@@ -176,6 +178,7 @@ public class GameEngine extends SurfaceView implements Runnable {
                 way.add(screenX/4,screenY);
                 //towers.add(new TowerType1(100,100,this));
                 nbattacker1 =5;
+                nbattacker2 =3;
                 break;
             default:
                 try{
@@ -349,6 +352,11 @@ public class GameEngine extends SurfaceView implements Runnable {
                 attackers.add(new AttackerType1(way, this));
                 //  attackers.add(new AttackerType2(way, this));
                 nbattacker1--;
+            }
+            if (nbattacker2 > 0) {
+                attackers.add(new AttackerType2(way, this));
+                //  attackers.add(new AttackerType2(way, this));
+                nbattacker2--;
             }
         }
     }
