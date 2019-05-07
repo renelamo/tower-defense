@@ -82,7 +82,11 @@ public class GameEngine extends SurfaceView implements Runnable {
     private Bitmap playBitmap;
     private Bitmap playPauseDisplay;
     private Bitmap tower1;
+    private Bitmap tower1bis1;
+    private Bitmap tower1bis;
     private Bitmap tower2;
+    private Bitmap tower2bis1;
+    private Bitmap tower2bis;
     private Bitmap victory;
     private Bitmap next_level;
     private Bitmap defeat;
@@ -197,8 +201,16 @@ public class GameEngine extends SurfaceView implements Runnable {
         playBitmap = Bitmap.createScaledBitmap(playBitmap, partX, partX, false);
         tower1= BitmapFactory.decodeResource(context.getResources(), R.drawable.tower1);
         tower1 = Bitmap.createScaledBitmap(tower1, partX, partX, false);
+        tower1bis1= BitmapFactory.decodeResource(context.getResources(), R.drawable.tower1bis1);
+        tower1bis1 = Bitmap.createScaledBitmap(tower1bis1, partX, partX, false);
+        tower1bis= BitmapFactory.decodeResource(context.getResources(), R.drawable.tower1bis);
+        tower1bis = Bitmap.createScaledBitmap(tower1bis, partX, partX, false);
         tower2= BitmapFactory.decodeResource(context.getResources(), R.drawable.tower2);
         tower2 = Bitmap.createScaledBitmap(tower2, partX, partX, false);
+        tower2bis= BitmapFactory.decodeResource(context.getResources(), R.drawable.tower2bis);
+        tower2bis = Bitmap.createScaledBitmap(tower2bis, partX, partX, false);
+        tower2bis1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.tower2bis1);
+        tower2bis1 = Bitmap.createScaledBitmap(tower2bis1, partX, partX, false);
         victory= BitmapFactory.decodeResource(context.getResources(), R.drawable.victory);
         victory = Bitmap.createScaledBitmap(victory, screenY, screenY, false);
         next_level= BitmapFactory.decodeResource(context.getResources(), R.drawable.next_level);
@@ -385,8 +397,18 @@ public class GameEngine extends SurfaceView implements Runnable {
     private void drawButtons(){
         int partX=(int)(screenX*.15);
         canvas.drawBitmap(playPauseDisplay, (int)(screenX-partX), 0, paint);
-        canvas.drawBitmap(tower1, 0, (int)(screenY-partX), paint);
-        canvas.drawBitmap(tower2, (int)(partX), (int)(screenY-partX), paint);
+        if(tower!=1) {
+            canvas.drawBitmap(tower1bis1, 0, (int) (screenY - partX), paint);
+        }
+        else if(tower == 1){
+            canvas.drawBitmap(tower1bis, 0, (int) (screenY - partX), paint);
+        }
+        if(tower!=2) {
+            canvas.drawBitmap(tower2bis1, (int) (partX), (int) (screenY - partX), paint);
+        }
+        else if(tower==2){
+            canvas.drawBitmap(tower2bis, (int) (partX), (int) (screenY - partX), paint);
+        }
         canvas.drawBitmap(start, 2*(int)(partX), (int)(screenY-partX), paint);
         // Scale the HUD text
         paint.setTextSize(partX/3);
