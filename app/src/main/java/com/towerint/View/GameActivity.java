@@ -21,7 +21,7 @@ import com.towerint.R;
 
 public class GameActivity extends AppCompatActivity {
     public com.towerint.Controller.GameEngine gameEngine;
-    public static boolean isTouch = false;
+    public boolean isTouch = false;
     private boolean paused=false;
 
     @Override
@@ -86,6 +86,7 @@ public class GameActivity extends AppCompatActivity {
                     }else {
                         onPause();
                     }
+                    gameEngine.begin=true;
                 }
                 else if (gameEngine.tower == 1 && gameEngine.money >=100 && Y<gameEngine.screenY-partX && gameEngine.endlevel==false){
 

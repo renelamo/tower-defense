@@ -32,9 +32,9 @@ public class GameEngine extends SurfaceView implements Runnable {
     public List<Attacker> attackers;
     public List<Projectile> projectiles;
     public List<TemporaryPrintable> temporaryPrintables;
-    Way way;
+    private Way way;
 
-    // To hold a reference to the Activity FIXME: Apparemment il ne faut pas mettre de Context en static
+    // To hold a reference to the Activity
     public  Context context;
 
     // To hold the screen size in pixels
@@ -44,12 +44,10 @@ public class GameEngine extends SurfaceView implements Runnable {
     // Control pausing between updates
     private long nextFrameTime;
     private long nextFrameTime2;
-    // Update the game 10 times per second
+
     public static final long FPS = 60;
     // There are 1000 milliseconds in a second
     private static final long MILLIS_PER_SECOND = 1000;
-
-// We will draw the frame much more often
 
     // How many points does the player have
     public int score;
@@ -58,12 +56,12 @@ public class GameEngine extends SurfaceView implements Runnable {
     public int fails;
 
     public int money;
-    public int tower = 1;
-    public int level = 1;
+    public int tower = 1; //Le type de tour a construire
+    public int level = 1; //Le niveau actuel
 
-    public boolean endlevel = false;
-    public boolean gg =false;
-    public boolean begin =false;
+    public boolean endlevel = false; //Si le niveau est terminé
+    public boolean gg =false; //Si le joueur a gagné le niveau
+    public boolean begin =false; //SI le joueur est prêt à lancer la partie
     public int nbattacker1;
     // Everything we need for drawing
 // Is the game currently playing?
@@ -335,12 +333,7 @@ public class GameEngine extends SurfaceView implements Runnable {
                 //TODO ANIMATION MORT
                 projectilesDead.remove(attacker);
 
-            }
-            for(Projectile projectile:projectilesDead){
-                //TODO ANIMATION DESTRUCTION
-                projectilesDead.remove(projectile);
-            }
-            */
+            }*/
 
             drawButtons();
 
