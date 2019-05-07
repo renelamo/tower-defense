@@ -8,6 +8,7 @@ public abstract class Attacker extends Movable {
     private Vector2 speed;//Vitesse réelle en px par frame
     private float maxSpeed;//En module (en px/frame)
     private Node node; //Noeud vers lequel il se déplace
+    private float distParcourue;
     protected int health = 100;
     protected int money = 100;
     private GameEngine parent;
@@ -18,8 +19,6 @@ public abstract class Attacker extends Movable {
         health -= damage;
     };
 
-    //TODO reste a voir comment on détruit l'attaquant ( animations ? )
-
     ///////////CONSTRUCTEURS/////////////////////////////////////
 
     @Deprecated
@@ -28,6 +27,12 @@ public abstract class Attacker extends Movable {
     }
     Attacker(Way toFollow, GameEngine parent, int resource, float maxSpeed){
         super(toFollow, parent, resource, maxSpeed);
+    }
+
+    @Override
+    public void move() {
+        distParcourue+=maxSpeed;
+        super.move();
     }
 
     ///////////GETTERS////////////////////////////////////////////////
@@ -41,6 +46,10 @@ public abstract class Attacker extends Movable {
 
     public int getMoney() {
         return money;
+    }
+
+    public float getDistParcourue(){
+        return  distParcourue;
     }
     ///////////SETTERS////////////////////////////////////////////////
 

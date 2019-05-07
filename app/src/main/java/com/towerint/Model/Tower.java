@@ -4,7 +4,10 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 
 import com.towerint.Controller.GameEngine;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import static com.towerint.Controller.GameEngine.FPS;
@@ -34,12 +37,22 @@ public abstract class Tower extends Printable{
 
     //La cible est le premier élement de la liste on ne met a jour cette liste que lorsque que le premier élement n'est plus disponible (mort ou hors portée)
     public void shoot(List<Attacker> attackers) {
+        ArrayList<Attacker> onRange=new ArrayList<>();
         for(Attacker cible:attackers){
             if(cible.getPosition().diff(getPosition()).getNorm()<=range){
-                shoot(cible);
-                return;
+                onRange.add(cible);
             }
         }
+        if(onRange.size()==0){
+            return;
+        }
+        Attacker finalTarget=onRange.get(0);
+        for(Attacker cible:onRange){
+            if(cible.getDistParcourue()<finalTarget.getDistParcourue()){
+                finalTarget=cible;
+            }
+        }
+        shoot(finalTarget);
     }
 
     Tower(int posX, int posY, GameEngine parentEngine, int resource){

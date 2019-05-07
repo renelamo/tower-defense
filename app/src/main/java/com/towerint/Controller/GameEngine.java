@@ -6,6 +6,7 @@ import android.graphics.Point;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -254,7 +255,6 @@ public class GameEngine extends SurfaceView implements Runnable {
                 }
                 attacker.move();
             }
-
 
             //actualisation des cibles des tours
             for (Tower tower : towers) {
