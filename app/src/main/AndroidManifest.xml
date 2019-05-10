@@ -17,7 +17,6 @@
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -30,10 +29,13 @@
 
         </activity>
         <activity android:name=".View.GameActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
-
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+            </intent-filter>
         </activity>
-        <service android:name=".View.MusicService"/>
+        <service android:name=".View.MusicService" android:enabled="true"/>
     </application>
 
 </manifest>
