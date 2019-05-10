@@ -3,6 +3,7 @@ package com.towerint.Controller;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
+import android.media.MediaPlayer;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -283,7 +284,9 @@ public class GameEngine extends SurfaceView implements Runnable {
                         }
                     }
                     temporaryPrintables.add(new TemporaryPrintable(projectile.getPosition(), this, R.drawable.explosion, 100));
-
+                    MediaPlayer bombSound=MediaPlayer.create(getContext(), R.raw.explosion);
+                    bombSound.setLooping(false);
+                    bombSound.start();
                     projectiles.remove(projectile);
                     --size;
                     --i;

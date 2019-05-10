@@ -59,6 +59,12 @@ public class OptionsActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        unbind();
+    }
+
+    @Override
     protected void onDestroy() {
         unbind();
         super.onDestroy();

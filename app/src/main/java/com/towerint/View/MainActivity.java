@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
         startService(musicIntent);
         bindService(musicIntent, musicConnection, Context.BIND_AUTO_CREATE );
         isMusicBound=true;
+
+
         // remove title
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -88,11 +90,24 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         if(this.isFinishing()){
-            unbind();
-            stopService(musicIntent);
+            music.pause();
         }
         super.onStop();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if( ! isMusicBound) {
+            startService(musicIntent);
+            bindService(musicIntent, musicConnection, Context.BIND_AUTO_CREATE);
+            isMusicBound = true;
+        }
+        if(music !=null){
+            music.start();
+        }
+    }
+
 
     @Override
     protected void onPause() {
@@ -102,8 +117,7 @@ public class MainActivity extends AppCompatActivity {
         if (!taskInfo.isEmpty()) {
             ComponentName topActivity = taskInfo.get(0).topActivity;
             if (!topActivity.getPackageName().equals(context.getPackageName())) {
-                unbind();
-                stopService(musicIntent);
+                music.pause();
             }
         }
         super.onPause();
