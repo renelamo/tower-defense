@@ -3,7 +3,7 @@
     package="com.towerint">
 
     <!-- Désactivation de la mise en veille -->
-    <uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
         android:allowBackup="true"
@@ -12,10 +12,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.OptionsActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
-
-        </activity>
         <activity android:name=".View.MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
 
@@ -24,6 +20,14 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".View.OptionsActivity"
+            android:parentActivityName=".View.MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.towerint.View.MainActivity" />
+
         </activity>
         <activity android:name=".View.GameActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">

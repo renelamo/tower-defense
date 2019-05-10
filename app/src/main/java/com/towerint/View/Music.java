@@ -7,21 +7,27 @@ import android.content.Context;
 import com.towerint.R;
 
 public class Music extends OptionsActivity{
-    MediaPlayer backgroundMusic;
-    boolean listen = true;
-    MediaPlayer touchMusic;
+    private MediaPlayer backgroundMusic;
+    private boolean listen = true;
+    private MediaPlayer touchMusic;
+    private MediaPlayer bombMusic;
 
     //Begin music
-    protected void startMusic(Context context){
+    protected void startBackground(Context context){
         backgroundMusic = MediaPlayer.create(context, R.raw.airship_thunderchild_by_otto_halmn);
         backgroundMusic.start();
         backgroundMusic.setLooping(true);
     }
-    protected void touchMusic(Context context){
+    public void touchMusic(Context context){
         touchMusic = MediaPlayer.create(context, R.raw.bipp);
         touchMusic.start();
     }
-    protected void stopTouchMusic(){
+    public void bombMusic(Context context){
+        bombMusic= MediaPlayer.create(context, R.raw.explosion);
+        bombMusic.start();
+    }
+
+    protected void stopTouch(){
         touchMusic.stop();
     }
     //Play or Stop
@@ -34,5 +40,9 @@ public class Music extends OptionsActivity{
             backgroundMusic.start();
             listen = true;
         }
+    }
+
+    public void stopBackground(){
+        backgroundMusic.stop();
     }
 }

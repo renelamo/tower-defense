@@ -1,7 +1,7 @@
 package com.towerint.Model;
 
 import com.towerint.Controller.GameEngine;
-
+import static com.towerint.Model.Vector2.distance;
 import static com.towerint.Controller.GameEngine.FPS;
 
 abstract public class Movable extends Printable {
@@ -10,6 +10,7 @@ abstract public class Movable extends Printable {
     private float maxSpeed;//En module (en px/frame)
     private Node node; //Noeud vers lequel il se déplace
     private GameEngine parent;
+    private boolean arrived=false;
     protected int thetaOffset; //Les images n'ont pas toutes la meme orientation (en degres)
 
     Movable(int posX, int posY, GameEngine engine, int resource) {
@@ -56,9 +57,10 @@ abstract public class Movable extends Printable {
     public void move(){
         setPos(this.getPosition().add(speed));
         //Si la distance entre l'attaquant et le prochain noeud est inférieure à la moitié de la distance parcourue en 1 frame, on se dirrige vers le noeud suivant;
-        if(node.getPosition().diff(this.getPosition()).getNorm()<speed.getNorm()/2){
+        if(Vector2.distance(node.getPosition(), this.getPosition())<speed.getNorm()/2){
             if(!node.hasNext()){
                 setSpeed(0,0);
+                arrived=true;
             }else {
                 setSpeed(node.getDirection());
                 node = node.getNext();
@@ -66,7 +68,15 @@ abstract public class Movable extends Printable {
         }
     }
 
-    public void speedToFace(){
+    public boolean isArrived(){
+        return arrived;
+    }
+
+    public Vector2 getSpeed() {
+        return speed;
+    }
+
+    protected void speedToFace(){
         this.setRotation(speed.getTheta()+thetaOffset);
     }
 }

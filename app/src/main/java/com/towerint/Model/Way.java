@@ -1,16 +1,36 @@
 package com.towerint.Model;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+
+import com.towerint.Controller.GameEngine;
+import com.towerint.R;
 
 import java.util.Iterator;
 import java.util.LinkedList;
 
 public class Way {
     private LinkedList<Node> path;
+    private Bitmap routeBitmap;
+    private int bitmapWidth;
 
-    public Way(){
+    public Way(Context context){
         path=new LinkedList<>();
+        routeBitmap= BitmapFactory.decodeResource(context.getResources(), R.drawable.sand_tile);
+        routeBitmap = Bitmap.createScaledBitmap(routeBitmap,100,100,false);
+    }
+
+    public Way(Context context, Node... nodes){
+        path=new LinkedList<>();
+        for(Node n:nodes){
+            this.add(n);
+        }
+        routeBitmap= BitmapFactory.decodeResource(context.getResources(), R.drawable.sand_tile);
+        routeBitmap = Bitmap.createScaledBitmap(routeBitmap,100,100,false);
+        bitmapWidth=routeBitmap.getWidth();
     }
 
     public Way(Node... nodes){
@@ -42,10 +62,63 @@ public class Way {
         return out;
     }
 
+    public float distance(Vector2 point){
+        float out=point.distanceSegment(path.get(0).getPosition(), path.get(1).getPosition());
+        for(int i=1; i<path.size()-1; ++i){
+            Node node=path.get(i);
+            if(node.hasNext()){
+                float ditsLocale=point.distanceSegment(node.getPosition(), node.getNext().getPosition());
+                if(ditsLocale<out){
+                    out=ditsLocale;
+                }
+            }
+        }
+        return out;
+    }
+
+    public boolean isOnPath(Vector2 point){
+        double dist=distance(point);
+        boolean out=dist<bitmapWidth/2;
+        return out;
+    }
+
     public void draw(Canvas canvas, Paint paint){
         for(Node n:path){
             if(n.hasNext()){
                 canvas.drawLine(n.getPosition().getX(), n.getPosition().getY(), n.getNext().getPosition().getX(), n.getNext().getPosition().getY(), paint);
+                int i =(int)(n.getNext().getPosition().getX()- n.getPosition().getX())/bitmapWidth;
+                int j =(int)(n.getNext().getPosition().getY()- n.getPosition().getY())/bitmapWidth;
+               // canvas.drawBitmap(routeBitmap, i, j, paint);
+                if (i > 0)
+                {
+                    for(int f=0;f<i+1;f++)
+                    {
+                        canvas.drawBitmap(routeBitmap, n.getPosition().getX()+bitmapWidth*f-bitmapWidth/2, n.getNext().getPosition().getY()-bitmapWidth/2, paint);
+                    }
+                }
+                else
+                {
+                    for(int f=0;f>i-1;f--)
+                    {
+                        canvas.drawBitmap(routeBitmap, n.getPosition().getX()+bitmapWidth*f-bitmapWidth/2, n.getNext().getPosition().getY()-bitmapWidth/2, paint);
+                    }
+                }
+                if (j>0)
+                {
+                    for(int f=0;f<j+1;f++)
+                    {
+                        canvas.drawBitmap(routeBitmap, n.getPosition().getX()-bitmapWidth/2, n.getPosition().getY()+bitmapWidth*f-bitmapWidth/2, paint);
+                    }
+
+                }
+                else
+                {
+                    for(int f=0;f>j-1;f--)
+                    {
+                        canvas.drawBitmap(routeBitmap, n.getPosition().getX()-bitmapWidth/2, n.getPosition().getY()+bitmapWidth*f-bitmapWidth/2, paint);
+                    }
+                }
+
             }
         }
     }

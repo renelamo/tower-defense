@@ -4,10 +4,10 @@ import com.towerint.Controller.GameEngine;
 import com.towerint.R;
 
 abstract public class Projectile extends Movable {
-    //TODO Faire en sorte que la classe hérite proprement de Movable
     private Vector2 position;
     //private float speed; // la vitesse à laquelle se déplace le projectile
-    private double power;
+    protected int power;
+    protected int range;
 
     public Projectile(int posX, int posY,GameEngine parent, int resource){
         super(posX, posY, parent, resource);
@@ -17,5 +17,7 @@ abstract public class Projectile extends Movable {
         thetaOffset=90;
     }
 
-    public double getPower(){ return power; }
+    public int getPower(){ return power; }
+
+    public int getRange(){ return this.range;}
 }

@@ -8,9 +8,9 @@ import android.graphics.Paint;
 
 import com.towerint.Controller.GameEngine;
 
-abstract class Printable {
+public abstract class Printable {
     private Vector2 position;
-    private float facing; //Angle (en degrés) de rotation de l'image.
+    private double facing; //Angle (en degrés) de rotation de l'image.
     private int height;
     private int width;
     private GameEngine parent;
@@ -19,7 +19,12 @@ abstract class Printable {
 
     /////////CONSTRUCTEURS//////////////////////////
     Printable(int posX, int posY, GameEngine engine, int resource){
-        position=new Vector2(posX, posY);
+        this(new Vector2(posX, posY), engine, resource);
+
+    }
+
+    Printable(Vector2 position, GameEngine engine, int resource){
+        this.position=position;
         parent=engine;
         this.resource=resource;
         facing=0;
@@ -65,26 +70,26 @@ abstract class Printable {
     }
 
     @Deprecated
-    public boolean setPos(int x, int y, float theta){
+    public boolean setPos(int x, int y, double theta){
         setPos(new Vector2(x,y));
         setRotation(theta);
         return true;
     }
 
-    @Deprecated //TODO: passer tous les float en double
-    public void setRotation(float theta){ //En degrés
+    public void setRotation(double theta){ //En degrés
         facing=theta;
-    }
-    public void setRotation(double theta){
-        setRotation((float)theta);
     }
 
     /////////////AUTRES METHODES/////////////////////
 
     public void draw(Canvas canvas, Paint paint){
         canvas.save();
-        canvas.rotate(facing, position.getX(), position.getY());
+        canvas.rotate((float)facing, position.getX(), position.getY());
         canvas.drawBitmap(image, position.getX()-width/2, position.getY()-height/2, paint);
         canvas.restore();
+    }
+
+    public static float distance(Printable p1, Printable p2){
+        return Vector2.distance(p1.position, p2.position);
     }
 }
