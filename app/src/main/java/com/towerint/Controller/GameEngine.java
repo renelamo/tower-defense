@@ -285,7 +285,6 @@ public class GameEngine extends SurfaceView implements Runnable {
                     }
                     temporaryPrintables.add(new TemporaryPrintable(projectile.getPosition(), this, R.drawable.explosion, 100));
 
-                    music.bombMusic(context);
                     projectiles.remove(projectile);
                     --size;
                     --i;
@@ -298,7 +297,6 @@ public class GameEngine extends SurfaceView implements Runnable {
             } else if (attackers.isEmpty() && !endlevel) {
                 level++;
                 endlevel = true;
-                music.bombMusic(context);
                 gg = true;
             }
 
