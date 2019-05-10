@@ -65,6 +65,10 @@ public class MusicService extends Service {
         }
     }
 
+    public boolean isPlaying(){
+        return player.isPlaying();
+    }
+
     public void start(){
         player.start();
     }

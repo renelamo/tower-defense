@@ -10,6 +10,8 @@ import com.towerint.View.MainActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Switch;
+
 import com.towerint.R;
 
 
@@ -42,13 +44,13 @@ public class OptionsActivity extends AppCompatActivity {
         bindService(musicIntent, musicConnection, Context.BIND_AUTO_CREATE);
         isMusicBound=true;
 
-        Intent parentIntent=getParentActivityIntent();
+        Intent parentIntent=getIntent();
 
         musicState=parentIntent.getBooleanExtra("Music State", true);
 
         /*Déclaration des boutons*/
         final Button returnButton=findViewById(R.id.returnButton);
-        final Button musicButton=findViewById(R.id.musicButton);
+        final Switch musicButton=findViewById(R.id.musicButton);
         /*Connecte le bouton de retour*/
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +60,8 @@ public class OptionsActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        musicButton.setChecked(musicState);
         musicButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,21 +69,6 @@ public class OptionsActivity extends AppCompatActivity {
                 musicState= !musicState;
             }
         });
-    }
-
-    @Override
-    protected void onStop() {
-        unbind();
-        sendResult();
-        super.onStop();
-
-    }
-
-    @Override
-    protected void onPause() {
-        unbind();
-        sendResult();
-        super.onPause();
     }
 
     @Override
