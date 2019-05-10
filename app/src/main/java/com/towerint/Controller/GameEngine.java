@@ -3,10 +3,10 @@ package com.towerint.Controller;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
+import android.media.MediaPlayer;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -25,7 +25,7 @@ import com.towerint.Model.TemporaryPrintable;
 import com.towerint.Model.Tower;
 import com.towerint.Model.Way;
 import com.towerint.R;
-import com.towerint.View.Music;
+import com.towerint.View.MusicService;
 
 
 public class GameEngine extends SurfaceView implements Runnable {
@@ -93,7 +93,7 @@ public class GameEngine extends SurfaceView implements Runnable {
     private Bitmap defeat;
     private Bitmap start;
     private Bitmap restart;
-    Music music = new Music();
+    MusicService musicService = new MusicService();
 
 
     public GameEngine(Context context, Point size) {
@@ -286,8 +286,9 @@ public class GameEngine extends SurfaceView implements Runnable {
                         }
                     }
                     temporaryPrintables.add(new TemporaryPrintable(projectile.getPosition(), this, R.drawable.explosion, 100));
-
-                    music.bombMusic(context);
+                    MediaPlayer bombSound=MediaPlayer.create(getContext(), R.raw.explosion);
+                    bombSound.setLooping(false);
+                    bombSound.start();
                     projectiles.remove(projectile);
                     --size;
                     --i;
@@ -302,7 +303,6 @@ public class GameEngine extends SurfaceView implements Runnable {
             } else if (attackers.isEmpty() && !endlevel) {
                 level++;
                 endlevel = true;
-                music.bombMusic(context);
                 gg = true;
                 attackers.clear();
             }
