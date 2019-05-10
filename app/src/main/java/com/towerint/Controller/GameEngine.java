@@ -171,7 +171,7 @@ public class GameEngine extends SurfaceView implements Runnable {
                 //required number of unit
                 nbattacker1 =5;
                 break;
-            case 2:
+            /*case 2:
                 fails =0;
                 way=new Way(this.context, new Node(screenX/2,0));
                 way.add(screenX/2,screenY/4);
@@ -180,14 +180,16 @@ public class GameEngine extends SurfaceView implements Runnable {
                 //towers.add(new TowerType1(100,100,this));
                 nbattacker1 =5;
                 nbattacker2 =3;
-                break;
+                break;*/
             default:
-                try{
-                    Thread.sleep(1000);
-                }catch (InterruptedException e){
-                    //Do nothing
-                }
-
+                fails =0;
+                way=new Way(this.context, new Node(screenX/2,0));
+                way.add(screenX/2,screenY/4);
+                way.add(screenX/4,screenY/4);
+                way.add(screenX/4,screenY);
+                //towers.add(new TowerType1(100,100,this));
+                nbattacker1 =3*level;
+                nbattacker2 =2*level;
         }
 
 
@@ -295,6 +297,7 @@ public class GameEngine extends SurfaceView implements Runnable {
             if (fails == 5) {
                 endlevel = true;
                 gg = false;
+                level=1;
             } else if (attackers.isEmpty() && !endlevel) {
                 level++;
                 endlevel = true;

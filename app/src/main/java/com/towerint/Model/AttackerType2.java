@@ -19,7 +19,7 @@ public class AttackerType2 extends Attacker{
 
     public AttackerType2(Way toFollow, GameEngine parent){
         super(toFollow, parent, resource, speed);
-        money=100;
-        health=300;
+        money=40;
+        health=400;
     }
 }
