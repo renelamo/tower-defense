@@ -93,6 +93,7 @@ public class GameEngine extends SurfaceView implements Runnable {
     private Bitmap defeat;
     private Bitmap start;
     private Bitmap restart;
+    private Bitmap menu;
     MusicService musicService = new MusicService();
 
 
@@ -225,6 +226,8 @@ public class GameEngine extends SurfaceView implements Runnable {
         start= Bitmap.createScaledBitmap(start, partX, partX, false);
         restart= BitmapFactory.decodeResource(context.getResources(), R.drawable.restart);
         restart= Bitmap.createScaledBitmap(restart, partX, partX, false);
+        menu= BitmapFactory.decodeResource(context.getResources(), R.drawable.menu);
+        menu= Bitmap.createScaledBitmap(menu, partX, partX, false);
         playPauseDisplay=pauseBitmap;
 
         // Setup nextFrameTime so an update is triggered
@@ -416,6 +419,7 @@ public class GameEngine extends SurfaceView implements Runnable {
             canvas.drawBitmap(tower2bis, (int) (partX), (int) (screenY - partX), paint);
         }
         canvas.drawBitmap(start, 2*(int)(partX), (int)(screenY-partX), paint);
+        canvas.drawBitmap(menu, 3*(int)(partX), (int)(screenY-partX), paint);
         // Scale the HUD text
         paint.setTextSize(partX/3);
         paint.setTextAlign(Paint.Align.LEFT);
