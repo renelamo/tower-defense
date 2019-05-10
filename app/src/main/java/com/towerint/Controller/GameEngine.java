@@ -298,11 +298,13 @@ public class GameEngine extends SurfaceView implements Runnable {
                 endlevel = true;
                 gg = false;
                 level=1;
+                attackers.clear();
             } else if (attackers.isEmpty() && !endlevel) {
                 level++;
                 endlevel = true;
                 music.bombMusic(context);
                 gg = true;
+                attackers.clear();
             }
 
         }
