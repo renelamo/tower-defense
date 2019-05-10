@@ -2,6 +2,7 @@ package com.towerint.View;
 
 import com.towerint.Model.Vector2;
 import android.graphics.Point;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -95,6 +96,9 @@ public class GameActivity extends AppCompatActivity {
             else if(X>= 2*partX&& X<3*partX && Y>gameEngine.screenY-partX){// Bouton start
                 gameEngine.begin=true;
             }
+            else if(X>= 3*partX&& X<4*partX && Y>gameEngine.screenY-partX) { //Bouton Menu
+                finish();
+            }
             else if(X>= gameEngine.screenX-partX&& X<gameEngine.screenX && Y>gameEngine.screenY-partX&&gameEngine.endlevel==true) { //Bouton restart
                 gameEngine.towers.clear();
                 gameEngine.endlevel = false;
@@ -125,6 +129,9 @@ public class GameActivity extends AppCompatActivity {
                 if(gameEngine.money<TowerType1.cost){
                     return false;
                 }
+                MediaPlayer construction=MediaPlayer.create(gameEngine.getContext(), R.raw.construction);
+                construction.setLooping(false);
+                construction.start();
                 gameEngine.towers.add(new TowerType1(position, gameEngine));
                 gameEngine.money-=TowerType1.cost;
                 break;
