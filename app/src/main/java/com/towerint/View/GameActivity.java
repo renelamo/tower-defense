@@ -113,10 +113,12 @@ public class GameActivity extends AppCompatActivity {
     private boolean createTower(Vector2 position){
         int partX=(int)(gameEngine.screenX*.15);
         if(gameEngine.getPath().isOnPath(position)){
+            System.out.println("Tour sur le chemin");
             return false;
         }
         for(Tower t:gameEngine.towers){
-            if(Vector2.distance(t.getPosition(), position)<new Vector2(partX, partX).getNorm()){
+            if(Vector2.distance(t.getPosition(), position)< partX){
+                System.out.println("Tour sur Tour");
                 return false;
             }
         }

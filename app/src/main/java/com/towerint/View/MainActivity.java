@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Binder;
 import android.os.IBinder;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,8 +16,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
-
-import com.towerint.R;
+import com.towerint.*;
 
 import java.util.List;
 
@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
             music=null;
         }
     };
+
+    private boolean musicState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, OptionsActivity.class);
+                intent.putExtra("Music State", musicState);
                 startActivityForResult(intent, 0);
             }
         });
@@ -85,6 +88,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        musicState=data.getBooleanExtra("Music State", true);
     }
 
     @Override
@@ -103,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
             bindService(musicIntent, musicConnection, Context.BIND_AUTO_CREATE);
             isMusicBound = true;
         }
-        if(music !=null){
+        if(music !=null && musicState){
             music.start();
         }
     }

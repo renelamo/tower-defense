@@ -30,6 +30,8 @@ public class OptionsActivity extends AppCompatActivity {
         }
     };
 
+    private boolean musicState;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +40,11 @@ public class OptionsActivity extends AppCompatActivity {
 
         musicIntent=new Intent(OptionsActivity.this, MusicService.class);
         bindService(musicIntent, musicConnection, Context.BIND_AUTO_CREATE);
+        isMusicBound=true;
 
+        Intent parentIntent=getParentActivityIntent();
+
+        musicState=parentIntent.getBooleanExtra("Music State", true);
 
         /*Déclaration des boutons*/
         final Button returnButton=findViewById(R.id.returnButton);
@@ -47,6 +53,8 @@ public class OptionsActivity extends AppCompatActivity {
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                sendResult();
+                unbind();
                 finish();
             }
         });
@@ -54,20 +62,38 @@ public class OptionsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 music.toggle();
+                musicState= !musicState;
             }
         });
     }
 
     @Override
     protected void onStop() {
-        super.onStop();
         unbind();
+        sendResult();
+        super.onStop();
+
+    }
+
+    @Override
+    protected void onPause() {
+        unbind();
+        sendResult();
+        super.onPause();
+    }
+
+    @Override
+    public void onBackPressed() {
+        sendResult();
+        super.onBackPressed();
     }
 
     @Override
     protected void onDestroy() {
         unbind();
+        sendResult();
         super.onDestroy();
+
     }
 
     private void unbind(){
@@ -75,5 +101,11 @@ public class OptionsActivity extends AppCompatActivity {
             unbindService(musicConnection);
             isMusicBound=false;
         }
+    }
+
+    private void sendResult(){
+        Intent out=new Intent();
+        out.putExtra("Music State", musicState);
+        setResult(RESULT_OK, out);
     }
 }

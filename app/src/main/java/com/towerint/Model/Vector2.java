@@ -63,7 +63,9 @@ public class Vector2 { //TODO: si ca ne fait pas lagger, rmplacer les float par 
 
     //Produit scalaire
     public float dot(Vector2 v){
-        return this.x*v.x+this.y+v.y;
+        float X=this.x*v.x;
+        float Y=this.y*v.y;
+        return X+Y;
     }
 
     //Soustraction
@@ -95,17 +97,22 @@ public class Vector2 { //TODO: si ca ne fait pas lagger, rmplacer les float par 
         return distance(this, projeteSurDroite.add(point1));
     }
 
-    public float distanceSegment(Vector2 point1, Vector2 point2){
-        Vector2 AB=point2.diff(point1);
-        Vector2 AM=this.diff(point1);
-        Vector2 BM=this.diff(point2);
-        if(AM.dot(AB)<=0){
-            return distance(this, point1);
+    public float distanceSegment(Vector2 pointA, Vector2 pointB){
+        Vector2 AB=pointB.diff(pointA);
+        Vector2 AM=this.diff(pointA);
+        Vector2 BM=this.diff(pointB);
+        float AMdotAB=AM.dot(AB);
+        float BMdotAB=BM.dot(AB);
+        if(AMdotAB<=0){
+            System.out.println("distance A");
+            return distance(this, pointA);
         }
-        if(BM.dot(AB.mult(-1))<=0){
-            return distance(this, point2);
+        if(BMdotAB>=0){
+            System.out.println("distance B");
+            return distance(this, pointB);
         }
-        return distanceDroite(point1, point2);
+        System.out.println("distance droite");
+        return distanceDroite(pointA, pointB);
     }
     public static float distance(Vector2 pos1, Vector2 pos2){
         return pos1.diff(pos2).getNorm();
