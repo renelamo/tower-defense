@@ -2,6 +2,7 @@ package com.towerint.View;
 
 import com.towerint.Model.Vector2;
 import android.graphics.Point;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -128,6 +129,9 @@ public class GameActivity extends AppCompatActivity {
                 if(gameEngine.money<TowerType1.cost){
                     return false;
                 }
+                MediaPlayer construction=MediaPlayer.create(gameEngine.getContext(), R.raw.construction);
+                construction.setLooping(false);
+                construction.start();
                 gameEngine.towers.add(new TowerType1(position, gameEngine));
                 gameEngine.money-=TowerType1.cost;
                 break;
