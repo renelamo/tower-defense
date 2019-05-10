@@ -33,6 +33,7 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
 
         </activity>
+        <service android:name=".View.MusicService"/>
     </application>
 
 </manifest>
