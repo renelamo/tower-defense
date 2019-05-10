@@ -18,6 +18,7 @@ import android.graphics.Bitmap;
 import com.towerint.Model.Attacker;
 import com.towerint.Model.AttackerType1;
 import com.towerint.Model.AttackerType2;
+import com.towerint.Model.AttackerType3;
 import com.towerint.Model.Node;
 import static com.towerint.Model.Printable.distance;
 import com.towerint.Model.Projectile;
@@ -66,6 +67,7 @@ public class GameEngine extends SurfaceView implements Runnable {
     public boolean begin =false; //SI le joueur est prêt à lancer la partie
     public int nbattacker1;
     public int nbattacker2;
+    public int nbattacker3;
     // Everything we need for drawing
 // Is the game currently playing?
     private volatile boolean isPlaying;
@@ -169,7 +171,7 @@ public class GameEngine extends SurfaceView implements Runnable {
                 way.add(screenX/4,screenY);
                 //towers.add(new TowerType1(100,100,this));
                 //required number of unit
-                nbattacker1 =5;
+                nbattacker1 =3;
                 break;
             /*case 2:
                 fails =0;
@@ -190,6 +192,7 @@ public class GameEngine extends SurfaceView implements Runnable {
                 //towers.add(new TowerType1(100,100,this));
                 nbattacker1 =3*level;
                 nbattacker2 =2*level;
+                nbattacker3=level;
         }
 
 
@@ -294,17 +297,21 @@ public class GameEngine extends SurfaceView implements Runnable {
                 }
             }
             //check if the level is finished and if you win or loose
-            if (fails == 5) {
+            if (fails == (int) 1.5*level) {
                 endlevel = true;
                 gg = false;
                 level=1;
                 attackers.clear();
+                projectiles.clear();
+                towers.clear();
             } else if (attackers.isEmpty() && !endlevel) {
                 level++;
                 endlevel = true;
                 music.bombMusic(context);
                 gg = true;
                 attackers.clear();
+                projectiles.clear();
+                towers.clear();
             }
 
         }
@@ -363,6 +370,11 @@ public class GameEngine extends SurfaceView implements Runnable {
                 //  attackers.add(new AttackerType2(way, this));
                 nbattacker2--;
             }
+        }
+        if (nbattacker3 > 0){
+            attackers.add(new AttackerType3(way, this));
+            //  attackers.add(new AttackerType2(way, this));
+            nbattacker3--;
         }
     }
 
