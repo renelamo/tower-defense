@@ -12,8 +12,13 @@ import android.widget.Button;
 import com.towerint.R;
 
 public class MainActivity extends AppCompatActivity {
+<<<<<<< HEAD
 
     private Music music;
+=======
+    private Button mPlayButton;
+    private static Music music = new Music();
+>>>>>>> 10047ec989a29934ce32d64a4367e9f211015b17
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +35,19 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+<<<<<<< HEAD
         music.startBackground(MainActivity.this);
+=======
+        music.startMusic(MainActivity.this);
+
+
+
+        /*Ajout de la musique*/
+        //MediaPlayer backgroundMusic=MediaPlayer.create(MainActivity.this, R.raw.airship_thunderchild_by_otto_halmn);
+        //backgroundMusic.start();
+        //backgroundMusic.setLooping(true);
+
+>>>>>>> 10047ec989a29934ce32d64a4367e9f211015b17
 
         /*Déclaration des boutons*/
         final Button exitButton=findViewById(R.id.exitButton);
@@ -63,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+<<<<<<< HEAD
 
     @Override
     public void finish() {
@@ -75,3 +93,10 @@ public class MainActivity extends AppCompatActivity {
         return music;
     }
 }
+=======
+    //Get class music
+    public static Music getmusic(){
+        return music;
+    }
+}
+>>>>>>> 10047ec989a29934ce32d64a4367e9f211015b17
