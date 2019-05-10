@@ -17,6 +17,8 @@ import com.towerint.R;
 
 public class OptionsActivity extends AppCompatActivity {
 
+    private boolean musicState;
+    private boolean bruitagesState;
     private MusicService music;
     private Intent musicIntent;
     private boolean isMusicBound=false;
@@ -32,8 +34,6 @@ public class OptionsActivity extends AppCompatActivity {
         }
     };
 
-    private boolean musicState;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +47,12 @@ public class OptionsActivity extends AppCompatActivity {
         Intent parentIntent=getIntent();
 
         musicState=parentIntent.getBooleanExtra("Music State", true);
+        bruitagesState=parentIntent.getBooleanExtra("bruitages", true);
 
         /*Déclaration des boutons*/
         final Button returnButton=findViewById(R.id.returnButton);
         final Switch musicButton=findViewById(R.id.musicButton);
+        final Switch bruitagesSwitch=findViewById(R.id.bruitages_button);
         /*Connecte le bouton de retour*/
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +69,14 @@ public class OptionsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 music.toggle();
                 musicState= !musicState;
+            }
+        });
+
+        bruitagesSwitch.setChecked(bruitagesState);
+        bruitagesSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bruitagesState= !bruitagesState;
             }
         });
     }
@@ -95,6 +105,7 @@ public class OptionsActivity extends AppCompatActivity {
     private void sendResult(){
         Intent out=new Intent();
         out.putExtra("Music State", musicState);
+        out.putExtra("bruitages", bruitagesState);
         setResult(RESULT_OK, out);
     }
 }

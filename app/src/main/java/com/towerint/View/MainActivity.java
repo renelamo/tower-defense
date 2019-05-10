@@ -37,7 +37,8 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private boolean musicState;
+    private boolean musicState=true;
+    private boolean bruitagesState=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, OptionsActivity.class);
                 intent.putExtra("Music State", musicState);
+                intent.putExtra("bruitages", bruitagesState);
+                System.out.println(musicState);
                 startActivityForResult(intent, 0);
             }
         });
@@ -85,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, GameActivity.class);
+                intent.putExtra("bruitages", bruitagesState);
                 startActivity(intent);
             }
         });
@@ -93,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         musicState=data.getBooleanExtra("Music State", true);
+        bruitagesState=data.getBooleanExtra("bruitages", true);
     }
 
     @Override

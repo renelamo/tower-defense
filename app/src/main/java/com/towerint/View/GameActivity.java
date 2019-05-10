@@ -1,6 +1,8 @@
 package com.towerint.View;
 
 import com.towerint.Model.Vector2;
+
+import android.content.Intent;
 import android.graphics.Point;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -21,6 +23,7 @@ public class GameActivity extends AppCompatActivity {
     public com.towerint.Controller.GameEngine gameEngine;
     public boolean isTouch = false;
     private boolean paused=false;
+    private boolean bruitages;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,6 +43,10 @@ public class GameActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+
+        Intent parentIntent=getIntent();
+        bruitages=parentIntent.getBooleanExtra("bruitages", true);
+        gameEngine.setBruitages(bruitages);
 
         // Make gameEngine the view of the Activity
         setContentView(R.layout.activity_game);
@@ -130,9 +137,11 @@ public class GameActivity extends AppCompatActivity {
                 if(gameEngine.money<TowerType1.cost){
                     return false;
                 }
-                MediaPlayer construction=MediaPlayer.create(gameEngine.getContext(), R.raw.construction);
-                construction.setLooping(false);
-                construction.start();
+                if(bruitages) {
+                    MediaPlayer construction = MediaPlayer.create(gameEngine.getContext(), R.raw.construction);
+                    construction.setLooping(false);
+                    construction.start();
+                }
                 gameEngine.towers.add(new TowerType1(position, gameEngine));
                 gameEngine.money-=TowerType1.cost;
                 break;

@@ -96,7 +96,8 @@ public class GameEngine extends SurfaceView implements Runnable {
     private Bitmap start;
     private Bitmap restart;
     private Bitmap menu;
-    MusicService musicService = new MusicService();
+
+    private boolean bruitages;
 
 
     public GameEngine(Context context, Point size) {
@@ -292,9 +293,11 @@ public class GameEngine extends SurfaceView implements Runnable {
                         }
                     }
                     temporaryPrintables.add(new TemporaryPrintable(projectile.getPosition(), this, R.drawable.explosion, 100));
-                    MediaPlayer bombSound=MediaPlayer.create(getContext(), R.raw.explosion);
-                    bombSound.setLooping(false);
-                    bombSound.start();
+                    if(bruitages) {
+                        MediaPlayer bombSound = MediaPlayer.create(getContext(), R.raw.explosion);
+                        bombSound.setLooping(false);
+                        bombSound.start();
+                    }
                     projectiles.remove(projectile);
                     --size;
                     --i;
@@ -466,6 +469,10 @@ public class GameEngine extends SurfaceView implements Runnable {
 
     public Way getPath(){
         return way;
+    }
+
+    public void setBruitages(boolean b){
+        bruitages=b;
     }
 }
 

@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/options_menu_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -46,10 +47,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginTop="196dp"
         android:showText="true"
         android:switchTextAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:text="Music"
+        android:text="@string/music_button"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,5 +59,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
+
+    <Switch
+        android:id="@+id/bruitages_button"
+        android:background="@color/white"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/bruitages_button"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:switchTextAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/black"
+        android:showText="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintTop_toBottomOf="@+id/musicButton" />
 
 </android.support.constraint.ConstraintLayout>
