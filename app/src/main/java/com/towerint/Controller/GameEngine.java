@@ -191,9 +191,9 @@ public class GameEngine extends SurfaceView implements Runnable {
                 way.add(screenX/4,screenY/4);
                 way.add(screenX/4,screenY);
                 //towers.add(new TowerType1(100,100,this));
-                nbattacker1 =3*level;
-                nbattacker2 =2*level;
-                nbattacker3=level;
+                nbattacker1 =2*level;
+                nbattacker2 =level;
+                nbattacker3=3*level;
         }
 
 
@@ -439,11 +439,11 @@ public class GameEngine extends SurfaceView implements Runnable {
         //canvas.drawLine(left, top, right, bottom, paint);
 
         paint.setTextAlign(Paint.Align.CENTER);
-        canvas.drawText("Fails :" + fails, (int)(screenX-3.5*partX), partX/2, paint);
+        canvas.drawText("Hits :" + fails, (int)(screenX-3.5*partX), partX/2, paint);
         //canvas.drawLine(left, top, right, bottom, paint);
 
         paint.setTextAlign(Paint.Align.RIGHT);
-        canvas.drawText("Money :" + money, (int)(screenX-4.5*partX), partX/2, paint);
+        canvas.drawText("$ :" + money, (int)(screenX-4.5*partX), partX/2, paint);
         //canvas.drawLine(left, top, right, bottom, paint);
 
         // victory or defeat ?
