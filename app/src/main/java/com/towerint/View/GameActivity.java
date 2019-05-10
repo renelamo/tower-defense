@@ -95,6 +95,9 @@ public class GameActivity extends AppCompatActivity {
             else if(X>= 2*partX&& X<3*partX && Y>gameEngine.screenY-partX){// Bouton start
                 gameEngine.begin=true;
             }
+            else if(X>= 3*partX&& X<4*partX && Y>gameEngine.screenY-partX) { //Bouton Menu
+                finish();
+            }
             else if(X>= gameEngine.screenX-partX&& X<gameEngine.screenX && Y>gameEngine.screenY-partX&&gameEngine.endlevel==true) { //Bouton restart
                 gameEngine.towers.clear();
                 gameEngine.endlevel = false;
