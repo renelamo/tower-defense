@@ -211,28 +211,28 @@ public class GameEngine extends SurfaceView implements Runnable {
         pauseBitmap =Bitmap.createScaledBitmap(pauseBitmap, partX, partX, false);
         playBitmap= BitmapFactory.decodeResource(context.getResources(), R.drawable.play_icon);
         playBitmap = Bitmap.createScaledBitmap(playBitmap, partX, partX, false);
-        
+
         tower1= BitmapFactory.decodeResource(context.getResources(), R.drawable.tower1);
         tower1 = Bitmap.createScaledBitmap(tower1, partX, partX, false);
         tower1bis1= BitmapFactory.decodeResource(context.getResources(), R.drawable.tower1bis1);
         tower1bis1 = Bitmap.createScaledBitmap(tower1bis1, partX, partX, false);
         tower1bis= BitmapFactory.decodeResource(context.getResources(), R.drawable.tower1bis);
         tower1bis = Bitmap.createScaledBitmap(tower1bis, partX, partX, false);
-        
+
         tower2= BitmapFactory.decodeResource(context.getResources(), R.drawable.tower2);
         tower2 = Bitmap.createScaledBitmap(tower2, partX, partX, false);
         tower2bis= BitmapFactory.decodeResource(context.getResources(), R.drawable.tower2bis);
         tower2bis = Bitmap.createScaledBitmap(tower2bis, partX, partX, false);
         tower2bis1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.tower2bis1);
         tower2bis1 = Bitmap.createScaledBitmap(tower2bis1, partX, partX, false);
-        
-        tower3= BitmapFactory.decodeResource(context.getResources(), R.drawable.tower3);
+
+        tower3 = BitmapFactory.decodeResource(context.getResources(), R.drawable.tower3);
         tower3 = Bitmap.createScaledBitmap(tower3, partX, partX, false);
         tower3bis= BitmapFactory.decodeResource(context.getResources(), R.drawable.tower3bis);
         tower3bis = Bitmap.createScaledBitmap(tower3bis, partX, partX, false);
         tower3bis1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.tower3bis1);
         tower3bis1 = Bitmap.createScaledBitmap(tower3bis1, partX, partX, false);
-        
+
         victory= BitmapFactory.decodeResource(context.getResources(), R.drawable.victory_o);
         victory = Bitmap.createScaledBitmap(victory, screenY, screenY, false);
         next_level= BitmapFactory.decodeResource(context.getResources(), R.drawable.next_level);
