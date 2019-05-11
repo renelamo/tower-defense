@@ -216,7 +216,7 @@ public class GameEngine extends SurfaceView implements Runnable {
         tower2bis = Bitmap.createScaledBitmap(tower2bis, partX, partX, false);
         tower2bis1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.tower2bis1);
         tower2bis1 = Bitmap.createScaledBitmap(tower2bis1, partX, partX, false);
-        victory= BitmapFactory.decodeResource(context.getResources(), R.drawable.victory);
+        victory= BitmapFactory.decodeResource(context.getResources(), R.drawable.victory_o);
         victory = Bitmap.createScaledBitmap(victory, screenY, screenY, false);
         next_level= BitmapFactory.decodeResource(context.getResources(), R.drawable.next_level);
         next_level= Bitmap.createScaledBitmap(next_level, partX, partX, false);
