@@ -57,7 +57,7 @@ abstract public class Movable extends Printable {
     public void move(){
         setPos(this.getPosition().add(speed));
         //Si la distance entre l'attaquant et le prochain noeud est inférieure à la moitié de la distance parcourue en 1 frame, on se dirrige vers le noeud suivant;
-        if(Vector2.distance(node.getPosition(), this.getPosition())<=speed.getNorm()/2){
+        while (Vector2.distance(node.getPosition(), this.getPosition())<=speed.getNorm()/2){
             if(!node.hasNext()){
                 setSpeed(0,0);
                 arrived=true;

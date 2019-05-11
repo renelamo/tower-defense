@@ -18,6 +18,7 @@ import android.graphics.Bitmap;
 import com.towerint.Model.Attacker;
 import com.towerint.Model.AttackerType1;
 import com.towerint.Model.AttackerType2;
+import com.towerint.Model.AttackerType3;
 import com.towerint.Model.Node;
 import static com.towerint.Model.Printable.distance;
 import com.towerint.Model.Projectile;
@@ -66,6 +67,7 @@ public class GameEngine extends SurfaceView implements Runnable {
     public boolean begin =false; //SI le joueur est prêt à lancer la partie
     public int nbattacker1;
     public int nbattacker2;
+    public int nbattacker3;
     // Everything we need for drawing
 // Is the game currently playing?
     private volatile boolean isPlaying;
@@ -94,7 +96,8 @@ public class GameEngine extends SurfaceView implements Runnable {
     private Bitmap start;
     private Bitmap restart;
     private Bitmap menu;
-    MusicService musicService = new MusicService();
+
+    private boolean bruitages;
 
 
     public GameEngine(Context context, Point size) {
@@ -170,7 +173,7 @@ public class GameEngine extends SurfaceView implements Runnable {
                 way.add(screenX/4,screenY);
                 //towers.add(new TowerType1(100,100,this));
                 //required number of unit
-                nbattacker1 =5;
+                nbattacker1 =3;
                 break;
             /*case 2:
                 fails =0;
@@ -189,8 +192,9 @@ public class GameEngine extends SurfaceView implements Runnable {
                 way.add(screenX/4,screenY/4);
                 way.add(screenX/4,screenY);
                 //towers.add(new TowerType1(100,100,this));
-                nbattacker1 =3*level;
-                nbattacker2 =2*level;
+                nbattacker1 =2*level;
+                nbattacker2 =level;
+                nbattacker3=3*level;
         }
 
 
@@ -289,25 +293,31 @@ public class GameEngine extends SurfaceView implements Runnable {
                         }
                     }
                     temporaryPrintables.add(new TemporaryPrintable(projectile.getPosition(), this, R.drawable.explosion, 100));
-                    MediaPlayer bombSound=MediaPlayer.create(getContext(), R.raw.explosion);
-                    bombSound.setLooping(false);
-                    bombSound.start();
+                    if(bruitages) {
+                        MediaPlayer bombSound = MediaPlayer.create(getContext(), R.raw.explosion);
+                        bombSound.setLooping(false);
+                        bombSound.start();
+                    }
                     projectiles.remove(projectile);
                     --size;
                     --i;
                 }
             }
             //check if the level is finished and if you win or loose
-            if (fails == 5) {
+            if (fails == (int) 1.5*level) {
                 endlevel = true;
                 gg = false;
                 level=1;
                 attackers.clear();
+                projectiles.clear();
+                towers.clear();
             } else if (attackers.isEmpty() && !endlevel) {
                 level++;
                 endlevel = true;
                 gg = true;
                 attackers.clear();
+                projectiles.clear();
+                towers.clear();
             }
 
         }
@@ -366,6 +376,11 @@ public class GameEngine extends SurfaceView implements Runnable {
                 //  attackers.add(new AttackerType2(way, this));
                 nbattacker2--;
             }
+        }
+        if (nbattacker3 > 0){
+            attackers.add(new AttackerType3(way, this));
+            //  attackers.add(new AttackerType2(way, this));
+            nbattacker3--;
         }
     }
 
@@ -427,11 +442,11 @@ public class GameEngine extends SurfaceView implements Runnable {
         //canvas.drawLine(left, top, right, bottom, paint);
 
         paint.setTextAlign(Paint.Align.CENTER);
-        canvas.drawText("Fails :" + fails, (int)(screenX-3.5*partX), partX/2, paint);
+        canvas.drawText("Hits :" + fails, (int)(screenX-3.5*partX), partX/2, paint);
         //canvas.drawLine(left, top, right, bottom, paint);
 
         paint.setTextAlign(Paint.Align.RIGHT);
-        canvas.drawText("Money :" + money, (int)(screenX-4.5*partX), partX/2, paint);
+        canvas.drawText("$ :" + money, (int)(screenX-4.5*partX), partX/2, paint);
         //canvas.drawLine(left, top, right, bottom, paint);
 
         // victory or defeat ?
@@ -454,6 +469,10 @@ public class GameEngine extends SurfaceView implements Runnable {
 
     public Way getPath(){
         return way;
+    }
+
+    public void setBruitages(boolean b){
+        bruitages=b;
     }
 }
 

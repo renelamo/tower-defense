@@ -10,11 +10,15 @@ import com.towerint.View.MainActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Switch;
+
 import com.towerint.R;
 
 
 public class OptionsActivity extends AppCompatActivity {
 
+    private boolean musicState;
+    private boolean bruitagesState;
     private MusicService music;
     private Intent musicIntent;
     private boolean isMusicBound=false;
@@ -38,36 +42,57 @@ public class OptionsActivity extends AppCompatActivity {
 
         musicIntent=new Intent(OptionsActivity.this, MusicService.class);
         bindService(musicIntent, musicConnection, Context.BIND_AUTO_CREATE);
+        isMusicBound=true;
 
+        Intent parentIntent=getIntent();
+
+        musicState=parentIntent.getBooleanExtra("Music State", true);
+        bruitagesState=parentIntent.getBooleanExtra("bruitages", true);
 
         /*Déclaration des boutons*/
         final Button returnButton=findViewById(R.id.returnButton);
-        final Button musicButton=findViewById(R.id.musicButton);
+        final Switch musicButton=findViewById(R.id.musicButton);
+        final Switch bruitagesSwitch=findViewById(R.id.bruitages_button);
         /*Connecte le bouton de retour*/
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                sendResult();
+                unbind();
                 finish();
             }
         });
+
+        musicButton.setChecked(musicState);
         musicButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 music.toggle();
+                musicState= !musicState;
+            }
+        });
+
+        bruitagesSwitch.setChecked(bruitagesState);
+        bruitagesSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bruitagesState= !bruitagesState;
             }
         });
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        unbind();
+    public void onBackPressed() {
+        sendResult();
+        super.onBackPressed();
     }
 
     @Override
     protected void onDestroy() {
         unbind();
+        sendResult();
         super.onDestroy();
+
     }
 
     private void unbind(){
@@ -75,5 +100,12 @@ public class OptionsActivity extends AppCompatActivity {
             unbindService(musicConnection);
             isMusicBound=false;
         }
+    }
+
+    private void sendResult(){
+        Intent out=new Intent();
+        out.putExtra("Music State", musicState);
+        out.putExtra("bruitages", bruitagesState);
+        setResult(RESULT_OK, out);
     }
 }

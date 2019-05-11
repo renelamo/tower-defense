@@ -9,8 +9,6 @@ public class AttackerType1 extends Attacker{
 
 
 
-    //TODO: définir les autres constantes pour ce type d'attaquant et les implémenter dans le constructeur
-
     @Deprecated
     public AttackerType1(int posX, int posY, GameEngine engine){
         super(posX,posY, engine, resource);

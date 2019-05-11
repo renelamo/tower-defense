@@ -66,11 +66,9 @@ public class Way {
         float out=point.distanceSegment(path.get(0).getPosition(), path.get(1).getPosition());
         for(int i=1; i<path.size()-1; ++i){
             Node node=path.get(i);
-            if(node.hasNext()){
-                float ditsLocale=point.distanceSegment(node.getPosition(), node.getNext().getPosition());
-                if(ditsLocale<out){
-                    out=ditsLocale;
-                }
+            float ditsLocale=point.distanceSegment(node.getPosition(), node.getNext().getPosition());
+            if(ditsLocale<out){
+                out=ditsLocale;
             }
         }
         return out;
@@ -78,7 +76,7 @@ public class Way {
 
     public boolean isOnPath(Vector2 point){
         double dist=distance(point);
-        boolean out=dist<bitmapWidth/2;
+        boolean out = (dist<(bitmapWidth/2));
         return out;
     }
 

@@ -1,6 +1,8 @@
 package com.towerint.View;
 
 import com.towerint.Model.Vector2;
+
+import android.content.Intent;
 import android.graphics.Point;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -21,6 +23,7 @@ public class GameActivity extends AppCompatActivity {
     public com.towerint.Controller.GameEngine gameEngine;
     public boolean isTouch = false;
     private boolean paused=false;
+    private boolean bruitages;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,10 +44,13 @@ public class GameActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 
+        Intent parentIntent=getIntent();
+        bruitages=parentIntent.getBooleanExtra("bruitages", true);
+        gameEngine.setBruitages(bruitages);
+
         // Make gameEngine the view of the Activity
         setContentView(R.layout.activity_game);
         setContentView(gameEngine);
-
 
     }
 
@@ -99,7 +105,7 @@ public class GameActivity extends AppCompatActivity {
             else if(X>= 3*partX&& X<4*partX && Y>gameEngine.screenY-partX) { //Bouton Menu
                 finish();
             }
-            else if(X>= gameEngine.screenX-partX&& X<gameEngine.screenX && Y>gameEngine.screenY-partX&&gameEngine.endlevel==true) { //Bouton restart
+            else if(X>= gameEngine.screenX-partX&& X<gameEngine.screenX && Y>gameEngine.screenY-partX && gameEngine.endlevel) { //Bouton restart
                 gameEngine.towers.clear();
                 gameEngine.endlevel = false;
                 gameEngine.gg = false;
@@ -117,10 +123,12 @@ public class GameActivity extends AppCompatActivity {
     private boolean createTower(Vector2 position){
         int partX=(int)(gameEngine.screenX*.15);
         if(gameEngine.getPath().isOnPath(position)){
+            System.out.println("Tour sur le chemin");
             return false;
         }
         for(Tower t:gameEngine.towers){
-            if(Vector2.distance(t.getPosition(), position)<new Vector2(partX, partX).getNorm()){
+            if(Vector2.distance(t.getPosition(), position)< partX){
+                System.out.println("Tour sur Tour");
                 return false;
             }
         }
@@ -129,9 +137,11 @@ public class GameActivity extends AppCompatActivity {
                 if(gameEngine.money<TowerType1.cost){
                     return false;
                 }
-                MediaPlayer construction=MediaPlayer.create(gameEngine.getContext(), R.raw.construction);
-                construction.setLooping(false);
-                construction.start();
+                if(bruitages) {
+                    MediaPlayer construction = MediaPlayer.create(gameEngine.getContext(), R.raw.construction);
+                    construction.setLooping(false);
+                    construction.start();
+                }
                 gameEngine.towers.add(new TowerType1(position, gameEngine));
                 gameEngine.money-=TowerType1.cost;
                 break;
