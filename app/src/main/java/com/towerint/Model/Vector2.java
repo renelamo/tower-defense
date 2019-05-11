@@ -82,6 +82,12 @@ public class Vector2 { //TODO: si ca ne fait pas lagger, rmplacer les float par 
         return this;
     }
 
+    public Vector2 multToNew(double d){
+        float x=(float)(this.x*d);
+        float y=(float)(this.y*d);
+        return new Vector2(x,y);
+    }
+
     //pour que les valeurs cartésiennes du vecteur soient comprises dans l'intervalle spécifié
     public void setInBounds(Vector2 vMin, Vector2 vMax){
         if(vMax.getX()<=vMin.getX() || vMax.getY()<=vMin.getY()){

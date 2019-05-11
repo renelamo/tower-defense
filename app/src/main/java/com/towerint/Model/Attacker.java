@@ -5,13 +5,11 @@ import com.towerint.Controller.GameEngine;
 import static com.towerint.Controller.GameEngine.FPS;
 
 public abstract class Attacker extends Movable {
-    private Vector2 speed;//Vitesse réelle en px par frame
-    private float maxSpeed;//En module (en px/frame)
-    private Node node; //Noeud vers lequel il se déplace
     private float distParcourue;
     protected int health = 100;
     protected int money = 100;
-    private GameEngine parent;
+    protected double coeffSpeed = 1;
+    protected int freezeDuration = 0;
 
     ///////////METHODE/////////////////////////////////////
 
@@ -31,8 +29,26 @@ public abstract class Attacker extends Movable {
 
     @Override
     public void move() {
-        distParcourue+=maxSpeed;
-        super.move();
+        if (freezeDuration > 0){
+            freezeDuration -= 1;
+            coeffSpeed = 0.2;
+        }
+        else{
+            coeffSpeed = 1;
+        }
+        distParcourue+=maxSpeed*coeffSpeed;
+        System.out.println(distParcourue);
+        setPos(this.getPosition().add(speed.multToNew(coeffSpeed)));
+        //Si la distance entre l'attaquant et le prochain noeud est inférieure à la moitié de la distance parcourue en 1 frame, on se dirrige vers le noeud suivant;
+        while (Vector2.distance(node.getPosition(), this.getPosition())<=speed.multToNew(coeffSpeed).getNorm()/2) {
+            if (!node.hasNext()) {
+                setSpeed(0, 0);
+                arrived = true;
+            } else {
+                setSpeed(node.getDirection());
+                node = node.getNext();
+            }
+        }
     }
 
     ///////////GETTERS////////////////////////////////////////////////
@@ -49,4 +65,7 @@ public abstract class Attacker extends Movable {
     }
     ///////////SETTERS////////////////////////////////////////////////
 
+    public void setFreezeDuration(int value){
+        this.freezeDuration = value;
+    }
 }

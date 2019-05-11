@@ -1,5 +1,6 @@
 package com.towerint.View;
 
+import com.towerint.Model.TowerType3;
 import com.towerint.Model.Vector2;
 
 import android.content.Intent;
@@ -99,10 +100,14 @@ public class GameActivity extends AppCompatActivity {
             {
                 gameEngine.tower =2 ;
             }
-            else if(X>= 2*partX&& X<3*partX && Y>gameEngine.screenY-partX){// Bouton start
+            else if(X>= 2*partX&& X<3*partX && Y>gameEngine.screenY-partX) //choix tour tyoe 2
+            {
+                gameEngine.tower =3 ;
+            }
+            else if(X>= 3*partX&& X<4*partX && Y>gameEngine.screenY-partX){// Bouton start
                 gameEngine.begin=true;
             }
-            else if(X>= 3*partX&& X<4*partX && Y>gameEngine.screenY-partX) { //Bouton Menu
+            else if(X>= 4*partX&& X<5*partX && Y>gameEngine.screenY-partX) { //Bouton Menu
                 finish();
             }
             else if(X>= gameEngine.screenX-partX&& X<gameEngine.screenX && Y>gameEngine.screenY-partX && gameEngine.endlevel) { //Bouton restart
@@ -151,6 +156,13 @@ public class GameActivity extends AppCompatActivity {
                 }
                 gameEngine.towers.add(new TowerType2(position, gameEngine));
                 gameEngine.money-=TowerType2.cost;
+                break;
+            case 3:
+                if(gameEngine.money< TowerType3.cost){
+                    return false;
+                }
+                gameEngine.towers.add(new TowerType3(position, gameEngine));
+                gameEngine.money-=TowerType3.cost;
                 break;
         }
         return true;

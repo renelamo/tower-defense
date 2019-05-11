@@ -6,11 +6,11 @@ import static com.towerint.Controller.GameEngine.FPS;
 
 abstract public class Movable extends Printable {
 
-    private Vector2 speed;//Vitesse réelle en px par frame
-    private float maxSpeed;//En module (en px/frame)
-    private Node node; //Noeud vers lequel il se déplace
-    private GameEngine parent;
-    private boolean arrived=false;
+    protected Vector2 speed;//Vitesse réelle en px par frame
+    protected float maxSpeed;//En module (en px/frame)
+    protected Node node; //Noeud vers lequel il se déplace
+    protected GameEngine parent;
+    protected boolean arrived=false;
     protected int thetaOffset; //Les images n'ont pas toutes la meme orientation (en degres)
 
     Movable(int posX, int posY, GameEngine engine, int resource) {

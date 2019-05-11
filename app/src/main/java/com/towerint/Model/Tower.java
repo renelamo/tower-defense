@@ -37,21 +37,22 @@ public abstract class Tower extends Printable{ ;
     //La cible est le premier élement de la liste on ne met a jour cette liste que lorsque que le premier élement n'est plus disponible (mort ou hors portée)
     public void shoot(List<Attacker> attackers) {
         ArrayList<Attacker> onRange=new ArrayList<>();
+        Attacker currentTarget = null;
         for(Attacker cible:attackers){
             if(cible.getPosition().diff(getPosition()).getNorm()<=range){
-                onRange.add(cible);
+                if (currentTarget == null){
+                    currentTarget = cible;
+                }
+                else {
+                    if (cible.getDistParcourue() > currentTarget.getDistParcourue())
+                        currentTarget = cible;
+                }
             }
         }
-        if(onRange.size()==0){
+        if (currentTarget == null){
             return;
         }
-        Attacker finalTarget=onRange.get(0);
-        for(Attacker cible:onRange){
-            if(cible.getDistParcourue()<finalTarget.getDistParcourue()){
-                finalTarget=cible;
-            }
-        }
-        shoot(finalTarget);
+        shoot(currentTarget);
     }
 
     Tower(int posX, int posY, GameEngine parentEngine, int resource){
