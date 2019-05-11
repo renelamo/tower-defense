@@ -317,7 +317,7 @@ public class GameEngine extends SurfaceView implements Runnable {
                 }
             }
             //check if the level is finished and if you win or loose
-            if (fails == (int) 1.5*level) {
+            if (fails == (int) (1.5*level)) {
                 endlevel = true;
                 gg = false;
                 level=1;
