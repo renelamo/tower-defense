@@ -349,8 +349,9 @@ public class GameEngine extends SurfaceView implements Runnable {
             paint.setStrokeWidth(10);
             way.draw(canvas, paint);
             //affichage de tous les printables
-            for(Tower tower:towers){
-                tower.draw(canvas, paint);
+            int s=towers.size();
+            for(int i=0; i<s; ++i){
+                towers.get(i).draw(canvas, paint);
             }
             for(Attacker attacker:attackers){
                 attacker.draw(canvas, paint);
