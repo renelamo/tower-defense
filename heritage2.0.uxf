@@ -212,13 +212,13 @@ add(Node)</panel_attributes>
       <h>210</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-
-Contient</panel_attributes>
+Suit</panel_attributes>
     <additional_attributes>10.0;190.0;10.0;10.0;320.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>460</x>
+      <x>470</x>
       <y>630</y>
       <w>100</w>
       <h>30</h>
@@ -230,19 +230,7 @@ Contient</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>500</x>
-      <y>500</y>
-      <w>100</w>
-      <h>150</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-
-LinkedList</panel_attributes>
-    <additional_attributes>10.0;130.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>420</x>
+      <x>430</x>
       <y>650</y>
       <w>170</w>
       <h>90</h>
@@ -337,5 +325,17 @@ hérite</panel_attributes>
     <panel_attributes>lt=&lt;&lt;.
 hérite</panel_attributes>
     <additional_attributes>10.0;10.0;70.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>500</x>
+      <y>500</y>
+      <w>100</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+LinkedList</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
   </element>
 </diagram>
