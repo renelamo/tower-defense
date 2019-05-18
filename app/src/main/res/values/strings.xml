@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Tower\'INT</string>
     <string name="startString"><b>Démarrer</b></string>
+    <string name="tutorialString"><b>Tutoriel</b></string>
     <string name="optionsString"><b>Options</b></string>
     <string name="exitString"><b>Quitter</b></string>
     <string name="background_image_description">background Image</string>
