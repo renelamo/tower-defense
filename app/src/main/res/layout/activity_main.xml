@@ -44,7 +44,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:text="How To Play" />
+        tools:text="Tutorial" />
 
     <Button
         android:id="@+id/activity_main_play_btn"
