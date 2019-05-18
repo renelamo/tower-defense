@@ -16,7 +16,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="casual"
-        android:text="@string/tutorialString"
+        android:text="@string/rules_button"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="30sp"
