@@ -140,6 +140,7 @@ public class GameActivity extends AppCompatActivity {
         switch (gameEngine.tower){
             case 1:
                 if(gameEngine.money<TowerType1.cost){
+                    //TODO AFFICHER PRIX MANQUANT
                     return false;
                 }
                 if(bruitages) {

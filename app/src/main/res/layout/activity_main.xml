@@ -27,6 +27,26 @@
         app:srcCompat="@drawable/tower" />
 
     <Button
+        android:id="@+id/optionsButton2"
+        style="@android:style/Widget.Button"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="64dp"
+        android:background="#8BC34A"
+        android:fontFamily="casual"
+        android:text="@string/optionsString"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/exitButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="How To Play" />
+
+    <Button
         android:id="@+id/activity_main_play_btn"
         style="@android:style/Widget.Button"
         android:layout_width="match_parent"
