@@ -64,6 +64,11 @@ public class MainActivity extends AppCompatActivity {
         final Button startButton = findViewById(R.id.activity_main_play_btn);
         final Button tutorialButton = findViewById(R.id.tutorialButton); ;
 
+
+
+
+
+
         /*Définition de la fonction appelée par exitButton*/
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -18,6 +18,7 @@ public class TutorielActivity extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +31,12 @@ public class TutorielActivity extends AppCompatActivity {
         /*Déclaration des boutons*/
         final Button returnButton=findViewById(R.id.returnButton);
 
+        final Button rulesButton = findViewById(R.id.rulesButton); ;
+        final Button interfaceButton = findViewById(R.id.interfaceButton); ;
+        final Button towersButton = findViewById(R.id.towersButton); ;
+        final Button attackersButton = findViewById(R.id.attackersButton); ;
+
+
         /*Connecte le bouton de retour*/
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,7 +46,42 @@ public class TutorielActivity extends AppCompatActivity {
             }
         });
 
+
+        rulesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TutorielActivity.this, RulesActivity.class);
+                startActivityForResult(intent, 0);
+
+            }
+        });
+        interfaceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TutorielActivity.this, InterfaceActivity.class);
+                startActivityForResult(intent, 0);
+
+            }
+        });
+        towersButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TutorielActivity.this, TowersActivity.class);
+                startActivityForResult(intent, 0);
+
+            }
+        });
+        attackersButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TutorielActivity.this, AttackersActivity.class);
+                startActivityForResult(intent, 0);
+
+            }
+        });
+
     }
+
 
     @Override
     public void onBackPressed() {

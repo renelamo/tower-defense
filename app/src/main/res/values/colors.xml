@@ -10,5 +10,5 @@
     <color name="black">#000000</color>
     <color name="options_menu_background">#0000FF</color>
     <color name="main_menu_background">#FFFFFF</color>
-    <color name="tutorial_background">#29a329</color>
+    <color name="tutorial_background">#00cc00</color>
 </resources>
