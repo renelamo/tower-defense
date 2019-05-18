@@ -24,6 +24,9 @@ import static com.towerint.Model.Printable.distance;
 import com.towerint.Model.Projectile;
 import com.towerint.Model.TemporaryPrintable;
 import com.towerint.Model.Tower;
+import com.towerint.Model.TowerType1;
+import com.towerint.Model.TowerType2;
+import com.towerint.Model.TowerType3;
 import com.towerint.Model.Way;
 import com.towerint.R;
 import com.towerint.View.MusicService;
@@ -57,6 +60,12 @@ public class GameEngine extends SurfaceView implements Runnable {
     //how many attackers pass
 
     public int fails;
+
+    public int moneyTower1 = TowerType1.cost;
+    public int moneyTower2 = TowerType2.cost;
+    public int moneyTower3 = TowerType3.cost;
+
+
 
     public int money;
     public int tower = 1; //Le type de tour a construire
@@ -437,21 +446,27 @@ public class GameEngine extends SurfaceView implements Runnable {
         canvas.drawBitmap(playPauseDisplay, (int)(screenX-partX), 0, paint);
         if(tower!=1) {
             canvas.drawBitmap(tower1, 0, (int) (screenY - partX), paint);
+            canvas.drawText(moneyTower1 + "", (int)(screenX-5.9*partX), screenY-partX, paint);
         }
         else {
             canvas.drawBitmap(tower1bis, 0, (int) (screenY - partX), paint);
+            canvas.drawText(moneyTower1 + "", (int)(screenX-5.9*partX), screenY-partX, paint);
         }
         if(tower!=2) {
             canvas.drawBitmap(tower2, (int) (partX), (int) (screenY - partX), paint);
+            canvas.drawText(moneyTower2 + "", (int)(screenX-4.9*partX), screenY-partX, paint);
         }
         else {
             canvas.drawBitmap(tower2bis, (int) (partX), (int) (screenY - partX), paint);
+            canvas.drawText(moneyTower2 + "", (int)(screenX-4.9*partX), screenY-partX, paint);
         }
         if(tower!=3) {
             canvas.drawBitmap(tower3, (int) (partX*2), (int) (screenY - partX), paint);
+            canvas.drawText(moneyTower3 + "", (int)(screenX-3.9*partX), screenY-partX, paint);
         }
         else {
             canvas.drawBitmap(tower3bis, (int) (partX*2), (int) (screenY - partX), paint);
+            canvas.drawText(moneyTower3 + "", (int)(screenX-3.9*partX), screenY-partX, paint);
         }
         canvas.drawBitmap(start, 3*(int)(partX), (int)(screenY-partX), paint);
         canvas.drawBitmap(menu, 4*(int)(partX), (int)(screenY-partX), paint);
