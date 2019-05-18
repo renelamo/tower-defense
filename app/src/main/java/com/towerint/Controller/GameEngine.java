@@ -436,19 +436,19 @@ public class GameEngine extends SurfaceView implements Runnable {
         int partX=(int)(screenX*.15);
         canvas.drawBitmap(playPauseDisplay, (int)(screenX-partX), 0, paint);
         if(tower!=1) {
-            canvas.drawBitmap(tower1bis1, 0, (int) (screenY - partX), paint);
+            canvas.drawBitmap(tower1, 0, (int) (screenY - partX), paint);
         }
         else {
             canvas.drawBitmap(tower1bis, 0, (int) (screenY - partX), paint);
         }
         if(tower!=2) {
-            canvas.drawBitmap(tower2bis1, (int) (partX), (int) (screenY - partX), paint);
+            canvas.drawBitmap(tower2, (int) (partX), (int) (screenY - partX), paint);
         }
         else {
             canvas.drawBitmap(tower2bis, (int) (partX), (int) (screenY - partX), paint);
         }
         if(tower!=3) {
-            canvas.drawBitmap(tower3bis, (int) (partX*2), (int) (screenY - partX), paint);
+            canvas.drawBitmap(tower3, (int) (partX*2), (int) (screenY - partX), paint);
         }
         else {
             canvas.drawBitmap(tower3bis, (int) (partX*2), (int) (screenY - partX), paint);
