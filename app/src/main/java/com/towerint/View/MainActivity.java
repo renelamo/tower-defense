@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         final Button exitButton = findViewById(R.id.exitButton);
         final Button optionButton = findViewById(R.id.optionsButton);
         final Button startButton = findViewById(R.id.activity_main_play_btn);
+        final Button tutorialButton = findViewById(R.id.tutorialButton); ;
 
         /*Définition de la fonction appelée par exitButton*/
         exitButton.setOnClickListener(new View.OnClickListener() {
@@ -82,6 +83,18 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, 0);
             }
         });
+        /*Appel du layout du tutoriel*/
+        tutorialButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, TutorielActivity.class);
+                startActivityForResult(intent, 0);
+
+            }
+        });
+
+
+
 
         /*Appel de l'activite de jeu*/
         startButton.setOnClickListener(new View.OnClickListener() {

@@ -35,6 +35,8 @@
                 <action android:name="android.intent.action.VIEW"/>
             </intent-filter>
         </activity>
+        <activity android:name=".View.TutorielActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"/>
         <service android:name=".View.MusicService" android:enabled="true"/>
     </application>
 

@@ -29,26 +29,6 @@
             app:layout_constraintVertical_bias="0.195" />
 
     <Button
-        android:id="@+id/tutorialButton"
-        style="@android:style/Widget.Button"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="64dp"
-        android:background="#8BC34A"
-        android:fontFamily="casual"
-        android:text="@string/tutorialString"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/exitButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="Tutorial" />
-
-    <Button
         android:id="@+id/activity_main_play_btn"
         style="@android:style/Widget.Button"
         android:layout_width="match_parent"
@@ -67,6 +47,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@string/startString" />
+
+    <Button
+        android:id="@+id/tutorialButton"
+        style="@android:style/Widget.Button"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="64dp"
+        android:background="#8BC34A"
+        android:fontFamily="casual"
+        android:text="@string/tutorialString"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/exitButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Tutorial" />
 
     <Button
         android:id="@+id/optionsButton"
