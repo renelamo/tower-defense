@@ -10,8 +10,8 @@
     <string name="return_string"><b>&lt;Retour</b></string>
     <string name="music_button">Musique</string>
     <string name="bruitages_button">Bruitages</string>
-    <string name="rules_button">Bruitages</string>
-    <string name="interface_button">Bruitages</string>
-    <string name="towers_button">Bruitages</string>
-    <string name="attackers_button">Bruitages</string>
+    <string name="rules_button">Règles</string>
+    <string name="interface_button">Interface</string>
+    <string name="towers_button">Tours</string>
+    <string name="attackers_button">Attaquants</string>
 </resources>
