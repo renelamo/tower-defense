@@ -13,6 +13,8 @@ import android.view.MotionEvent;
 import android.view.Display;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
+
 import com.towerint.Model.Tower;
 import com.towerint.Controller.GameEngine;
 import com.towerint.Model.TowerType1;
@@ -25,6 +27,8 @@ public class GameActivity extends AppCompatActivity {
     public boolean isTouch = false;
     private boolean paused=false;
     private boolean bruitages;
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -129,18 +133,22 @@ public class GameActivity extends AppCompatActivity {
         int partX=(int)(gameEngine.screenX*.15);
         if(gameEngine.getPath().isOnPath(position)){
             System.out.println("Tour sur le chemin");
+            Toast.makeText(this, "IMPOSSIBLE DE METTRE UNE TOUR SUR LE CHEMIN ", Toast.LENGTH_SHORT).show();
+
             return false;
         }
         for(Tower t:gameEngine.towers){
             if(Vector2.distance(t.getPosition(), position)< partX){
                 System.out.println("Tour sur Tour");
+                Toast.makeText(this, "IMPOSSIBLE DE METTRE UNE TOUR SUR UNE AUTRE TOUR", Toast.LENGTH_SHORT).show();
                 return false;
             }
         }
         switch (gameEngine.tower){
             case 1:
                 if(gameEngine.money<TowerType1.cost){
-                    //TODO AFFICHER PRIX MANQUANT
+                    int prixManquant = TowerType1.cost-gameEngine.money;
+                    Toast.makeText(this, "IL MANQUE " + prixManquant +"$", Toast.LENGTH_SHORT).show();
                     return false;
                 }
                 if(bruitages) {
@@ -153,6 +161,8 @@ public class GameActivity extends AppCompatActivity {
                 break;
             case 2:
                 if(gameEngine.money<TowerType2.cost){
+                    int prixManquant = TowerType2.cost-gameEngine.money;
+                    Toast.makeText(this, "IL MANQUE " + prixManquant +"$", Toast.LENGTH_SHORT).show();
                     return false;
                 }
                 gameEngine.towers.add(new TowerType2(position, gameEngine));
@@ -160,6 +170,8 @@ public class GameActivity extends AppCompatActivity {
                 break;
             case 3:
                 if(gameEngine.money< TowerType3.cost){
+                    int prixManquant = TowerType3.cost-gameEngine.money;
+                    Toast.makeText(this, "IL MANQUE " + prixManquant +"$", Toast.LENGTH_SHORT).show();
                     return false;
                 }
                 gameEngine.towers.add(new TowerType3(position, gameEngine));
