@@ -79,7 +79,7 @@ public class GameEngine extends SurfaceView implements Runnable {
     public int nbattacker3;
     // Everything we need for drawing
 // Is the game currently playing?
-    private volatile boolean isPlaying;
+    public volatile boolean isPlaying;
 
     // A canvas for our paint
     private Canvas canvas;
