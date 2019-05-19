@@ -45,7 +45,8 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"/>
         <activity android:name=".View.AttackersActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"/>
-
+        <activity android:name=".View.ScoreActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"/>
 
         <service android:name=".View.MusicService" android:enabled="true"/>
     </application>

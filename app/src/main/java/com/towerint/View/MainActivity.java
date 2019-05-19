@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         final Button optionButton = findViewById(R.id.optionsButton);
         final Button startButton = findViewById(R.id.activity_main_play_btn);
         final Button tutorialButton = findViewById(R.id.tutorialButton); ;
-
+        final Button scoreButton = findViewById(R.id.scoreButton); ;
 
 
 
@@ -97,6 +97,18 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        /*Appel du layout du score*/
+        scoreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ScoreActivity.class);
+                startActivityForResult(intent, 0);
+
+            }
+        });
+
+
 
 
 
