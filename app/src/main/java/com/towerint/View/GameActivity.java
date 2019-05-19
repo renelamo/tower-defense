@@ -181,7 +181,10 @@ public class GameActivity extends AppCompatActivity {
             }
             return true;
         }
-        else return false;
+        else
+            if(gameEngine.gg){Toast.makeText(this, "APPUYEZ SUR NEXTLEVEL POUR CONTINUER", Toast.LENGTH_SHORT).show();};
+            if(gameEngine.gg){Toast.makeText(this, "APPUYEZ SUR RESTART POUR RECOMMENCER", Toast.LENGTH_SHORT).show();};
+            return false;
     }
 
 }
