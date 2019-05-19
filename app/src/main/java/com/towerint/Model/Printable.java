@@ -47,6 +47,14 @@ public abstract class Printable {
         return position;
     }
 
+    public int getWidth(){
+        return this.width;
+    }
+
+    public int getHeight(){
+        return this.height;
+    }
+
     ////////////SETTERS///////////////////////////////
 
     @Deprecated

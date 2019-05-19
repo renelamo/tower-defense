@@ -116,6 +116,8 @@ public class GameActivity extends AppCompatActivity {
             }
             else if(X>= gameEngine.screenX-partX&& X<gameEngine.screenX && Y>gameEngine.screenY-partX && gameEngine.endlevel) { //Bouton restart
                 gameEngine.towers.clear();
+                gameEngine.attackers.clear();
+                gameEngine.projectiles.clear();
                 gameEngine.endlevel = false;
                 gameEngine.gg = false;
                 gameEngine.begin = false;

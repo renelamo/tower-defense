@@ -39,11 +39,12 @@ public abstract class Attacker extends Movable {
         distParcourue+=maxSpeed*coeffSpeed;
         setPos(this.getPosition().add(speed.multToNew(coeffSpeed)));
         //Si la distance entre l'attaquant et le prochain noeud est inférieure à la moitié de la distance parcourue en 1 frame, on se dirrige vers le noeud suivant;
-        while (Vector2.distance(node.getPosition(), this.getPosition())<=speed.multToNew(coeffSpeed).getNorm()/2) {
+        while (Vector2.distance(node.getPosition(), this.getPosition())<=speed.multToNew(coeffSpeed).getNorm()) {
             if (!node.hasNext()) {
                 setSpeed(0, 0);
                 arrived = true;
             } else {
+                setPos(node.getPosition());
                 setSpeed(node.getDirection());
                 node = node.getNext();
             }
