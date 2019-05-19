@@ -14,4 +14,10 @@
     <string name="interface_button">Interface</string>
     <string name="towers_button">Tours</string>
     <string name="attackers_button">Attaquants</string>
+    // TODO RULES
+    <string name="rules_content"> Le but du jeu est de ...</string>
+    <string name="interface_content"> L\'interface est faite de..</string>
+    <string name="towers_content"> Les tours sont  ...</string>
+    <string name="attackers_content"> Les attaquants sont...</string>
+
 </resources>
