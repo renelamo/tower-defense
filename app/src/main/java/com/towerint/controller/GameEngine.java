@@ -7,6 +7,10 @@ import android.media.MediaPlayer;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,6 +18,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Bitmap;
+import android.widget.Toast;
 
 import com.towerint.model.Attacker;
 import com.towerint.model.AttackerType1;
@@ -73,6 +78,7 @@ public class GameEngine extends SurfaceView implements Runnable {
     public boolean endlevel = false; //Si le niveau est terminé
     public boolean gg =false; //Si le joueur a gagné le niveau
     public boolean begin =false; //SI le joueur est prêt à lancer la partie
+    private boolean saved;
     public int nbattacker1;
     public int nbattacker2;
     public int nbattacker3;
@@ -207,11 +213,7 @@ public class GameEngine extends SurfaceView implements Runnable {
                 nbattacker2 =level;
                 nbattacker3=3*level;
         }
-
-
-
-        //Je rajoute ici du code de test
-
+        saved=false;
 
         int partX=(int)(screenX*.15);
         //define the scale of the pictures
@@ -332,6 +334,10 @@ public class GameEngine extends SurfaceView implements Runnable {
                 attackers.clear();
                 projectiles.clear();
                 towers.clear();
+                if(!saved) {
+                    saveScore();
+                    saved=true;
+                }
             } else if (attackers.isEmpty() && !endlevel) {
                 level++;
                 endlevel = true;
@@ -494,6 +500,21 @@ public class GameEngine extends SurfaceView implements Runnable {
 
         }
 
+    }
+
+    private void saveScore(){
+        try{
+            File save=new File(context.getCacheDir(), "scores.csv");
+
+            FileWriter writer=new FileWriter(save, true);
+            writer.append(String.valueOf(score)).append("\n");
+            writer.write(score+"\n");
+            writer.flush();
+            writer.close();
+            System.out.println("saved");
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     @Override
