@@ -12,9 +12,9 @@
     <Button
         android:id="@+id/scoreButton"
         style="@android:style/Widget.Button"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="48dp"
-        android:layout_marginStart="208dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
@@ -26,15 +26,14 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/exitButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/optionsButton"
         app:layout_constraintTop_toBottomOf="@+id/tutorialButton"
         tools:text="@string/scoreString" />
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="342dp"
-        android:layout_height="425dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -42,12 +41,11 @@
         android:adjustViewBounds="true"
         android:contentDescription="@string/background_image_description"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/optionsButton"
+        app:layout_constraintBottom_toTopOf="@+id/tutorialButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_main_play_btn"
-        app:layout_constraintVertical_bias="0.195"
         app:srcCompat="@drawable/tower" />
 
     <Button
@@ -77,14 +75,14 @@
         android:layout_height="48dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="8dp"
         android:background="#8BC34A"
         android:fontFamily="casual"
         android:text="@string/tutorialString"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/exitButton"
+        app:layout_constraintBottom_toTopOf="@+id/optionsButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -93,10 +91,9 @@
     <Button
         android:id="@+id/optionsButton"
         style="@android:style/Widget.Button"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="196dp"
         android:layout_marginBottom="8dp"
         android:background="@color/blue"
         android:fontFamily="casual"
@@ -105,9 +102,8 @@
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/exitButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/scoreButton"
         tools:text="Options" />
 
     <Button
