@@ -507,8 +507,8 @@ public class GameEngine extends SurfaceView implements Runnable {
             File save=new File(context.getCacheDir(), "scores.csv");
 
             FileWriter writer=new FileWriter(save, true);
-            writer.append(String.valueOf(score)).append("\n");
-            writer.write(score+"\n");
+            //writer.append(String.valueOf(score)).append("\n");
+            writer.write(score);
             writer.flush();
             writer.close();
             System.out.println("saved");

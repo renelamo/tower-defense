@@ -56,7 +56,9 @@ public class ScoreActivity extends AppCompatActivity {
                 FileInputStream reader = new FileInputStream(saves);
                 String output="";
                 while (reader.available()>0){
-                    output+=reader.read();
+                    int rd=reader.read();
+                    System.out.println(rd);
+                    text.setText(String.valueOf(rd));
                 }
                 text.setText(output);
             }catch (IOException e){
