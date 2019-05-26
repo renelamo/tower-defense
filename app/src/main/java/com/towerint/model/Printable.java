@@ -1,12 +1,11 @@
-package com.towerint.Model;
+package com.towerint.model;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 
-import com.towerint.Controller.GameEngine;
+import com.towerint.controller.GameEngine;
 
 public abstract class Printable {
     private Vector2 position;

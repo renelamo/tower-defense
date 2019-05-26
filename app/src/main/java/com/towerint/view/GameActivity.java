@@ -1,7 +1,7 @@
-package com.towerint.View;
+package com.towerint.view;
 
-import com.towerint.Model.TowerType3;
-import com.towerint.Model.Vector2;
+import com.towerint.model.TowerType3;
+import com.towerint.model.Vector2;
 
 import android.content.Intent;
 import android.graphics.Point;
@@ -15,15 +15,15 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.towerint.Model.Tower;
-import com.towerint.Controller.GameEngine;
-import com.towerint.Model.TowerType1;
-import com.towerint.Model.TowerType2;
+import com.towerint.model.Tower;
+import com.towerint.controller.GameEngine;
+import com.towerint.model.TowerType1;
+import com.towerint.model.TowerType2;
 import com.towerint.R;
 
 
 public class GameActivity extends AppCompatActivity {
-    public com.towerint.Controller.GameEngine gameEngine;
+    public com.towerint.controller.GameEngine gameEngine;
     public boolean isTouch = false;
     private boolean paused=false;
     private boolean bruitages;

@@ -1,8 +1,6 @@
-package com.towerint.Model;
+package com.towerint.model;
 
-import com.towerint.Controller.GameEngine;
-
-import static com.towerint.Controller.GameEngine.FPS;
+import com.towerint.controller.GameEngine;
 
 public abstract class Attacker extends Movable {
     private float distParcourue;

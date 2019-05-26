@@ -1,4 +1,4 @@
-package com.towerint.Model;
+package com.towerint.model;
 
 public class Node {
     private Vector2 position;

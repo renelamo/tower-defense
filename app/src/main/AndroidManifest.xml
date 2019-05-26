@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.MainActivity"
+        <activity android:name=".view.MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
 
             <intent-filter>
@@ -20,35 +20,35 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".View.OptionsActivity"
-            android:parentActivityName=".View.MainActivity"
+        <activity android:name=".view.OptionsActivity"
+            android:parentActivityName=".view.MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.towerint.View.MainActivity" />
+                android:value="com.towerint.view.MainActivity" />
 
         </activity>
-        <activity android:name=".View.GameActivity"
+        <activity android:name=".view.GameActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
             </intent-filter>
         </activity>
-        <activity android:name=".View.TutorielActivity"
+        <activity android:name=".view.TutorielActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"/>
-        <activity android:name=".View.RulesActivity"
+        <activity android:name=".view.RulesActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"/>
-        <activity android:name=".View.InterfaceActivity"
+        <activity android:name=".view.InterfaceActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"/>
-        <activity android:name=".View.TowersActivity"
+        <activity android:name=".view.TowersActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"/>
-        <activity android:name=".View.AttackersActivity"
+        <activity android:name=".view.AttackersActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"/>
-        <activity android:name=".View.ScoreActivity"
+        <activity android:name=".view.ScoreActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"/>
 
-        <service android:name=".View.MusicService" android:enabled="true"/>
+        <service android:name=".view.MusicService" android:enabled="true"/>
     </application>
 
 </manifest>

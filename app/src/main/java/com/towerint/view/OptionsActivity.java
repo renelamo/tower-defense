@@ -1,4 +1,4 @@
-package com.towerint.View;
+package com.towerint.view;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
-import com.towerint.View.MainActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;

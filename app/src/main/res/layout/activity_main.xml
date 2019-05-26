@@ -7,7 +7,7 @@
     android:background="@color/main_menu_background"
     android:backgroundTint="#3F51B5"
     android:orientation="vertical"
-    tools:context=".View.MainActivity">
+    tools:context=".view.MainActivity">
 
     <Button
         android:id="@+id/scoreButton"

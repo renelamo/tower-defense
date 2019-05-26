@@ -1,4 +1,4 @@
-package com.towerint.View;
+package com.towerint.view;
 
 
 import android.app.Service;

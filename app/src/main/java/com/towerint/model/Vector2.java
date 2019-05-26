@@ -1,4 +1,4 @@
-package com.towerint.Model;
+package com.towerint.model;
 
 public class Vector2 { //TODO: si ca ne fait pas lagger, rmplacer les float par des double
     private float x;

@@ -1,4 +1,4 @@
-package com.towerint.Model;
+package com.towerint.model;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -6,10 +6,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
-import com.towerint.Controller.GameEngine;
 import com.towerint.R;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 
 public class Way {

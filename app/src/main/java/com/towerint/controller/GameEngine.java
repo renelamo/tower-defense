@@ -1,4 +1,4 @@
-package com.towerint.Controller;
+package com.towerint.controller;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
@@ -15,21 +15,20 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Bitmap;
 
-import com.towerint.Model.Attacker;
-import com.towerint.Model.AttackerType1;
-import com.towerint.Model.AttackerType2;
-import com.towerint.Model.AttackerType3;
-import com.towerint.Model.Node;
-import static com.towerint.Model.Printable.distance;
-import com.towerint.Model.Projectile;
-import com.towerint.Model.TemporaryPrintable;
-import com.towerint.Model.Tower;
-import com.towerint.Model.TowerType1;
-import com.towerint.Model.TowerType2;
-import com.towerint.Model.TowerType3;
-import com.towerint.Model.Way;
+import com.towerint.model.Attacker;
+import com.towerint.model.AttackerType1;
+import com.towerint.model.AttackerType2;
+import com.towerint.model.AttackerType3;
+import com.towerint.model.Node;
+import static com.towerint.model.Printable.distance;
+import com.towerint.model.Projectile;
+import com.towerint.model.TemporaryPrintable;
+import com.towerint.model.Tower;
+import com.towerint.model.TowerType1;
+import com.towerint.model.TowerType2;
+import com.towerint.model.TowerType3;
+import com.towerint.model.Way;
 import com.towerint.R;
-import com.towerint.View.MusicService;
 
 
 public class GameEngine extends SurfaceView implements Runnable {

@@ -1,6 +1,6 @@
-package com.towerint.Model;
+package com.towerint.model;
 
-import com.towerint.Controller.GameEngine;
+import com.towerint.controller.GameEngine;
 import com.towerint.R;
 
 public class AttackerType2 extends Attacker{

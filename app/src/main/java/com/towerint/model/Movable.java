@@ -1,8 +1,8 @@
-package com.towerint.Model;
+package com.towerint.model;
 
-import com.towerint.Controller.GameEngine;
-import static com.towerint.Model.Vector2.distance;
-import static com.towerint.Controller.GameEngine.FPS;
+import com.towerint.controller.GameEngine;
+
+import static com.towerint.controller.GameEngine.FPS;
 
 abstract public class Movable extends Printable {
 

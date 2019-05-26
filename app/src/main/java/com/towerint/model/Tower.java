@@ -1,16 +1,14 @@
-package com.towerint.Model;
+package com.towerint.model;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
-import com.towerint.Controller.GameEngine;
+import com.towerint.controller.GameEngine;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
-import static com.towerint.Controller.GameEngine.FPS;
+import static com.towerint.controller.GameEngine.FPS;
 
 
 public abstract class Tower extends Printable{ ;

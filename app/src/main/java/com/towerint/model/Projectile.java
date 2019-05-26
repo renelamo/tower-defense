@@ -1,7 +1,6 @@
-package com.towerint.Model;
+package com.towerint.model;
 
-import com.towerint.Controller.GameEngine;
-import com.towerint.R;
+import com.towerint.controller.GameEngine;
 
 abstract public class Projectile extends Movable {
     private Vector2 position;

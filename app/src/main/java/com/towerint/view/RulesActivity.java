@@ -1,4 +1,4 @@
-package com.towerint.View;
+package com.towerint.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,14 +9,14 @@ import android.widget.Button;
 import com.towerint.R;
 
 
-public class AttackersActivity extends AppCompatActivity {
+public class RulesActivity extends AppCompatActivity {
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_attackers);
+        setContentView(R.layout.activity_rules);
 
 
         Intent parentIntent=getIntent();
