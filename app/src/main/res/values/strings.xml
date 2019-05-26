@@ -15,26 +15,26 @@
     <string name="interface_button">Interface</string>
     <string name="towers_button">Tours</string>
     <string name="attackers_button">Attaquants</string>
-    // TODO RULES
-    <string name="rules_content"> Le but du jeu est d’empêcher une vague d\'attaquant d\'arriver jusqu\'à la fin du chemin.
+
+    <string name="rules_content"> "Le but du jeu est d’empêcher une vague d\'attaquant d\'arriver jusqu\'à la fin du chemin.
 L\'argent sert a poser des tours qui servent à tirer sur les attaquants.
 On gagne de l\'argent et des points à chaque fois que l\'on élimine des attaquants.
 Une fois une vague d\’ennemie détruite, on passe à la suivante tout en conservant l\'argent et les points gagnés.
-Les vagues continuent à se succéder jusqu\'à ce qu'il y est une défaite.
+Les vagues continuent à se succéder jusqu\'à ce qu'il y est une défaite."
  </string>
-    <string name="interface_content"> L\'interface est assez simple en haut il y a le nombre d\’attaquants arrivés jusqu'à nous, l\'argent, le score et un bouton pause.
+    <string name="interface_content"> "L\'interface est assez simple en haut il y a le nombre d\’attaquants arrivés jusqu'à nous, l\'argent, le score et un bouton pause.
 En bas les boutons pour poser les tours (on clique sur la tour puis la ou on veut la poser), un bouton menu.
-On a en plus un bouton pour recommencer ou passer au niveau suivant qui apparaît si on perd ou on gagne le niveau.</string>
-    <string name="towers_content"> Les tours sont fait pour attaquer les attaquants on peut les poser avant ou après le début du match.
+On a en plus un bouton pour recommencer ou passer au niveau suivant qui apparaît si on perd ou on gagne le niveau."</string>
+    <string name="towers_content">" Les tours sont fait pour attaquer les attaquants on peut les poser avant ou après le début du match.
 Néanmoins on ne peut pas poser une tour sur une autre tour ou bien sur le chemin.
 Il y a 3 types de tours dans ce jeu.
 Il y a la tour verte à 100 dollars.
 Il y a la tour rouge à 300 dollars qui fait beaucoup plus de dégats que la verte mais qui est aussi plus lente.
-Il y a la tour de glace à 250 dollars qui ne fait aucun dégât mais qui ralentit les ennemis.</string>
-    <string name="attackers_content"> Les attaquants apparaissent en haut de l\'écran et suivent le chemin jusqu'à la fin.
+Il y a la tour de glace à 250 dollars qui ne fait aucun dégât mais qui ralentit les ennemis."</string>
+    <string name="attackers_content">" Les attaquants apparaissent en haut de l\'écran et suivent le chemin jusqu'à la fin.
 Il y a 3 types d\'attaquants dans ce jeu.
 Il y a l\'attaquant de base vert.
 Il y a l\'attaquant gris plus lent mais plus résistant.
-Il y a l\'attaquant marron plus rapide que les deux autres.</string>
+Il y a l\'attaquant marron plus rapide que les deux autres."</string>
 
 </resources>
