@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Tower\'INT</string>
+    <string name="exitString"><b>Exit</b></string>
+    <string name="attackers_button">Attackers</string>
+    <string name="interface_button">Interface</string>
+    <string name="music_button">Music</string>
+    <string name="no_save_found">No saved score</string>
+    <string name="option_menu_title"><b>Options</b></string>
+    <string name="optionsString"><b>Options</b></string>
+    <string name="reset_string">Reset scores</string>
+    <string name="rules_button">Rules</string>
+    <string name="save_score_title">Saving score</string>
+    <string name="scoreString"><b>Score</b></string>
+    <string name="skip_save_score">Dismiss</string>
+    <string name="startString"><b>Start</b></string>
+    <string name="towers_button">Towers</string>
+    <string name="tutorialString"><b>Tutorial</b></string>
+    <string name="username_prompt">Enter your name</string>
+    <string name="return_string"><b>&lt;Back</b></string>
+    <string name="bruitages_button">Sound effects</string>
+</resources>
