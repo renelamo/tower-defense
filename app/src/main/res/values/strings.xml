@@ -17,7 +17,7 @@
     <string name="no_save_found">Aucun score sauvé</string>
     <string name="reset_string">Effacer scores</string>
     <string name="save_score_title">Sauvegarde du score</string>
-    <string name="username_prompt">Entrez votre nom</string>
+    <string name="username_prompt">Entrez votre nom:</string>
     <string name="skip_save_score">Ignorer</string>
     <string name="rules_content"> "Le but du jeu est d’empêcher une vague d\'attaquant d\'arriver jusqu\'à la fin du chemin.
 L\'argent sert a poser des tours qui servent à tirer sur les attaquants.

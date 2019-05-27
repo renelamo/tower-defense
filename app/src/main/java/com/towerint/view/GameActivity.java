@@ -226,6 +226,7 @@ public class GameActivity extends AppCompatActivity {
                     final EditText input = new EditText(context);
 // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
                     input.setInputType(InputType.TYPE_CLASS_TEXT);
+                    builder.setMessage(R.string.username_prompt);
                     builder.setView(input);
 
 // Set up the buttons

@@ -16,7 +16,7 @@
     <string name="startString"><b>Start</b></string>
     <string name="towers_button">Towers</string>
     <string name="tutorialString"><b>Tutorial</b></string>
-    <string name="username_prompt">Enter your name</string>
+    <string name="username_prompt">Enter your name:</string>
     <string name="return_string"><b>&lt;Back</b></string>
     <string name="bruitages_button">Sound effects</string>
 </resources>
