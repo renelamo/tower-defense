@@ -11,8 +11,15 @@ import com.towerint.R;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 
 
 public class ScoreActivity extends AppCompatActivity {
@@ -52,6 +59,7 @@ public class ScoreActivity extends AppCompatActivity {
 
         File saves=new File(getCacheDir(), "scores.csv");
         if(saves.exists()){
+            sortScore();
             try {
                 FileInputStream reader = new FileInputStream(saves);
                 while (reader.available()>0){
@@ -69,7 +77,44 @@ public class ScoreActivity extends AppCompatActivity {
 
     private void resetScore(TextView text){
         new File(getCacheDir(), "scores.csv").delete();
-        text.setText(R.string.no_save_found);
+        if(text !=null){
+            text.setText(R.string.no_save_found);
+        }
+    }
+
+    private void sortScore(){
+        ArrayList<Integer> liste = new ArrayList<>();
+        File saves= new File(getCacheDir(), "scores.csv");
+        try{
+            FileInputStream reader = new FileInputStream(saves);
+            String str="";
+            while (reader.available()>0){
+                int rd=reader.read();
+                if((char) rd == '\n'){
+                    liste.add(Integer.parseInt(str));
+                    str="";
+                }else{
+                    str+=(char)rd;
+                }
+            }
+            reader.close();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        resetScore(null);
+        Collections.sort(liste, Collections.reverseOrder());
+        try{
+            FileWriter writer=new FileWriter(saves, true);
+            for(Integer I:liste){
+                int i=I;
+                writer.write(String.valueOf(i));
+                writer.write('\n');
+                writer.flush();
+            }
+            writer.close();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     @Override
