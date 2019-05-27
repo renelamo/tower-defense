@@ -54,13 +54,11 @@ public class ScoreActivity extends AppCompatActivity {
         if(saves.exists()){
             try {
                 FileInputStream reader = new FileInputStream(saves);
-                String output="";
                 while (reader.available()>0){
                     int rd=reader.read();
-                    System.out.println(rd);
-                    text.setText(String.valueOf(rd));
+                    text.append(Character.toString((char)rd));
                 }
-                text.setText(output);
+                reader.close();
             }catch (IOException e){
                 e.printStackTrace();
             }
