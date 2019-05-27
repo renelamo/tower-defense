@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -76,9 +77,8 @@ public class GameEngine extends SurfaceView implements Runnable {
     public int level = 1; //Le niveau actuel
 
     public boolean endlevel = false; //Si le niveau est terminé
-    public boolean gg =false; //Si le joueur a gagné le niveau
+    public boolean gg =true; //Si le joueur a gagné le niveau
     public boolean begin =false; //SI le joueur est prêt à lancer la partie
-    private boolean saved;
     public int nbattacker1;
     public int nbattacker2;
     public int nbattacker3;
@@ -116,6 +116,8 @@ public class GameEngine extends SurfaceView implements Runnable {
 
     private boolean bruitages;
 
+    private ArrayList<onLooseListener> looseListeners;
+
 
     public GameEngine(Context context, Point size) {
         super(context);
@@ -134,6 +136,7 @@ public class GameEngine extends SurfaceView implements Runnable {
         attackers=new LinkedList<>();
         projectiles=new LinkedList<>();
         temporaryPrintables=new LinkedList<>();
+        looseListeners=new ArrayList<>();
 
         // Start the game
         newGame();
@@ -176,6 +179,13 @@ public class GameEngine extends SurfaceView implements Runnable {
 
     public void newGame() {
 
+        towers.clear();
+        attackers.clear();
+        projectiles.clear();
+        endlevel = false;
+        gg = true;
+        begin = false;
+
         //check the level
         switch(level){
             case 1:
@@ -213,7 +223,6 @@ public class GameEngine extends SurfaceView implements Runnable {
                 nbattacker2 =level;
                 nbattacker3=3*level;
         }
-        saved=false;
 
         int partX=(int)(screenX*.15);
         //define the scale of the pictures
@@ -328,13 +337,17 @@ public class GameEngine extends SurfaceView implements Runnable {
             }
             //check if the level is finished and if you win or loose
             if (fails == (int) (1.5*level)) {
+                if(gg) {
+                    for (onLooseListener listener : looseListeners) {
+                        listener.onLoose();
+                    }
+                }
                 endlevel = true;
                 gg = false;
                 level=1;
                 attackers.clear();
                 projectiles.clear();
                 towers.clear();
-                saveScore();
             } else if (attackers.isEmpty() && !endlevel) {
                 level++;
                 endlevel = true;
@@ -499,24 +512,6 @@ public class GameEngine extends SurfaceView implements Runnable {
 
     }
 
-    public void saveScore(){
-        if(!saved) {
-            try {
-                File save = new File(context.getCacheDir(), "scores.csv");
-
-                FileWriter writer = new FileWriter(save, true);
-                writer.write(String.valueOf(score));
-                writer.write('\n');
-                writer.flush();
-                writer.close();
-                System.out.println("saved");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            saved=true;
-        }
-    }
-
     @Override
     public String toString() {
         return this.getHeight()+","+this.getWidth();
@@ -528,6 +523,14 @@ public class GameEngine extends SurfaceView implements Runnable {
 
     public void setBruitages(boolean b){
         bruitages=b;
+    }
+
+    public void addOnLooseListener(onLooseListener listener){
+        looseListeners.add(listener);
+    }
+
+    public interface onLooseListener{
+        void onLoose();
     }
 }
 

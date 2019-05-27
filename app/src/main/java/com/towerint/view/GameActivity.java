@@ -3,16 +3,21 @@ package com.towerint.view;
 import com.towerint.model.TowerType3;
 import com.towerint.model.Vector2;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.view.MotionEvent;
 import android.view.Display;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.towerint.model.Tower;
@@ -21,12 +26,24 @@ import com.towerint.model.TowerType1;
 import com.towerint.model.TowerType2;
 import com.towerint.R;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.nio.charset.CharsetEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Collections;
+
 
 public class GameActivity extends AppCompatActivity {
     public com.towerint.controller.GameEngine gameEngine;
     public boolean isTouch = false;
     private boolean paused=false;
     private boolean bruitages;
+    private boolean saved=false;
+    private String m_Text;
 
 
 
@@ -52,6 +69,13 @@ public class GameActivity extends AppCompatActivity {
         Intent parentIntent=getIntent();
         bruitages=parentIntent.getBooleanExtra("bruitages", true);
         gameEngine.setBruitages(bruitages);
+
+        gameEngine.addOnLooseListener(new GameEngine.onLooseListener() {
+            @Override
+            public void onLoose() {
+                saveScore();
+            }
+        });
 
         // Make gameEngine the view of the Activity
         setContentView(R.layout.activity_game);
@@ -112,16 +136,10 @@ public class GameActivity extends AppCompatActivity {
                 gameEngine.begin=true;
             }
             else if(X>= 4*partX&& X<5*partX && Y>gameEngine.screenY-partX) { //Bouton Menu
-                gameEngine.saveScore();
+                saveScore();
                 finish();
             }
             else if(X>= gameEngine.screenX-partX&& X<gameEngine.screenX && Y>gameEngine.screenY-partX && gameEngine.endlevel) { //Bouton restart
-                gameEngine.towers.clear();
-                gameEngine.attackers.clear();
-                gameEngine.projectiles.clear();
-                gameEngine.endlevel = false;
-                gameEngine.gg = false;
-                gameEngine.begin = false;
                 gameEngine.newGame();
             }else{
                 createTower(new Vector2(X, Y));
@@ -184,10 +202,65 @@ public class GameActivity extends AppCompatActivity {
             }
             return true;
         }
-        else
-            if(gameEngine.gg){Toast.makeText(this, "APPUYEZ SUR NEXTLEVEL POUR CONTINUER", Toast.LENGTH_SHORT).show();};
-            if(gameEngine.gg){Toast.makeText(this, "APPUYEZ SUR RESTART POUR RECOMMENCER", Toast.LENGTH_SHORT).show();};
+        else {
+            if (gameEngine.gg) {
+                Toast.makeText(this, "APPUYEZ SUR NEXTLEVEL POUR CONTINUER", Toast.LENGTH_SHORT).show();
+            }
+            if (!gameEngine.gg) {
+                Toast.makeText(this, "APPUYEZ SUR RESTART POUR RECOMMENCER", Toast.LENGTH_SHORT).show();
+            }
             return false;
+        }
+    }
+
+    public void saveScore(){
+        if(!saved) {
+            final Context context=this;
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setTitle(R.string.save_score_title);
+
+// Set up the input
+                    final EditText input = new EditText(context);
+// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                    input.setInputType(InputType.TYPE_CLASS_TEXT);
+                    builder.setView(input);
+
+// Set up the buttons
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            m_Text = input.getText().toString();
+                            try {
+                                File save = new File(getCacheDir(), "scores.csv");
+
+                                OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(save, true), StandardCharsets.UTF_16);
+                                writer.write(m_Text);
+                                writer.write(',');
+                                writer.write(String.valueOf(gameEngine.score));
+                                writer.write('\n');
+                                writer.flush();
+                                writer.close();
+                                System.out.println("saved");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                    builder.setNegativeButton(R.string.skip_save_score, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+
+                    builder.show();
+                }
+            });
+            saved=true;
+        }
     }
 
 }

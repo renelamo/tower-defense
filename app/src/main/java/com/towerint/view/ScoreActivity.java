@@ -15,11 +15,15 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.lang.reflect.Array;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 
 
 public class ScoreActivity extends AppCompatActivity {
@@ -61,10 +65,14 @@ public class ScoreActivity extends AppCompatActivity {
         if(saves.exists()){
             sortScore();
             try {
-                FileInputStream reader = new FileInputStream(saves);
-                while (reader.available()>0){
+                InputStreamReader reader=new InputStreamReader(new FileInputStream(saves), StandardCharsets.UTF_16);
+                while (reader.ready()){
                     int rd=reader.read();
-                    text.append(Character.toString((char)rd));
+                    if((char)rd == ','){
+                        text.append(Character.toString('\t'));
+                    }else {
+                        text.append(Character.toString((char) rd));
+                    }
                 }
                 reader.close();
             }catch (IOException e){
@@ -83,15 +91,15 @@ public class ScoreActivity extends AppCompatActivity {
     }
 
     private void sortScore(){
-        ArrayList<Integer> liste = new ArrayList<>();
+        ArrayList<Score> liste = new ArrayList<>();
         File saves= new File(getCacheDir(), "scores.csv");
         try{
-            FileInputStream reader = new FileInputStream(saves);
+            InputStreamReader reader=new InputStreamReader(new FileInputStream(saves), StandardCharsets.UTF_16);
             String str="";
-            while (reader.available()>0){
+            while (reader.ready()){
                 int rd=reader.read();
                 if((char) rd == '\n'){
-                    liste.add(Integer.parseInt(str));
+                    liste.add(new Score(str));
                     str="";
                 }else{
                     str+=(char)rd;
@@ -102,12 +110,11 @@ public class ScoreActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         resetScore(null);
-        Collections.sort(liste, Collections.reverseOrder());
+        Collections.sort(liste, new ScoreComparator());
         try{
-            FileWriter writer=new FileWriter(saves, true);
-            for(Integer I:liste){
-                int i=I;
-                writer.write(String.valueOf(i));
+            OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(saves, true), StandardCharsets.UTF_16);
+            for(Score S:liste){
+                writer.write(S.toString());
                 writer.write('\n');
                 writer.flush();
             }
@@ -120,5 +127,28 @@ public class ScoreActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    private class Score{
+        int val;
+        String joueur;
+
+        Score(String s){
+            String[] splitted=s.split(",");
+            joueur=splitted[0];
+            val=Integer.parseInt(splitted[1]);
+        }
+
+        @Override
+        public String toString() {
+            return joueur+","+val;
+        }
+    }
+
+    private class ScoreComparator implements Comparator<Score>{
+        @Override
+        public int compare(Score o1, Score o2) {
+            return o2.val-o1.val;
+        }
     }
 }
