@@ -334,10 +334,7 @@ public class GameEngine extends SurfaceView implements Runnable {
                 attackers.clear();
                 projectiles.clear();
                 towers.clear();
-                if(!saved) {
-                    saveScore();
-                    saved=true;
-                }
+                saveScore();
             } else if (attackers.isEmpty() && !endlevel) {
                 level++;
                 endlevel = true;
@@ -502,18 +499,21 @@ public class GameEngine extends SurfaceView implements Runnable {
 
     }
 
-    private void saveScore(){
-        try{
-            File save=new File(context.getCacheDir(), "scores.csv");
+    public void saveScore(){
+        if(!saved) {
+            try {
+                File save = new File(context.getCacheDir(), "scores.csv");
 
-            FileWriter writer=new FileWriter(save, true);
-            writer.write(String.valueOf(score));
-            writer.write('\n');
-            writer.flush();
-            writer.close();
-            System.out.println("saved");
-        }catch (IOException e){
-            e.printStackTrace();
+                FileWriter writer = new FileWriter(save, true);
+                writer.write(String.valueOf(score));
+                writer.write('\n');
+                writer.flush();
+                writer.close();
+                System.out.println("saved");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            saved=true;
         }
     }
 

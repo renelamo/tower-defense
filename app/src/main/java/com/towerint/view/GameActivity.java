@@ -112,6 +112,7 @@ public class GameActivity extends AppCompatActivity {
                 gameEngine.begin=true;
             }
             else if(X>= 4*partX&& X<5*partX && Y>gameEngine.screenY-partX) { //Bouton Menu
+                gameEngine.saveScore();
                 finish();
             }
             else if(X>= gameEngine.screenX-partX&& X<gameEngine.screenX && Y>gameEngine.screenY-partX && gameEngine.endlevel) { //Bouton restart
