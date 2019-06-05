@@ -202,16 +202,19 @@ public class GameEngine extends SurfaceView implements Runnable {
                 //required number of unit
                 nbattacker1 =3;
                 break;
-            /*case 2:
+            case 2:
                 fails =0;
                 way=new Way(this.context, new Node(screenX/2,0));
                 way.add(screenX/2,screenY/4);
                 way.add(screenX/4,screenY/4);
+                way.add(screenX/4, screenY/2);
+                way.add(3*screenX/4, screenY/2);
+                way.add(3*screenX/4, 3*screenY/4);
+                way.add(screenX/4, 3*screenY/4);
                 way.add(screenX/4,screenY);
-                //towers.add(new TowerType1(100,100,this));
-                nbattacker1 =5;
-                nbattacker2 =3;
-                break;*/
+                nbattacker1 =6;
+                nbattacker2 =4;
+                break;
             default:
                 fails =0;
                 way=new Way(this.context, new Node(screenX/2,0));
