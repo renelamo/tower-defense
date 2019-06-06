@@ -64,7 +64,7 @@ public class GameEngine extends SurfaceView implements Runnable {
     public int score;
     //how many attackers pass
 
-    public int fails;
+    public int lives;
 
     public int moneyTower1 = TowerType1.cost;
     public int moneyTower2 = TowerType2.cost;
@@ -191,7 +191,7 @@ public class GameEngine extends SurfaceView implements Runnable {
             case 1:
                 // Reset the score and fails and money
                 score = 0;
-                fails =0;
+                lives =1;
                 money =500;
 
                 way=new Way(this.context,new Node(screenX/2,0));
@@ -203,7 +203,7 @@ public class GameEngine extends SurfaceView implements Runnable {
                 nbattacker1 =3;
                 break;
             case 2:
-                fails =0;
+                lives =3;
                 way=new Way(this.context, new Node(screenX/2,0));
                 way.add(screenX/2,screenY/4);
                 way.add(screenX/4,screenY/4);
@@ -216,7 +216,7 @@ public class GameEngine extends SurfaceView implements Runnable {
                 nbattacker2 =4;
                 break;
             default:
-                fails =0;
+                lives =(int)(1.5*level);
                 way=new Way(this.context, new Node(screenX/2,0));
                 way.add(screenX/2,screenY/4);
                 way.add(screenX/4,screenY/4);
@@ -283,7 +283,7 @@ public class GameEngine extends SurfaceView implements Runnable {
             for (int i = 0; i < size; ++i) {
                 Attacker attacker = attackers.get(i);
                 if (attacker.isArrived()) {
-                    fails += 1;
+                    lives -= 1;
                     attackers.remove(attacker);
                     --size;
                     --i;
@@ -339,7 +339,7 @@ public class GameEngine extends SurfaceView implements Runnable {
                 }
             }
             //check if the level is finished and if you win or loose
-            if (fails == (int) (1.5*level)) {
+            if (lives == 0) {
                 if(gg) {
                     for (onLooseListener listener : looseListeners) {
                         listener.onLoose();
@@ -495,7 +495,7 @@ public class GameEngine extends SurfaceView implements Runnable {
         //canvas.drawLine(left, top, right, bottom, paint);
 
         paint.setTextAlign(Paint.Align.CENTER);
-        canvas.drawText("Hits :" + fails, (int)(screenX-3.5*partX), partX/2, paint);
+        canvas.drawText("Lives :" + lives, (int)(screenX-3.5*partX), partX/2, paint);
         //canvas.drawLine(left, top, right, bottom, paint);
 
         paint.setTextAlign(Paint.Align.RIGHT);
